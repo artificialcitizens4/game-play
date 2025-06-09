@@ -199,12 +199,12 @@ The time for preparation has ended. The time for glory has begun.
                           </Col>
                           <Col>
                             <div style={{ textAlign: 'right' }}>
-                              <Text style={{ color: getStatColor(persona.traits.morale), fontSize: '0.8rem' }}>
-                                Morale: {persona.traits.morale}
+                              <Text style={{ color: getStatColor(persona.morale), fontSize: '0.8rem' }}>
+                                Morale: {persona.morale}
                               </Text>
                               <br />
-                              <Text style={{ color: getStatColor(persona.traits.health), fontSize: '0.8rem' }}>
-                                Health: {persona.traits.health}
+                              <Text style={{ color: getStatColor(persona.health), fontSize: '0.8rem' }}>
+                                Health: {persona.health}
                               </Text>
                             </div>
                           </Col>
@@ -260,12 +260,12 @@ The time for preparation has ended. The time for glory has begun.
                           </Col>
                           <Col>
                             <div style={{ textAlign: 'right' }}>
-                              <Text style={{ color: getStatColor(persona.traits.morale), fontSize: '0.8rem' }}>
-                                Morale: {persona.traits.morale}
+                              <Text style={{ color: getStatColor(persona.morale), fontSize: '0.8rem' }}>
+                                Morale: {persona.morale}
                               </Text>
                               <br />
-                              <Text style={{ color: getStatColor(persona.traits.health), fontSize: '0.8rem' }}>
-                                Health: {persona.traits.health}
+                              <Text style={{ color: getStatColor(persona.health), fontSize: '0.8rem' }}>
+                                Health: {persona.health}
                               </Text>
                             </div>
                           </Col>
