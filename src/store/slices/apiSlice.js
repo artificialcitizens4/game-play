@@ -46,28 +46,39 @@ export const submitStoryToAPI = createAsyncThunk(
   'api/submitStory',
   async (storyData, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.post('http://localhost:3000/gamestory', {
-        story: storyData
-      }, {
+      // Handle both string and object payload formats
+      let payload;
+      if (typeof storyData === 'string') {
+        // Legacy format - just the story text
+        payload = {
+          story: storyData
+        };
+      } else {
+        // New format - object with story and team sizes
+        payload = {
+          story: storyData.story,
+          teamSizeA: storyData.teamSizeA || 4,
+          teamSizeB: storyData.teamSizeB || 4
+        };
+      }
+
+      const response = await axios.post('http://localhost:3000/gamestory', payload, {
         headers: {
           'Content-Type': 'application/json'
         },
         timeout: 100000
       });
 
-      let formattedResponse = {
-        
-      }
+      let formattedResponse = {};
 
       if(response?.data?.data){
         formattedResponse = {
           ...response.data.data,
           ...createTeams(response.data.data?.personas)
-        }
+        };
       }
 
- 
-      console.log(response.data)
+      console.log('API Response:', response.data);
       
       // Dispatch action to store the API response in game state
       dispatch({ type: 'game/setApiGameData', payload: formattedResponse });

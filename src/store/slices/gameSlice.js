@@ -8,7 +8,10 @@ const initialState = {
     team1Size: 4,
     team2Name: '',
     team2Size: 4,
-    characters: ''
+    characters: '',
+    // New fields for team sizes
+    teamSizeA: 4,
+    teamSizeB: 4
   },
   characters: {},
   currentCharacter: null,
@@ -112,12 +115,13 @@ const gameSlice = createSlice({
         }
       }
       
-      // Set team sizes based on personas count
+      // Set team sizes based on personas count or use the submitted team sizes
       const team1Personas = apiData.personas?.filter(p => p.faction === state.story.team1Name) || [];
       const team2Personas = apiData.personas?.filter(p => p.faction === state.story.team2Name) || [];
       
-      state.story.team1Size = Math.max(team1Personas.length, 4);
-      state.story.team2Size = Math.max(team2Personas.length, 4);
+      // Use the team sizes from the story submission if available, otherwise use persona count
+      state.story.team1Size = state.story.teamSizeA || Math.max(team1Personas.length, 4);
+      state.story.team2Size = state.story.teamSizeB || Math.max(team2Personas.length, 4);
     },
     
     // Action to convert personas to characters
