@@ -1312,6 +1312,309 @@ a, .link-text, .clickable-text {
   }
 }
 
+// Team Setup Screen Specific Styles
+.team-setup-screen {
+  // Briefing panel
+  .briefing-panel {
+    margin-bottom: 3rem;
+    
+    .briefing-card {
+      @include card-style;
+      text-align: left;
+    }
+    
+    .briefing-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .briefing-story {
+      .briefing-story-title {
+        font-size: $font-size-section;
+        color: $color-text-heading !important;
+        font-family: $font-family-display;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      
+      .briefing-story-text {
+        color: $color-text-primary !important;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+    
+    .briefing-panel__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    
+    .briefing-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-size: $font-size-small;
+      font-weight: 500;
+      border: 1px solid;
+      
+      &.briefing-tag--create {
+        background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
+        border-color: $color-team-neutral-text !important;
+      }
+      
+      &.briefing-tag--experience {
+        background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
+        border-color: $color-team-red-text !important;
+      }
+      
+      &.briefing-tag--info {
+        background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
+        border-color: $color-team-blue-text !important;
+      }
+      
+      &.briefing-tag--success {
+        background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
+        border-color: $color-team-neutral-text !important;
+      }
+      
+      &.briefing-tag--neutral {
+        background: $color-token-bg !important;
+        border-color: $color-token-border !important;
+      }
+      
+      .briefing-tag-text {
+        color: $color-text-primary !important;
+        font-size: $font-size-small;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  // Teams display grid
+  .teams-display-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  .teams-display__vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    @media (max-width: 768px) {
+      order: 2;
+    }
+    
+    .vs-text {
+      font-size: 2.5rem;
+      font-weight: 800;
+      font-family: $font-family-display;
+      color: $color-text-emphasis !important;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+  
+  // Team cards
+  .team-card {
+    @include token-style;
+    height: 100%;
+    transition: all 0.25s ease;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    }
+    
+    &.team-card--team1 {
+      background: linear-gradient(160deg, lighten($color-team-blue, 20%) 0%, lighten($color-team-blue, 25%) 100%) !important;
+      border-color: $color-team-blue-text !important;
+      
+      @media (max-width: 768px) {
+        order: 1;
+      }
+    }
+    
+    &.team-card--team2 {
+      background: linear-gradient(160deg, lighten($color-team-red, 20%) 0%, lighten($color-team-red, 25%) 100%) !important;
+      border-color: $color-team-red-text !important;
+      
+      @media (max-width: 768px) {
+        order: 3;
+      }
+    }
+    
+    .team-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      height: 100%;
+    }
+    
+    .team-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .team-card-icon {
+        font-size: 3rem;
+        line-height: 1;
+      }
+      
+      .team-card-title {
+        font-size: $font-size-section;
+        font-family: $font-family-display;
+        font-weight: 700;
+        color: $color-text-heading !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+    
+    .team-card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+      .team-card-name {
+        font-size: $font-size-body;
+        font-family: $font-family-display;
+        font-weight: 700;
+        color: $color-text-heading !important;
+      }
+      
+      .team-card-description {
+        color: $color-text-primary !important;
+        font-size: $font-size-small;
+        line-height: 1.4;
+      }
+    }
+    
+    .team-card-stats {
+      .team-size-display {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        
+        .team-size-number {
+          font-size: 3rem;
+          font-weight: 800;
+          font-family: $font-family-display;
+          color: $color-text-heading !important;
+          line-height: 1;
+        }
+        
+        .team-size-label {
+          font-size: $font-size-small;
+          color: $color-text-muted !important;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  // Battle analysis
+  .battle-analysis {
+    margin-bottom: 3rem;
+    
+    .battle-analysis-card {
+      @include token-style;
+      text-align: center;
+    }
+    
+    .battle-analysis-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      
+      .battle-analysis-title {
+        font-size: $font-size-section;
+        font-family: $font-family-display;
+        font-weight: 700;
+        color: $color-text-heading !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+    
+    .battle-analysis-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+      .battle-analysis-matchup {
+        color: $color-text-primary !important;
+        font-size: $font-size-body;
+        font-weight: 500;
+        
+        .vs-small {
+          color: $color-text-emphasis !important;
+          font-weight: 700;
+          margin: 0 0.5rem;
+        }
+      }
+      
+      .balance-assessment {
+        font-size: $font-size-small;
+        font-style: italic;
+        
+        &.balance-assessment--balanced {
+          color: $color-text-neutral-faction !important;
+        }
+        
+        &.balance-assessment--uneven {
+          color: $color-text-emphasis !important;
+        }
+      }
+      
+      .mode-info {
+        color: $color-text-red-faction !important;
+        font-size: $font-size-small;
+        font-style: italic;
+      }
+    }
+  }
+  
+  // Next button block
+  .next-button-block {
+    text-align: center;
+    
+    .proceed-button {
+      margin-bottom: 1rem;
+    }
+    
+    .next-button-help {
+      .next-button-help-text {
+        color: $color-text-muted !important;
+        font-size: $font-size-small;
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
 // Responsive design
 @media (max-width: 768px) {
   .container {

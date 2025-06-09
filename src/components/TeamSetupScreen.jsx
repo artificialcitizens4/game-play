@@ -55,259 +55,180 @@ const TeamSetupScreen = () => {
         <Title level={1} className="title">⚔️ SETUP YOUR ARMIES</Title>
         <Paragraph className="subtitle">Review your opposing forces</Paragraph>
         
-        {/* Show game mode indicator */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ 
-            display: 'inline-block',
-            background: gameState.gameMode === 'experience' 
-              ? 'rgba(255, 107, 53, 0.1)' 
-              : 'rgba(46, 213, 115, 0.1)',
-            border: `1px solid ${gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573'}`,
-            borderRadius: '8px',
-            padding: '0.5rem 1rem'
-          }}>
-            <Text style={{ 
-              color: gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573',
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>
-              {gameState.gameMode === 'experience' ? '🎮 EXPERIENCE MODE' : '🛠️ CREATE MODE'}
-            </Text>
-          </div>
-        </div>
-        
-        <Row gutter={[32, 32]} style={{ marginTop: '2rem' }}>
-          <Col xs={24} lg={8}>
-            <Card 
-              className="story-summary" 
-              title={<Text strong style={{ color: '#ff6b35', fontSize: '1.5rem' }}>📜 War Background</Text>}
-              bordered={false}
-              style={{ height: '100%' }}
-            >
-              <Paragraph style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.6 }}>
-                {getStoryToDisplay()}
-              </Paragraph>
+        {/* Briefing Panel */}
+        <div className="briefing-panel">
+          <Card className="briefing-card" bordered={false}>
+            <div className="briefing-content">
+              <div className="briefing-story">
+                <Text strong className="briefing-story-title">📜 War Background</Text>
+                <Paragraph className="briefing-story-text">
+                  {getStoryToDisplay()}
+                </Paragraph>
+              </div>
               
-              {/* Show game ID if available */}
-              {gameState.gameId && (
-                <div style={{ 
-                  marginTop: '1rem', 
-                  padding: '0.5rem',
-                  background: 'rgba(46, 213, 115, 0.1)',
-                  border: '1px solid #2ed573',
-                  borderRadius: '4px'
-                }}>
-                  <Text style={{ color: '#2ed573', fontSize: '0.8rem' }}>
-                    Game ID: {gameState.gameId}
+              <div className="briefing-panel__tags">
+                {/* Game Mode Tag */}
+                <div className={`briefing-tag briefing-tag--${gameState.gameMode === 'experience' ? 'experience' : 'create'}`}>
+                  <Text className="briefing-tag-text">
+                    {gameState.gameMode === 'experience' ? '🎮 Experience Mode' : '🛠️ Create Mode'}
                   </Text>
                 </div>
-              )}
 
-              {/* Show experience mode info */}
-              {gameState.gameMode === 'experience' && gameState.selectedExperience && (
-                <div style={{ 
-                  marginTop: '1rem', 
-                  padding: '0.5rem',
-                  background: 'rgba(255, 107, 53, 0.1)',
-                  border: '1px solid #ff6b35',
-                  borderRadius: '4px'
-                }}>
-                  <Text style={{ color: '#ff6b35', fontSize: '0.8rem' }}>
-                    Experience: {gameState.selectedExperience}
+                {/* Game ID Tag */}
+                {gameState.gameId && (
+                  <div className="briefing-tag briefing-tag--info">
+                    <Text className="briefing-tag-text">
+                      Game ID: {gameState.gameId}
+                    </Text>
+                  </div>
+                )}
+
+                {/* Experience Tag */}
+                {gameState.gameMode === 'experience' && gameState.selectedExperience && (
+                  <div className="briefing-tag briefing-tag--experience">
+                    <Text className="briefing-tag-text">
+                      Experience: {gameState.selectedExperience}
+                    </Text>
+                  </div>
+                )}
+
+                {/* Persona Count Tag */}
+                {gameState.personas && gameState.personas.length > 0 && (
+                  <div className="briefing-tag briefing-tag--success">
+                    <Text className="briefing-tag-text">
+                      👥 {gameState.personas.length} warriors loaded
+                    </Text>
+                  </div>
+                )}
+
+                {/* Story Source Tag */}
+                <div className="briefing-tag briefing-tag--neutral">
+                  <Text className="briefing-tag-text">
+                    {gameState.story.background && gameState.story.background.trim() 
+                      ? '📝 User Story' 
+                      : gameState.baseStory && gameState.baseStory.trim()
+                      ? '🤖 Generated Story'
+                      : '⚠️ No Story'
+                    }
                   </Text>
                 </div>
-              )}
+              </div>
+            </div>
+          </Card>
+        </div>
 
-              {/* Show persona count if available */}
-              {gameState.personas && gameState.personas.length > 0 && (
-                <div style={{ 
-                  marginTop: '1rem', 
-                  padding: '0.5rem',
-                  background: 'rgba(46, 213, 115, 0.1)',
-                  border: '1px solid #2ed573',
-                  borderRadius: '4px'
-                }}>
-                  <Text style={{ color: '#2ed573', fontSize: '0.8rem' }}>
-                    👥 {gameState.personas.length} warriors loaded from API
-                  </Text>
-                </div>
-              )}
-
-              {/* Show story source indicator */}
-              <div style={{ 
-                marginTop: '1rem', 
-                padding: '0.5rem',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '4px'
-              }}>
-                <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.7rem' }}>
-                  {gameState.story.background && gameState.story.background.trim() 
-                    ? '📝 User Story' 
-                    : gameState.baseStory && gameState.baseStory.trim()
-                    ? '🤖 Generated Story'
-                    : '⚠️ No Story'
-                  }
+        {/* Teams Display Grid */}
+        <div className="teams-display-grid">
+          {/* Team One Card */}
+          <Card className="team-card team-card--team1" bordered={false}>
+            <div className="team-card-content">
+              <div className="team-card-header">
+                <Text className="team-card-icon">⚔️</Text>
+                <Text className="team-card-title">TEAM ONE</Text>
+              </div>
+              
+              <div className="team-card-body">
+                <Text className="team-card-name">
+                  {gameState.story.team1Name || 'Team Alpha'}
+                </Text>
+                <Text className="team-card-description">
+                  Elite warriors ready for battle
                 </Text>
               </div>
-            </Card>
-          </Col>
-          
-          <Col xs={24} lg={16}>
-            <Row gutter={[24, 24]}>
-              <Col xs={24} md={11}>
-                <Card className="team-config-box" bordered={false}>
-                  <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                    <Title level={3} style={{ color: '#2ed573', textAlign: 'center', margin: 0 }}>
-                      ⚔️ TEAM ONE
-                    </Title>
-                    
-                    <div className="team-info">
-                      <Title level={4} style={{ color: '#2ed573', textAlign: 'center', margin: '0 0 1rem 0' }}>
-                        {gameState.story.team1Name || 'Team Alpha'}
-                      </Title>
-                      <Paragraph style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-                        Elite warriors ready for battle
-                      </Paragraph>
-                    </div>
-                    
-                    <div style={{ textAlign: 'center' }}>
-                      <Text strong style={{ color: '#ff6b35', display: 'block', marginBottom: '1rem' }}>
-                        Army Size
-                      </Text>
-                      <div style={{
-                        width: '120px',
-                        height: '80px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: 'rgba(46, 213, 115, 0.1)',
-                        border: '2px solid #2ed573',
-                        borderRadius: '12px',
-                        fontSize: '2.5rem',
-                        fontWeight: 'bold',
-                        color: '#2ed573',
-                        margin: '0 auto',
-                        boxShadow: '0 0 20px rgba(46, 213, 115, 0.3)'
-                      }}>
-                        {gameState.story.teamSizeA || gameState.story.team1Size || 4}
-                      </div>
-                      <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem', marginTop: '0.5rem', display: 'block' }}>
-                        Warriors
-                      </Text>
-                    </div>
-                  </Space>
-                </Card>
-              </Col>
               
-              <Col xs={24} md={2} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Title level={2} style={{ color: '#ff4757', margin: 0, textAlign: 'center' }}>
-                  VS
-                </Title>
-              </Col>
-              
-              <Col xs={24} md={11}>
-                <Card className="team-config-box" bordered={false} style={{ borderColor: '#ff6b35', backgroundColor: 'rgba(255, 107, 53, 0.05)' }}>
-                  <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                    <Title level={3} style={{ color: '#ff6b35', textAlign: 'center', margin: 0 }}>
-                      🛡️ TEAM TWO
-                    </Title>
-                    
-                    <div className="team-info">
-                      <Title level={4} style={{ color: '#ff6b35', textAlign: 'center', margin: '0 0 1rem 0' }}>
-                        {gameState.story.team2Name || 'Team Beta'}
-                      </Title>
-                      <Paragraph style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-                        Fierce fighters prepared for war
-                      </Paragraph>
-                    </div>
-                    
-                    <div style={{ textAlign: 'center' }}>
-                      <Text strong style={{ color: '#ff6b35', display: 'block', marginBottom: '1rem' }}>
-                        Army Size
-                      </Text>
-                      <div style={{
-                        width: '120px',
-                        height: '80px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: 'rgba(255, 107, 53, 0.1)',
-                        border: '2px solid #ff6b35',
-                        borderRadius: '12px',
-                        fontSize: '2.5rem',
-                        fontWeight: 'bold',
-                        color: '#ff6b35',
-                        margin: '0 auto',
-                        boxShadow: '0 0 20px rgba(255, 107, 53, 0.3)'
-                      }}>
-                        {gameState.story.teamSizeB || gameState.story.team2Size || 4}
-                      </div>
-                      <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem', marginTop: '0.5rem', display: 'block' }}>
-                        Warriors
-                      </Text>
-                    </div>
-                  </Space>
-                </Card>
-              </Col>
-            </Row>
+              <div className="team-card-stats">
+                <div className="team-size-display">
+                  <Text className="team-size-number">
+                    {gameState.story.teamSizeA || gameState.story.team1Size || 4}
+                  </Text>
+                  <Text className="team-size-label">Warriors</Text>
+                </div>
+              </div>
+            </div>
+          </Card>
 
-            {/* Battle Preview Summary */}
-            <Card 
-              style={{ 
-                marginTop: '2rem',
-                backgroundColor: 'rgba(46, 213, 115, 0.05)',
-                border: '2px solid #2ed573',
-                borderRadius: '15px'
-              }}
-              bordered={false}
-            >
-              <Space direction="vertical" size="small" style={{ width: '100%', textAlign: 'center' }}>
-                <Title level={4} style={{ color: '#2ed573', margin: 0 }}>
-                  ⚔️ BATTLE PREVIEW
-                </Title>
-                <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1rem' }}>
-                  {gameState.story.team1Name || 'Team Alpha'} ({gameState.story.teamSizeA || gameState.story.team1Size || 4} warriors) 
-                  <span style={{ color: '#ff4757', fontWeight: 'bold', margin: '0 1rem' }}>VS</span>
-                  {gameState.story.team2Name || 'Team Beta'} ({gameState.story.teamSizeB || gameState.story.team2Size || 4} warriors)
+          {/* VS Divider */}
+          <div className="teams-display__vs">
+            <Text className="vs-text">VS</Text>
+          </div>
+
+          {/* Team Two Card */}
+          <Card className="team-card team-card--team2" bordered={false}>
+            <div className="team-card-content">
+              <div className="team-card-header">
+                <Text className="team-card-icon">🛡️</Text>
+                <Text className="team-card-title">TEAM TWO</Text>
+              </div>
+              
+              <div className="team-card-body">
+                <Text className="team-card-name">
+                  {gameState.story.team2Name || 'Team Beta'}
+                </Text>
+                <Text className="team-card-description">
+                  Fierce fighters prepared for war
+                </Text>
+              </div>
+              
+              <div className="team-card-stats">
+                <div className="team-size-display">
+                  <Text className="team-size-number">
+                    {gameState.story.teamSizeB || gameState.story.team2Size || 4}
+                  </Text>
+                  <Text className="team-size-label">Warriors</Text>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Battle Analysis */}
+        <div className="battle-analysis">
+          <Card className="battle-analysis-card" size="small" bordered={false}>
+            <div className="battle-analysis-content">
+              <Text className="battle-analysis-title">⚖️ BATTLE ANALYSIS</Text>
+              
+              <div className="battle-analysis-stats">
+                <Text className="battle-analysis-matchup">
+                  {gameState.story.team1Name || 'Team Alpha'} ({gameState.story.teamSizeA || gameState.story.team1Size || 4}) 
+                  <span className="vs-small">VS</span>
+                  {gameState.story.team2Name || 'Team Beta'} ({gameState.story.teamSizeB || gameState.story.team2Size || 4})
                 </Text>
                 
-                {/* Show army size difference if any */}
-                {(gameState.story.teamSizeA || gameState.story.team1Size || 4) !== (gameState.story.teamSizeB || gameState.story.team2Size || 4) && (
-                  <Text style={{ color: '#ffa502', fontSize: '0.9rem', fontStyle: 'italic' }}>
-                    ⚖️ Uneven forces detected - strategic advantage to larger army
+                {/* Balance Assessment */}
+                {(gameState.story.teamSizeA || gameState.story.team1Size || 4) !== (gameState.story.teamSizeB || gameState.story.team2Size || 4) ? (
+                  <Text className="balance-assessment balance-assessment--uneven">
+                    ⚖️ Uneven forces - strategic advantage to larger army
                   </Text>
-                )}
-                
-                {(gameState.story.teamSizeA || gameState.story.team1Size || 4) === (gameState.story.teamSizeB || gameState.story.team2Size || 4) && (
-                  <Text style={{ color: '#2ed573', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                ) : (
+                  <Text className="balance-assessment balance-assessment--balanced">
                     ⚖️ Balanced forces - victory depends on strategy and skill
                   </Text>
                 )}
 
-                {/* Show mode-specific info */}
+                {/* Mode-specific info */}
                 {gameState.gameMode === 'experience' && (
-                  <Text style={{ color: '#ff6b35', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                  <Text className="mode-info">
                     🎮 Pre-configured experience with unique warriors and backstories
                   </Text>
                 )}
-              </Space>
-            </Card>
-          </Col>
-        </Row>
+              </div>
+            </div>
+          </Card>
+        </div>
         
-        <div style={{ marginTop: '3rem', textAlign: 'center' }}>
+        {/* Next Button Block */}
+        <div className="next-button-block">
           <Button 
             onClick={proceedToBuildTeams}
             icon={<ArrowRightOutlined />}
             size="large"
+            className="proceed-button"
           >
             {gameState.gameMode === 'experience' ? 'CUSTOMIZE WARRIORS' : 'BUILD YOUR CHAMPIONS'}
           </Button>
           
-          <div style={{ marginTop: '1rem' }}>
-            <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem' }}>
+          <div className="next-button-help">
+            <Text className="next-button-help-text">
               {gameState.gameMode === 'experience' 
                 ? '💡 Experience mode: Warriors are pre-loaded, you can customize their combat stats'
                 : '💡 Team sizes are locked from your story configuration'
