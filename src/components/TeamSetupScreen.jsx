@@ -24,6 +24,22 @@ const TeamSetupScreen = () => {
     }
   };
 
+  // Get the story to display - prioritize user's story over baseStory
+  const getStoryToDisplay = () => {
+    // If user has entered their own story, use that
+    if (gameState.story.background && gameState.story.background.trim()) {
+      return gameState.story.background;
+    }
+    
+    // Otherwise, fall back to baseStory from API
+    if (gameState.baseStory && gameState.baseStory.trim()) {
+      return gameState.baseStory;
+    }
+    
+    // Final fallback
+    return 'No background story provided yet...';
+  };
+
   return (
     <div className="screen team-setup-screen">
       <Button 
@@ -70,7 +86,7 @@ const TeamSetupScreen = () => {
               style={{ height: '100%' }}
             >
               <Paragraph style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.6 }}>
-                {gameState.story.background || gameState.baseStory || 'No background story provided yet...'}
+                {getStoryToDisplay()}
               </Paragraph>
               
               {/* Show game ID if available */}
@@ -117,6 +133,24 @@ const TeamSetupScreen = () => {
                   </Text>
                 </div>
               )}
+
+              {/* Show story source indicator */}
+              <div style={{ 
+                marginTop: '1rem', 
+                padding: '0.5rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '4px'
+              }}>
+                <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.7rem' }}>
+                  {gameState.story.background && gameState.story.background.trim() 
+                    ? '📝 User Story' 
+                    : gameState.baseStory && gameState.baseStory.trim()
+                    ? '🤖 Generated Story'
+                    : '⚠️ No Story'
+                  }
+                </Text>
+              </div>
             </Card>
           </Col>
           
