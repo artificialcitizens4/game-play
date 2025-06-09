@@ -156,10 +156,8 @@ export const fetchExperienceData = createAsyncThunk(
       let experienceData = [];
       
       if (response.data) {
-        if (Array.isArray(response.data)) {
-          experienceData = response.data;
-        } else if (response.data.data && Array.isArray(response.data.data)) {
-          experienceData = response.data.data;
+        if (response.data.data?.stories && Array.isArray(response.data.data?.stories)) {
+          experienceData = response.data.data?.stories;
         } else if (response.data.personas) {
           // Single experience object
           experienceData = [response.data];
