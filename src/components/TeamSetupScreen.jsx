@@ -1,5 +1,5 @@
 import { Typography, Card, Row, Col, Space } from 'antd';
-import { ArrowLeftOutlined, ArrowRightOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { setCurrentScreen, updateStory } from '../store/slices/gameSlice';
 import { useGameState, useAppDispatch } from '../hooks/useRedux';
 import Button from './Button';
@@ -9,18 +9,6 @@ const { Title, Paragraph, Text } = Typography;
 const TeamSetupScreen = () => {
   const dispatch = useAppDispatch();
   const gameState = useGameState();
-
-
-  const updateTeamData = (field, value) => {
-    dispatch(updateStory({ [field]: value }));
-  };
-
-  const updateTeamSize = (team, change) => {
-    const field = team === 1 ? 'team1Size' : 'team2Size';
-    const currentSize = gameState.story[field] || 4;
-    const newSize = Math.max(1, Math.min(8, currentSize + change));
-    updateTeamData(field, newSize);
-  };
 
   const proceedToBuildTeams = () => {
     dispatch(setCurrentScreen('build-teams'));
@@ -43,7 +31,7 @@ const TeamSetupScreen = () => {
       
       <div className="container">
         <Title level={1} className="title">⚔️ SETUP YOUR ARMIES</Title>
-        <Paragraph className="subtitle">Configure your opposing forces</Paragraph>
+        <Paragraph className="subtitle">Review your opposing forces</Paragraph>
         
         <Row gutter={[32, 32]} style={{ marginTop: '2rem' }}>
           <Col xs={24} lg={8}>
@@ -84,67 +72,38 @@ const TeamSetupScreen = () => {
                     </Title>
                     
                     <div className="team-info">
-                      <Title level={4} style={{ color: '#ff6b35', textAlign: 'center', margin: '0 0 1rem 0' }}>
+                      <Title level={4} style={{ color: '#2ed573', textAlign: 'center', margin: '0 0 1rem 0' }}>
                         {gameState.story.team1Name || 'Team Alpha'}
                       </Title>
                       <Paragraph style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-
+                        Elite warriors ready for battle
                       </Paragraph>
-                      
-                    
                     </div>
                     
-                    <div>
-                      <Text strong style={{ color: '#ff6b35', display: 'block', marginBottom: '1rem', textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <Text strong style={{ color: '#ff6b35', display: 'block', marginBottom: '1rem' }}>
                         Army Size
                       </Text>
-                      <Row gutter={16} justify="center" align="middle">
-                        <Col>
-                          <Button
-                            icon={<MinusOutlined />}
-                            onClick={() => updateTeamSize(1, -1)}
-                            disabled={gameState.story.team1Size <= 1}
-                            style={{ 
-                              borderColor: '#ff4757', 
-                              color: '#ff4757',
-                              backgroundColor: 'rgba(255, 71, 87, 0.1)',
-                              width: '50px',
-                              height: '50px'
-                            }}
-                          />
-                        </Col>
-                        <Col>
-                          <div style={{
-                            width: '80px',
-                            height: '50px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: 'rgba(46, 213, 115, 0.1)',
-                            border: '2px solid #2ed573',
-                            borderRadius: '8px',
-                            fontSize: '1.5rem',
-                            fontWeight: 'bold',
-                            color: '#2ed573'
-                          }}>
-                            {gameState.story.team1Size || 4}
-                          </div>
-                        </Col>
-                        <Col>
-                          <Button
-                            icon={<PlusOutlined />}
-                            onClick={() => updateTeamSize(1, 1)}
-                            disabled={gameState.story.team1Size >= 8}
-                            style={{ 
-                              borderColor: '#2ed573', 
-                              color: '#2ed573',
-                              backgroundColor: 'rgba(46, 213, 115, 0.1)',
-                              width: '50px',
-                              height: '50px'
-                            }}
-                          />
-                        </Col>
-                      </Row>
+                      <div style={{
+                        width: '120px',
+                        height: '80px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(46, 213, 115, 0.1)',
+                        border: '2px solid #2ed573',
+                        borderRadius: '12px',
+                        fontSize: '2.5rem',
+                        fontWeight: 'bold',
+                        color: '#2ed573',
+                        margin: '0 auto',
+                        boxShadow: '0 0 20px rgba(46, 213, 115, 0.3)'
+                      }}>
+                        {gameState.story.teamSizeA || gameState.story.team1Size || 4}
+                      </div>
+                      <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem', marginTop: '0.5rem', display: 'block' }}>
+                        Warriors
+                      </Text>
                     </div>
                   </Space>
                 </Card>
@@ -168,66 +127,74 @@ const TeamSetupScreen = () => {
                         {gameState.story.team2Name || 'Team Beta'}
                       </Title>
                       <Paragraph style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-                            team 2
+                        Fierce fighters prepared for war
                       </Paragraph>
                     </div>
                     
-                    <div>
-                      <Text strong style={{ color: '#ff6b35', display: 'block', marginBottom: '1rem', textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <Text strong style={{ color: '#ff6b35', display: 'block', marginBottom: '1rem' }}>
                         Army Size
                       </Text>
-                      <Row gutter={16} justify="center" align="middle">
-                        <Col>
-                          <Button
-                            icon={<MinusOutlined />}
-                            onClick={() => updateTeamSize(2, -1)}
-                            disabled={gameState.story.team2Size <= 1}
-                            style={{ 
-                              borderColor: '#ff4757', 
-                              color: '#ff4757',
-                              backgroundColor: 'rgba(255, 71, 87, 0.1)',
-                              width: '50px',
-                              height: '50px'
-                            }}
-                          />
-                        </Col>
-                        <Col>
-                          <div style={{
-                            width: '80px',
-                            height: '50px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: 'rgba(255, 107, 53, 0.1)',
-                            border: '2px solid #ff6b35',
-                            borderRadius: '8px',
-                            fontSize: '1.5rem',
-                            fontWeight: 'bold',
-                            color: '#ff6b35'
-                          }}>
-                            {gameState.story.team2Size || 4}
-                          </div>
-                        </Col>
-                        <Col>
-                          <Button
-                            icon={<PlusOutlined />}
-                            onClick={() => updateTeamSize(2, 1)}
-                            disabled={gameState.story.team2Size >= 8}
-                            style={{ 
-                              borderColor: '#2ed573', 
-                              color: '#2ed573',
-                              backgroundColor: 'rgba(46, 213, 115, 0.1)',
-                              width: '50px',
-                              height: '50px'
-                            }}
-                          />
-                        </Col>
-                      </Row>
+                      <div style={{
+                        width: '120px',
+                        height: '80px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(255, 107, 53, 0.1)',
+                        border: '2px solid #ff6b35',
+                        borderRadius: '12px',
+                        fontSize: '2.5rem',
+                        fontWeight: 'bold',
+                        color: '#ff6b35',
+                        margin: '0 auto',
+                        boxShadow: '0 0 20px rgba(255, 107, 53, 0.3)'
+                      }}>
+                        {gameState.story.teamSizeB || gameState.story.team2Size || 4}
+                      </div>
+                      <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem', marginTop: '0.5rem', display: 'block' }}>
+                        Warriors
+                      </Text>
                     </div>
                   </Space>
                 </Card>
               </Col>
             </Row>
+
+            {/* Battle Preview Summary */}
+            <Card 
+              style={{ 
+                marginTop: '2rem',
+                backgroundColor: 'rgba(46, 213, 115, 0.05)',
+                border: '2px solid #2ed573',
+                borderRadius: '15px'
+              }}
+              bordered={false}
+            >
+              <Space direction="vertical" size="small" style={{ width: '100%', textAlign: 'center' }}>
+                <Title level={4} style={{ color: '#2ed573', margin: 0 }}>
+                  ⚔️ BATTLE PREVIEW
+                </Title>
+                <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1rem' }}>
+                  {gameState.story.team1Name || 'Team Alpha'} ({gameState.story.teamSizeA || gameState.story.team1Size || 4} warriors) 
+                  <span style={{ color: '#ff4757', fontWeight: 'bold', margin: '0 1rem' }}>VS</span>
+                  {gameState.story.team2Name || 'Team Beta'} ({gameState.story.teamSizeB || gameState.story.team2Size || 4} warriors)
+                </Text>
+                
+                {/* Show army size difference if any */}
+                {(gameState.story.teamSizeA || gameState.story.team1Size || 4) !== (gameState.story.teamSizeB || gameState.story.team2Size || 4) && (
+                  <Text style={{ color: '#ffa502', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                    ⚖️ Uneven forces detected - strategic advantage to larger army
+                  </Text>
+                )}
+                
+                {(gameState.story.teamSizeA || gameState.story.team1Size || 4) === (gameState.story.teamSizeB || gameState.story.team2Size || 4) && (
+                  <Text style={{ color: '#2ed573', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                    ⚖️ Balanced forces - victory depends on strategy and skill
+                  </Text>
+                )}
+              </Space>
+            </Card>
           </Col>
         </Row>
         
@@ -237,8 +204,14 @@ const TeamSetupScreen = () => {
             icon={<ArrowRightOutlined />}
             size="large"
           >
-            CONFIRM TEAMS
+            BUILD YOUR CHAMPIONS
           </Button>
+          
+          <div style={{ marginTop: '1rem' }}>
+            <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem' }}>
+              💡 Team sizes are locked from your story configuration
+            </Text>
+          </div>
         </div>
       </div>
     </div>
