@@ -241,10 +241,10 @@ const StoryScreen = () => {
             <div className="status-messages">
               {/* API Loading Status */}
               {storySubmission.loading && (
-                <Card size="small" className="status-card status-card--loading">
+                <Card size="small\" className="status-card status-card--loading">
                   <div className="status-content">
                     <Spin 
-                      indicator={<LoadingOutlined className="status-spinner" spin />} 
+                      indicator={<LoadingOutlined className="status-spinner\" spin />} 
                     />
                     <Text className="status-text">
                       Submitting your story to the game engine...
