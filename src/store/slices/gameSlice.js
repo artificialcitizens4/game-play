@@ -85,16 +85,26 @@ const gameSlice = createSlice({
       state.gameSettings = { ...state.gameSettings, ...action.payload };
     },
     
-    // New action to update persona traits
+    // Updated action to update persona traits (only editable ones)
     updatePersonaTraits: (state, action) => {
       const { personaName, traits } = action.payload;
       
       // Find and update the persona in the personas array
       const personaIndex = state.personas.findIndex(p => p.name === personaName);
       if (personaIndex !== -1) {
-        state.personas[personaIndex].traits = { 
-          ...state.personas[personaIndex].traits, 
-          ...traits 
+        // Only update the four editable traits
+        const editableTraits = ['morale', 'strength', 'fatigue', 'health'];
+        const updatedTraits = {};
+        
+        editableTraits.forEach(trait => {
+          if (traits[trait] !== undefined) {
+            updatedTraits[trait] = traits[trait];
+          }
+        });
+        
+        state.personas[personaIndex] = { 
+          ...state.personas[personaIndex],
+          ...updatedTraits
         };
       }
       
@@ -122,13 +132,12 @@ const gameSlice = createSlice({
       state.personaModifications = {};
     },
     
-    // New action to store API response data
+    // Updated action to store new API response data structure
     setApiGameData: (state, action) => {
       const apiData = action.payload;
       state.apiGameData = apiData;
       state.gameId = apiData.id;
       state.personas = apiData.personas || [];
-      state.factions = apiData.factions || {};
       state.baseStory = apiData.baseStory || '';
       state.createdAt = apiData.createdAt;
       
@@ -136,37 +145,28 @@ const gameSlice = createSlice({
       state.personaModifications = {};
       
       // Update story with API data
-      if (apiData.story) {
-        state.story.background = apiData.story;
-      }
       if (apiData.baseStory) {
         state.story.background = apiData.baseStory;
       }
       
-      // Extract faction names for teams
-      const factionNames = Object.keys(apiData.factions || {});
-      if (factionNames.length >= 2) {
-        state.story.team1Name = factionNames[0];
-        state.story.team2Name = factionNames[1];
-      } else {
-        // Use personas' factions
-        const uniqueFactions = [...new Set(apiData.personas?.map(p => p.faction) || [])];
+      // Extract faction names for teams from personas
+      if (apiData.personas && apiData.personas.length > 0) {
+        const uniqueFactions = [...new Set(apiData.personas.map(p => p.faction))];
         if (uniqueFactions.length >= 2) {
           state.story.team1Name = uniqueFactions[0];
           state.story.team2Name = uniqueFactions[1];
+          
+          // Set team sizes based on personas count
+          const team1Personas = apiData.personas.filter(p => p.faction === uniqueFactions[0]);
+          const team2Personas = apiData.personas.filter(p => p.faction === uniqueFactions[1]);
+          
+          state.story.team1Size = team1Personas.length;
+          state.story.team2Size = team2Personas.length;
         }
       }
-      
-      // Set team sizes based on personas count or use the submitted team sizes
-      const team1Personas = apiData.personas?.filter(p => p.faction === state.story.team1Name) || [];
-      const team2Personas = apiData.personas?.filter(p => p.faction === state.story.team2Name) || [];
-      
-      // Use the team sizes from the story submission if available, otherwise use persona count
-      state.story.team1Size = state.story.teamSizeA || Math.max(team1Personas.length, 4);
-      state.story.team2Size = state.story.teamSizeB || Math.max(team2Personas.length, 4);
     },
     
-    // Action to convert personas to characters
+    // Updated action to convert personas to characters with new structure
     convertPersonasToCharacters: (state) => {
       if (!state.personas.length) return;
       
@@ -174,34 +174,49 @@ const gameSlice = createSlice({
       const team1Name = state.story.team1Name;
       const team2Name = state.story.team2Name;
       
-      // Character type mapping based on role
-      const roleToType = {
+      // Character type mapping based on type field
+      const typeToCharacterType = {
         'Commander': 'commander',
         'Scout': 'scout',
         'Medic': 'medic',
         'Infantry': 'assault',
-        'Sabotager': 'demolition'
+        'Sabotager': 'demolition',
+        'Sniper': 'sniper',
+        'Engineer': 'engineer'
       };
       
       state.personas.forEach((persona, index) => {
         const team = persona.faction === team1Name ? 1 : 2;
-        const characterType = roleToType[persona.role] || 'assault';
+        const characterType = typeToCharacterType[persona.type] || 'assault';
         const key = `team${team}_${characterType}_${index}`;
         
-        // Convert persona traits to our character stats
+        // Convert persona data to our character stats format
         newCharacters[key] = {
-          fatigue: Math.min(100 - (persona.traits.fatigue || 20), 100),
-          moral: persona.traits.morale || persona.traits.moral || 50,
-          health: persona.traits.health || 50,
-          terrain: persona.traits.adaptability || 50,
-          // Store additional persona data
+          // Map the four editable traits directly
+          fatigue: persona.fatigue || 20,
+          moral: persona.morale || 50,
+          health: persona.health || 50,
+          terrain: persona.terrainStronghold ? 75 : 50, // Use terrain stronghold as terrain advantage
+          
+          // Store complete persona data for reference
           personaData: {
+            agentId: persona.agentId,
             name: persona.name,
-            role: persona.role,
+            faction: persona.faction,
+            type: persona.type,
             npcType: persona.npcType,
-            backstory: persona.backstory,
+            age: persona.age,
+            background: persona.background,
             motivation: persona.motivation,
-            traits: persona.traits
+            personality: persona.personality,
+            skills: persona.skills,
+            affiliation: persona.affiliation,
+            terrainStronghold: persona.terrainStronghold,
+            // Store original values for reference
+            originalMorale: persona.morale,
+            originalStrength: persona.strength,
+            originalFatigue: persona.fatigue,
+            originalHealth: persona.health
           }
         };
       });

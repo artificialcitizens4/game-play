@@ -135,7 +135,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
   // Listen for completion events from the iframe
   useEffect(() => {
     const handleMessage = (event) => {
-      if (event.origin !== "https://map-generator-1.vercel.app") {
+      if (event.origin !== "https://imaginative-figolla-9cbf50.netlify.app") {
         return;
       }
 

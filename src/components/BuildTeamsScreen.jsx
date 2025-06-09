@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, Row, Col, Typography, Space, Avatar } from 'antd';
+import { Card, Row, Col, Typography, Space, Avatar, Descriptions } from 'antd';
 import { ArrowLeftOutlined, SaveOutlined, ArrowRightOutlined, CheckOutlined } from '@ant-design/icons';
 import Button from './Button';
 import StatSlider from './StatSlider';
@@ -26,13 +26,23 @@ const BuildTeamsScreen = () => {
     if (!selectedPersona && team1Personas.length > 0) {
       const firstPersona = team1Personas[0];
       setSelectedPersona(firstPersona);
-      setCurrentTraits(firstPersona.traits);
+      setCurrentTraits({
+        morale: firstPersona.morale || 50,
+        strength: firstPersona.strength || 50,
+        fatigue: firstPersona.fatigue || 20,
+        health: firstPersona.health || 50
+      });
     }
   }, [team1Personas, selectedPersona]);
 
   useEffect(() => {
     if (selectedPersona) {
-      setCurrentTraits(selectedPersona.traits);
+      setCurrentTraits({
+        morale: selectedPersona.morale || 50,
+        strength: selectedPersona.strength || 50,
+        fatigue: selectedPersona.fatigue || 20,
+        health: selectedPersona.health || 50
+      });
       setHasUnsavedChanges(false);
     }
   }, [selectedPersona]);
@@ -88,14 +98,16 @@ const BuildTeamsScreen = () => {
   };
 
   const getPersonaAvatar = (persona) => {
-    const roleEmojis = {
+    const typeEmojis = {
       'Commander': '👨‍✈️',
       'Scout': '🏃‍♂️',
       'Medic': '⚕️',
       'Sabotager': '💣',
-      'Infantry': '💥'
+      'Infantry': '💥',
+      'Sniper': '🎯',
+      'Engineer': '🔧'
     };
-    return roleEmojis[persona.role] || '👤';
+    return typeEmojis[persona.type] || '👤';
   };
 
   const getStatColor = (value) => {
@@ -204,11 +216,11 @@ const BuildTeamsScreen = () => {
                             {persona.name}
                           </Text>
                           <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.8rem' }}>
-                            {persona.role} - {persona.npcType}
+                            {persona.type} - {persona.npcType}
                           </Text>
                           <div style={{ marginTop: '0.5rem' }}>
-                            <Text style={{ color: getStatColor(persona.traits.morale), fontSize: '0.7rem' }}>
-                              Morale: {persona.traits.morale} | Health: {persona.traits.health}
+                            <Text style={{ color: getStatColor(persona.morale), fontSize: '0.7rem' }}>
+                              Morale: {persona.morale} | Health: {persona.health}
                             </Text>
                           </div>
                         </div>
@@ -248,20 +260,27 @@ const BuildTeamsScreen = () => {
                             {selectedPersona.name}
                           </Title>
                           <Text style={{ color: '#ff6b35', fontSize: '1.1rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                            {selectedPersona.role} - {selectedPersona.npcType}
+                            {selectedPersona.type} - {selectedPersona.npcType}
                           </Text>
                           <div style={{ marginTop: '0.5rem' }}>
                             <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem', fontStyle: 'italic' }}>
-                              {selectedPersona.faction}
+                              {selectedPersona.faction} • Age: {selectedPersona.age}
                             </Text>
                           </div>
+                          {selectedPersona.agentId && (
+                            <div style={{ marginTop: '0.25rem' }}>
+                              <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.8rem' }}>
+                                ID: {selectedPersona.agentId}
+                              </Text>
+                            </div>
+                          )}
                         </div>
                       </Col>
                     </Row>
                   </div>
 
-                  {/* Backstory */}
-                  {selectedPersona.backstory && (
+                  {/* Background and Motivation */}
+                  {(selectedPersona.background || selectedPersona.motivation) && (
                     <Card 
                       size="small"
                       style={{ 
@@ -270,23 +289,35 @@ const BuildTeamsScreen = () => {
                         marginBottom: '2rem'
                       }}
                     >
-                      <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem', fontStyle: 'italic' }}>
-                        "{selectedPersona.backstory}"
-                      </Text>
-                      {selectedPersona.motivation && (
-                        <div style={{ marginTop: '0.5rem' }}>
-                          <Text strong style={{ color: '#2ed573', fontSize: '0.8rem' }}>
-                            Motivation: 
+                      {selectedPersona.background && (
+                        <div style={{ marginBottom: '1rem' }}>
+                          <Text strong style={{ color: '#2ed573', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
+                            Background:
                           </Text>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.8rem', marginLeft: '0.5rem' }}>
-                            {selectedPersona.motivation}
+                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                            "{selectedPersona.background}"
+                          </Text>
+                        </div>
+                      )}
+                      {selectedPersona.motivation && (
+                        <div>
+                          <Text strong style={{ color: '#ff6b35', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
+                            Motivation:
+                          </Text>
+                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                            "{selectedPersona.motivation}"
                           </Text>
                         </div>
                       )}
                     </Card>
                   )}
                   
+                  {/* Editable Traits */}
                   <div style={{ flex: 1, marginBottom: '2rem' }}>
+                    <Title level={4} style={{ color: '#ff6b35', marginBottom: '1.5rem', textAlign: 'center' }}>
+                      ⚙️ EDITABLE COMBAT STATS
+                    </Title>
+                    
                     <div className="stats-container">
                       <StatSlider
                         label="🧠 Morale"
@@ -295,77 +326,136 @@ const BuildTeamsScreen = () => {
                       />
                       
                       <StatSlider
-                        label="❤️ Health"
-                        value={currentTraits.health || 50}
-                        onChange={(value) => updateTrait('health', value)}
-                      />
-                      
-                      <StatSlider
-                        label="⚔️ Bravery"
-                        value={currentTraits.bravery || 50}
-                        onChange={(value) => updateTrait('bravery', value)}
-                      />
-                      
-                      <StatSlider
-                        label="🎯 Discipline"
-                        value={currentTraits.discipline || 50}
-                        onChange={(value) => updateTrait('discipline', value)}
-                      />
-
-                      <StatSlider
-                        label="🔄 Adaptability"
-                        value={currentTraits.adaptability || 50}
-                        onChange={(value) => updateTrait('adaptability', value)}
-                      />
-
-                      <StatSlider
                         label="💪 Strength"
                         value={currentTraits.strength || 50}
                         onChange={(value) => updateTrait('strength', value)}
                       />
+                      
+                      <StatSlider
+                        label="😴 Fatigue"
+                        value={currentTraits.fatigue || 20}
+                        onChange={(value) => updateTrait('fatigue', value)}
+                      />
+                      
+                      <StatSlider
+                        label="❤️ Health"
+                        value={currentTraits.health || 50}
+                        onChange={(value) => updateTrait('health', value)}
+                      />
                     </div>
 
-                    {/* Additional traits display (read-only) */}
-                    <Card 
-                      size="small"
-                      title={<Text style={{ color: '#2ed573', fontSize: '1rem' }}>📊 Additional Traits</Text>}
-                      style={{ 
-                        backgroundColor: 'rgba(46, 213, 115, 0.05)',
-                        border: '1px solid rgba(46, 213, 115, 0.3)',
-                        marginTop: '1rem'
-                      }}
-                    >
-                      <Row gutter={[16, 8]}>
-                        <Col span={12}>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                            🤝 Loyalty: <span style={{ color: getStatColor(selectedPersona.traits.loyalty), fontWeight: 'bold' }}>
-                              {selectedPersona.traits.loyalty}
-                            </span>
-                          </Text>
-                        </Col>
-                        <Col span={12}>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                            🧠 Tactical: <span style={{ color: getStatColor(selectedPersona.traits.tacticalThinking), fontWeight: 'bold' }}>
-                              {selectedPersona.traits.tacticalThinking}
-                            </span>
-                          </Text>
-                        </Col>
-                        <Col span={12}>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                            ⚡ Impulsive: <span style={{ color: getStatColor(100 - selectedPersona.traits.impulsiveness), fontWeight: 'bold' }}>
-                              {selectedPersona.traits.impulsiveness}
-                            </span>
-                          </Text>
-                        </Col>
-                        <Col span={12}>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                            😴 Fatigue: <span style={{ color: getStatColor(100 - selectedPersona.traits.fatigue), fontWeight: 'bold' }}>
-                              {selectedPersona.traits.fatigue}
-                            </span>
-                          </Text>
-                        </Col>
-                      </Row>
-                    </Card>
+                    {/* Read-only Personality Traits */}
+                    {selectedPersona.personality && (
+                      <Card 
+                        size="small"
+                        title={<Text style={{ color: '#2ed573', fontSize: '1rem' }}>🧠 Personality Traits (Read-Only)</Text>}
+                        style={{ 
+                          backgroundColor: 'rgba(46, 213, 115, 0.05)',
+                          border: '1px solid rgba(46, 213, 115, 0.3)',
+                          marginTop: '1.5rem'
+                        }}
+                      >
+                        <Row gutter={[16, 8]}>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              ⚔️ Bravery: <span style={{ color: getStatColor(selectedPersona.personality.bravery), fontWeight: 'bold' }}>
+                                {selectedPersona.personality.bravery}
+                              </span>
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              🤝 Loyalty: <span style={{ color: getStatColor(selectedPersona.personality.loyalty), fontWeight: 'bold' }}>
+                                {selectedPersona.personality.loyalty}
+                              </span>
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              🔄 Adaptability: <span style={{ color: getStatColor(selectedPersona.personality.adaptability), fontWeight: 'bold' }}>
+                                {selectedPersona.personality.adaptability}
+                              </span>
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              ⚡ Impulsiveness: <span style={{ color: getStatColor(100 - selectedPersona.personality.impulsiveness), fontWeight: 'bold' }}>
+                                {selectedPersona.personality.impulsiveness}
+                              </span>
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              🎯 Discipline: <span style={{ color: getStatColor(selectedPersona.personality.discipline), fontWeight: 'bold' }}>
+                                {selectedPersona.personality.discipline}
+                              </span>
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              🧠 Tactical: <span style={{ color: getStatColor(selectedPersona.personality.tactical_thinking), fontWeight: 'bold' }}>
+                                {selectedPersona.personality.tactical_thinking}
+                              </span>
+                            </Text>
+                          </Col>
+                        </Row>
+                      </Card>
+                    )}
+
+                    {/* Read-only Skills */}
+                    {selectedPersona.skills && (
+                      <Card 
+                        size="small"
+                        title={<Text style={{ color: '#ff6b35', fontSize: '1rem' }}>🎯 Skills (Read-Only)</Text>}
+                        style={{ 
+                          backgroundColor: 'rgba(255, 107, 53, 0.05)',
+                          border: '1px solid rgba(255, 107, 53, 0.3)',
+                          marginTop: '1rem'
+                        }}
+                      >
+                        <Row gutter={[16, 8]}>
+                          {Object.entries(selectedPersona.skills).map(([skillKey, skillValue], index) => (
+                            <Col span={12} key={skillKey}>
+                              <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                                🔸 Skill {index + 1}: <span style={{ color: getStatColor(skillValue), fontWeight: 'bold' }}>
+                                  {skillValue}
+                                </span>
+                              </Text>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Card>
+                    )}
+
+                    {/* Additional Info */}
+                    {(selectedPersona.terrainStronghold || selectedPersona.affiliation) && (
+                      <Card 
+                        size="small"
+                        title={<Text style={{ color: '#ffa502', fontSize: '1rem' }}>📍 Additional Info</Text>}
+                        style={{ 
+                          backgroundColor: 'rgba(255, 165, 2, 0.05)',
+                          border: '1px solid rgba(255, 165, 2, 0.3)',
+                          marginTop: '1rem'
+                        }}
+                      >
+                        <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                          {selectedPersona.terrainStronghold && (
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              🏔️ Terrain Stronghold: <span style={{ color: '#ffa502', fontWeight: 'bold' }}>
+                                {selectedPersona.terrainStronghold}
+                              </span>
+                            </Text>
+                          )}
+                          {selectedPersona.affiliation && (
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                              🏛️ Affiliation: <span style={{ color: '#ffa502', fontWeight: 'bold' }}>
+                                {selectedPersona.affiliation}
+                              </span>
+                            </Text>
+                          )}
+                        </Space>
+                      </Card>
+                    )}
                   </div>
                   
                   <div style={{ textAlign: 'center', marginTop: 'auto' }}>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, Row, Col, Typography, Space, Avatar, Progress } from 'antd';
+import { Card, Row, Col, Typography, Space, Avatar, Progress, Descriptions } from 'antd';
 import { ArrowLeftOutlined, RocketOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { setCurrentScreen } from '../store/slices/gameSlice';
@@ -34,9 +34,8 @@ const ViewCharactersScreen = () => {
     if (!teamPersonas.length) return 50;
     
     const totalStats = teamPersonas.reduce((sum, persona) => {
-      const traits = persona.traits;
-      return sum + (traits.morale || 50) + (traits.health || 50) + 
-             (traits.bravery || 50) + (traits.discipline || 50);
+      return sum + (persona.morale || 50) + (persona.health || 50) + 
+             (persona.strength || 50) + (100 - (persona.fatigue || 20));
     }, 0);
     
     return Math.round(totalStats / (teamPersonas.length * 4));
@@ -96,6 +95,19 @@ const ViewCharactersScreen = () => {
   
   const team1Strength = calculateTeamStrength(team1Personas);
   const team2Strength = calculateTeamStrength(team2Personas);
+
+  const getPersonaAvatar = (persona) => {
+    const typeEmojis = {
+      'Commander': '👨‍✈️',
+      'Scout': '🏃‍♂️',
+      'Medic': '⚕️',
+      'Sabotager': '💣',
+      'Infantry': '💥',
+      'Sniper': '🎯',
+      'Engineer': '🔧'
+    };
+    return typeEmojis[persona.type] || '👤';
+  };
 
   return (
     <div className="screen view-characters-screen">
@@ -261,8 +273,8 @@ const ViewCharactersScreen = () => {
                   <Space direction="vertical" size="large" style={{ width: '100%' }}>
                     <Row align="middle" gutter={[12, 0]}>
                       <Col>
-                        <Avatar size={60} style={{ backgroundColor: selectedTeam === 1 ? '#2ed573' : '#ff6b35', color: selectedTeam === 1 ? '#000' : '#fff', fontSize: '1.5rem' }}>
-                          {persona.name.charAt(0)}
+                        <Avatar size={60} style={{ backgroundColor: 'transparent', fontSize: '2rem' }}>
+                          {getPersonaAvatar(persona)}
                         </Avatar>
                       </Col>
                       <Col flex={1}>
@@ -270,83 +282,133 @@ const ViewCharactersScreen = () => {
                           {persona.name}
                         </Title>
                         <Text style={{ color: '#ff6b35', fontSize: '1rem' }}>
-                          {persona.role}
+                          {persona.type}
                         </Text>
                         <br />
                         <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                          {persona.npcType}
+                          {persona.npcType} • Age: {persona.age}
                         </Text>
+                        {persona.agentId && (
+                          <>
+                            <br />
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.8rem' }}>
+                              ID: {persona.agentId}
+                            </Text>
+                          </>
+                        )}
                       </Col>
                     </Row>
                     
-                    <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                      <Row justify="space-between" align="middle">
-                        <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>🧠 Morale</Text></Col>
-                        <Col>
-                          <Text style={{ color: getStatColor(persona.traits.morale), fontWeight: 'bold' }}>
-                            {persona.traits.morale} ({getStatLabel(persona.traits.morale)})
-                          </Text>
-                        </Col>
-                      </Row>
-                      <Progress 
-                        percent={persona.traits.morale} 
-                        strokeColor={getStatColor(persona.traits.morale)}
-                        trailColor="rgba(255,255,255,0.1)"
-                        showInfo={false}
-                        size="small"
-                      />
-                      
-                      <Row justify="space-between" align="middle">
-                        <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>❤️ Health</Text></Col>
-                        <Col>
-                          <Text style={{ color: getStatColor(persona.traits.health), fontWeight: 'bold' }}>
-                            {persona.traits.health} ({getStatLabel(persona.traits.health)})
-                          </Text>
-                        </Col>
-                      </Row>
-                      <Progress 
-                        percent={persona.traits.health} 
-                        strokeColor={getStatColor(persona.traits.health)}
-                        trailColor="rgba(255,255,255,0.1)"
-                        showInfo={false}
-                        size="small"
-                      />
-                      
-                      <Row justify="space-between" align="middle">
-                        <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>⚔️ Bravery</Text></Col>
-                        <Col>
-                          <Text style={{ color: getStatColor(persona.traits.bravery), fontWeight: 'bold' }}>
-                            {persona.traits.bravery} ({getStatLabel(persona.traits.bravery)})
-                          </Text>
-                        </Col>
-                      </Row>
-                      <Progress 
-                        percent={persona.traits.bravery} 
-                        strokeColor={getStatColor(persona.traits.bravery)}
-                        trailColor="rgba(255,255,255,0.1)"
-                        showInfo={false}
-                        size="small"
-                      />
-                      
-                      <Row justify="space-between" align="middle">
-                        <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>🎯 Discipline</Text></Col>
-                        <Col>
-                          <Text style={{ color: getStatColor(persona.traits.discipline), fontWeight: 'bold' }}>
-                            {persona.traits.discipline} ({getStatLabel(persona.traits.discipline)})
-                          </Text>
-                        </Col>
-                      </Row>
-                      <Progress 
-                        percent={persona.traits.discipline} 
-                        strokeColor={getStatColor(persona.traits.discipline)}
-                        trailColor="rgba(255,255,255,0.1)"
-                        showInfo={false}
-                        size="small"
-                      />
-                    </Space>
+                    {/* Editable Combat Stats */}
+                    <div>
+                      <Title level={5} style={{ color: '#ff6b35', margin: '0 0 1rem 0', textAlign: 'center' }}>
+                        ⚔️ Combat Stats
+                      </Title>
+                      <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                        <Row justify="space-between" align="middle">
+                          <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>🧠 Morale</Text></Col>
+                          <Col>
+                            <Text style={{ color: getStatColor(persona.morale), fontWeight: 'bold' }}>
+                              {persona.morale} ({getStatLabel(persona.morale)})
+                            </Text>
+                          </Col>
+                        </Row>
+                        <Progress 
+                          percent={persona.morale} 
+                          strokeColor={getStatColor(persona.morale)}
+                          trailColor="rgba(255,255,255,0.1)"
+                          showInfo={false}
+                          size="small"
+                        />
+                        
+                        <Row justify="space-between" align="middle">
+                          <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>💪 Strength</Text></Col>
+                          <Col>
+                            <Text style={{ color: getStatColor(persona.strength), fontWeight: 'bold' }}>
+                              {persona.strength} ({getStatLabel(persona.strength)})
+                            </Text>
+                          </Col>
+                        </Row>
+                        <Progress 
+                          percent={persona.strength} 
+                          strokeColor={getStatColor(persona.strength)}
+                          trailColor="rgba(255,255,255,0.1)"
+                          showInfo={false}
+                          size="small"
+                        />
+                        
+                        <Row justify="space-between" align="middle">
+                          <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>😴 Fatigue</Text></Col>
+                          <Col>
+                            <Text style={{ color: getStatColor(100 - persona.fatigue), fontWeight: 'bold' }}>
+                              {persona.fatigue} ({getStatLabel(100 - persona.fatigue)})
+                            </Text>
+                          </Col>
+                        </Row>
+                        <Progress 
+                          percent={100 - persona.fatigue} 
+                          strokeColor={getStatColor(100 - persona.fatigue)}
+                          trailColor="rgba(255,255,255,0.1)"
+                          showInfo={false}
+                          size="small"
+                        />
+                        
+                        <Row justify="space-between" align="middle">
+                          <Col><Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>❤️ Health</Text></Col>
+                          <Col>
+                            <Text style={{ color: getStatColor(persona.health), fontWeight: 'bold' }}>
+                              {persona.health} ({getStatLabel(persona.health)})
+                            </Text>
+                          </Col>
+                        </Row>
+                        <Progress 
+                          percent={persona.health} 
+                          strokeColor={getStatColor(persona.health)}
+                          trailColor="rgba(255,255,255,0.1)"
+                          showInfo={false}
+                          size="small"
+                        />
+                      </Space>
+                    </div>
 
-                    {/* Character backstory */}
-                    {persona.backstory && (
+                    {/* Personality Traits (Read-only) */}
+                    {persona.personality && (
+                      <div style={{ 
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        borderRadius: '8px',
+                        padding: '0.8rem'
+                      }}>
+                        <Title level={5} style={{ color: '#2ed573', margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>
+                          🧠 Personality
+                        </Title>
+                        <Row gutter={[8, 4]}>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.8rem' }}>
+                              Bravery: {persona.personality.bravery}
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.8rem' }}>
+                              Loyalty: {persona.personality.loyalty}
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.8rem' }}>
+                              Discipline: {persona.personality.discipline}
+                            </Text>
+                          </Col>
+                          <Col span={12}>
+                            <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.8rem' }}>
+                              Tactical: {persona.personality.tactical_thinking}
+                            </Text>
+                          </Col>
+                        </Row>
+                      </div>
+                    )}
+
+                    {/* Character background */}
+                    {persona.background && (
                       <div style={{ 
                         background: 'rgba(0, 0, 0, 0.3)',
                         border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -355,7 +417,7 @@ const ViewCharactersScreen = () => {
                         marginTop: '1rem'
                       }}>
                         <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.8rem', fontStyle: 'italic' }}>
-                          "{persona.backstory}"
+                          "{persona.background}"
                         </Text>
                       </div>
                     )}
