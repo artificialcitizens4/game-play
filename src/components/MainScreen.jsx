@@ -63,37 +63,6 @@ const MainScreen = () => {
             </Card>
           </Col>
         </Row>
-
-        {/* Coming Soon Section */}
-        <div style={{ 
-          marginTop: '4rem',
-          textAlign: 'center',
-          background: 'rgba(255, 107, 53, 0.05)',
-          border: '1px solid rgba(255, 107, 53, 0.3)',
-          borderRadius: '15px',
-          padding: '2rem',
-          maxWidth: '600px',
-          margin: '4rem auto 0 auto'
-        }}>
-          <Title level={4} style={{ color: '#ff6b35', margin: '0 0 1rem 0' }}>
-            🎮 EXPERIENCE MODE
-          </Title>
-          <Paragraph style={{ color: 'rgba(255, 255, 255, 0.7)', margin: 0 }}>
-            Pre-configured battle scenarios with unique warriors and backstories
-          </Paragraph>
-          <div style={{ 
-            marginTop: '1rem',
-            padding: '0.5rem 1rem',
-            background: 'rgba(255, 165, 2, 0.1)',
-            border: '1px solid #ffa502',
-            borderRadius: '8px',
-            display: 'inline-block'
-          }}>
-            <span style={{ color: '#ffa502', fontWeight: 'bold', fontSize: '0.9rem' }}>
-              🚧 COMING SOON
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
