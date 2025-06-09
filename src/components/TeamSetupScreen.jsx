@@ -15,7 +15,13 @@ const TeamSetupScreen = () => {
   };
 
   const goBack = () => {
-    dispatch(setCurrentScreen('story'));
+    // In experience mode, go back to experience selection
+    // In create mode, go back to story screen
+    if (gameState.gameMode === 'experience') {
+      dispatch(setCurrentScreen('select-experience'));
+    } else {
+      dispatch(setCurrentScreen('story'));
+    }
   };
 
   return (
@@ -32,6 +38,28 @@ const TeamSetupScreen = () => {
       <div className="container">
         <Title level={1} className="title">⚔️ SETUP YOUR ARMIES</Title>
         <Paragraph className="subtitle">Review your opposing forces</Paragraph>
+        
+        {/* Show game mode indicator */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ 
+            display: 'inline-block',
+            background: gameState.gameMode === 'experience' 
+              ? 'rgba(255, 107, 53, 0.1)' 
+              : 'rgba(46, 213, 115, 0.1)',
+            border: `1px solid ${gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573'}`,
+            borderRadius: '8px',
+            padding: '0.5rem 1rem'
+          }}>
+            <Text style={{ 
+              color: gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
+            }}>
+              {gameState.gameMode === 'experience' ? '🎮 EXPERIENCE MODE' : '🛠️ CREATE MODE'}
+            </Text>
+          </div>
+        </div>
         
         <Row gutter={[32, 32]} style={{ marginTop: '2rem' }}>
           <Col xs={24} lg={8}>
@@ -56,6 +84,36 @@ const TeamSetupScreen = () => {
                 }}>
                   <Text style={{ color: '#2ed573', fontSize: '0.8rem' }}>
                     Game ID: {gameState.gameId}
+                  </Text>
+                </div>
+              )}
+
+              {/* Show experience mode info */}
+              {gameState.gameMode === 'experience' && gameState.selectedExperience && (
+                <div style={{ 
+                  marginTop: '1rem', 
+                  padding: '0.5rem',
+                  background: 'rgba(255, 107, 53, 0.1)',
+                  border: '1px solid #ff6b35',
+                  borderRadius: '4px'
+                }}>
+                  <Text style={{ color: '#ff6b35', fontSize: '0.8rem' }}>
+                    Experience: {gameState.selectedExperience}
+                  </Text>
+                </div>
+              )}
+
+              {/* Show persona count if available */}
+              {gameState.personas && gameState.personas.length > 0 && (
+                <div style={{ 
+                  marginTop: '1rem', 
+                  padding: '0.5rem',
+                  background: 'rgba(46, 213, 115, 0.1)',
+                  border: '1px solid #2ed573',
+                  borderRadius: '4px'
+                }}>
+                  <Text style={{ color: '#2ed573', fontSize: '0.8rem' }}>
+                    👥 {gameState.personas.length} warriors loaded from API
                   </Text>
                 </div>
               )}
@@ -193,6 +251,13 @@ const TeamSetupScreen = () => {
                     ⚖️ Balanced forces - victory depends on strategy and skill
                   </Text>
                 )}
+
+                {/* Show mode-specific info */}
+                {gameState.gameMode === 'experience' && (
+                  <Text style={{ color: '#ff6b35', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                    🎮 Pre-configured experience with unique warriors and backstories
+                  </Text>
+                )}
               </Space>
             </Card>
           </Col>
@@ -204,12 +269,15 @@ const TeamSetupScreen = () => {
             icon={<ArrowRightOutlined />}
             size="large"
           >
-            BUILD YOUR CHAMPIONS
+            {gameState.gameMode === 'experience' ? 'CUSTOMIZE WARRIORS' : 'BUILD YOUR CHAMPIONS'}
           </Button>
           
           <div style={{ marginTop: '1rem' }}>
             <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem' }}>
-              💡 Team sizes are locked from your story configuration
+              {gameState.gameMode === 'experience' 
+                ? '💡 Experience mode: Warriors are pre-loaded, you can customize their combat stats'
+                : '💡 Team sizes are locked from your story configuration'
+              }
             </Text>
           </div>
         </div>

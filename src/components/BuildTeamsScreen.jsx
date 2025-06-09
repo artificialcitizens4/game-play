@@ -154,8 +154,39 @@ const BuildTeamsScreen = () => {
       </Button>
       
       <div className="container">
-        <Title level={1} className="title">🏗️ BUILD YOUR CHAMPIONS</Title>
-        <Text className="subtitle">Customize your warriors for battle</Text>
+        <Title level={1} className="title">
+          {gameState.gameMode === 'experience' ? '🎮 CUSTOMIZE WARRIORS' : '🏗️ BUILD YOUR CHAMPIONS'}
+        </Title>
+        <Text className="subtitle">
+          {gameState.gameMode === 'experience' 
+            ? 'Fine-tune your pre-loaded warriors for battle'
+            : 'Customize your warriors for battle'
+          }
+        </Text>
+        
+        {/* Show mode indicator */}
+        <div style={{ textAlign: 'center', margin: '1rem 0' }}>
+          <div style={{ 
+            display: 'inline-block',
+            background: gameState.gameMode === 'experience' 
+              ? 'rgba(255, 107, 53, 0.1)' 
+              : 'rgba(46, 213, 115, 0.1)',
+            border: `1px solid ${gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573'}`,
+            borderRadius: '8px',
+            padding: '0.5rem 1rem'
+          }}>
+            <Text style={{ 
+              color: gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573',
+              fontWeight: 'bold',
+              fontSize: '0.9rem'
+            }}>
+              {gameState.gameMode === 'experience' 
+                ? '🎮 Experience Mode: Pre-loaded warriors with unique backstories'
+                : '🛠️ Create Mode: Build your custom army'
+              }
+            </Text>
+          </div>
+        </div>
         
         <div style={{ textAlign: 'center', margin: '2rem 0' }}>
           <Space size="large">

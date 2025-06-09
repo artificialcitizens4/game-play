@@ -13,6 +13,7 @@ const SelectExperienceScreen = () => {
   const dispatch = useAppDispatch();
   const experienceData = useExperienceData();
   const [selectedExperience, setSelectedExperience] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Clear experience data and fetch all data when component mounts
   useEffect(() => {
@@ -24,21 +25,32 @@ const SelectExperienceScreen = () => {
     dispatch(setCurrentScreen('main'));
   };
 
-  const handleSelectExperience = (experience) => {
+  const handleSelectExperience = async (experience) => {
     console.log('Selected experience:', experience);
     setSelectedExperience(experience.id);
+    setIsProcessing(true);
     
-    // Set the game mode first
-    dispatch(setGameMode('experience'));
-    
-    // Store the API game data directly in Redux
-    dispatch({ type: 'game/setApiGameData', payload: experience });
-    
-    // Convert personas to characters format
-    dispatch({ type: 'game/convertPersonasToCharacters' });
-    
-    // Navigate to team setup
-    dispatch(setCurrentScreen('team-setup'));
+    try {
+      // Set the game mode first
+      dispatch(setGameMode('experience'));
+      
+      // Store the API game data directly in Redux
+      dispatch({ type: 'game/setApiGameData', payload: experience });
+      
+      // Convert personas to characters format
+      dispatch({ type: 'game/convertPersonasToCharacters' });
+      
+      // Small delay to ensure state is updated
+      setTimeout(() => {
+        // Navigate to team setup screen (skipping story creation since we have experience data)
+        dispatch(setCurrentScreen('team-setup'));
+        setIsProcessing(false);
+      }, 500);
+      
+    } catch (error) {
+      console.error('Error processing experience selection:', error);
+      setIsProcessing(false);
+    }
   };
 
   const formatExperienceData = (item) => {
@@ -232,6 +244,7 @@ const SelectExperienceScreen = () => {
         onClick={goBack}
         variant="secondary"
         icon={<ArrowLeftOutlined />}
+        disabled={isProcessing}
       >
         BACK
       </Button>
@@ -246,28 +259,49 @@ const SelectExperienceScreen = () => {
             📊 {experienceData.totalLoaded} experiences available
           </Text>
         </div>
+
+        {/* Processing indicator */}
+        {isProcessing && (
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '2rem',
+            background: 'rgba(46, 213, 115, 0.1)',
+            border: '1px solid #2ed573',
+            borderRadius: '8px',
+            padding: '1rem'
+          }}>
+            <Spin 
+              indicator={<LoadingOutlined style={{ fontSize: 24, color: '#2ed573' }} spin />} 
+            />
+            <Text style={{ color: '#2ed573', marginLeft: '1rem' }}>
+              Processing experience data...
+            </Text>
+          </div>
+        )}
         
         <Row gutter={[24, 24]} style={{ marginTop: '3rem' }}>
           {experienceData.data.map((item, index) => {
             const experience = formatExperienceData(item);
+            const isSelected = selectedExperience === (experience.id || index);
             
             return (
               <Col xs={24} lg={12} key={experience.id || index}>
                 <Card 
-                  className={`experience-card ${selectedExperience === (experience.id || index) ? 'selected' : ''}`}
-                  hoverable
-                  onClick={() => handleSelectExperience(experience)}
+                  className={`experience-card ${isSelected ? 'selected' : ''}`}
+                  hoverable={!isProcessing}
+                  onClick={() => !isProcessing && handleSelectExperience(experience)}
                   style={{
-                    backgroundColor: selectedExperience === (experience.id || index)
+                    backgroundColor: isSelected
                       ? 'rgba(255, 107, 53, 0.1)' 
                       : 'rgba(46, 213, 115, 0.05)',
-                    border: selectedExperience === (experience.id || index)
+                    border: isSelected
                       ? '3px solid #ff6b35' 
                       : '2px solid #2ed573',
                     borderRadius: '15px',
                     height: '100%',
                     minHeight: '400px',
-                    cursor: 'pointer',
+                    cursor: isProcessing ? 'not-allowed' : 'pointer',
+                    opacity: isProcessing && !isSelected ? 0.6 : 1,
                     transition: 'all 0.3s ease'
                   }}
                   bordered={false}
@@ -376,7 +410,7 @@ const SelectExperienceScreen = () => {
                       )}
                     </div>
                     
-                    {selectedExperience === (experience.id || index) && (
+                    {isSelected && !isProcessing && (
                       <div style={{ textAlign: 'center', marginTop: 'auto' }}>
                         <Button 
                           variant="launch"
@@ -389,6 +423,19 @@ const SelectExperienceScreen = () => {
                           }}
                         >
                           START THIS EXPERIENCE
+                        </Button>
+                      </div>
+                    )}
+
+                    {isSelected && isProcessing && (
+                      <div style={{ textAlign: 'center', marginTop: 'auto' }}>
+                        <Button 
+                          variant="primary"
+                          icon={<LoadingOutlined spin />}
+                          size="large"
+                          disabled
+                        >
+                          LOADING EXPERIENCE...
                         </Button>
                       </div>
                     )}
