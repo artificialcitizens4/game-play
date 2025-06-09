@@ -62,7 +62,7 @@ export const submitStoryToAPI = createAsyncThunk(
         };
       }
 
-      const response = await axios.post('http://localhost:3000/gamestory', payload, {
+      const response = await axios.post('http://13.204.53.42:4000/gamestory', payload, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -110,7 +110,7 @@ export const fetchGameExperiences = createAsyncThunk(
   'api/fetchExperiences',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('http://localhost:3000/gamestory', {
+      const response = await axios.get('http://13.204.53.42:4000/gamestory', {
         timeout: 100000
       });
       
@@ -129,7 +129,7 @@ export const submitWarResults = createAsyncThunk(
   'api/submitWarResults',
   async (warData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:3000/gamestory', warData, {
+      const response = await axios.post('http://13.204.53.42:4000/gamestory', warData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -152,7 +152,7 @@ export const fetchGameDataById = createAsyncThunk(
   'api/fetchGameData',
   async (gameId, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.get(`http://localhost:3000/gamestory`, {
+      const response = await axios.get(`http://13.204.53.42:4000/gamestory`, {
         timeout: 100000
       });
       
