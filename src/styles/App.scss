@@ -13,6 +13,27 @@ $text-secondary: $charcoal-gray;
 $accent-primary: $teal;
 $accent-secondary: $electric-blue;
 
+// Base Unit System - 8px grid
+$base-unit: 8px;
+$spacing-xs: $base-unit * 1;     // 8px
+$spacing-sm: $base-unit * 2;     // 16px
+$spacing-md: $base-unit * 3;     // 24px
+$spacing-lg: $base-unit * 4;     // 32px
+$spacing-xl: $base-unit * 6;     // 48px
+$spacing-xxl: $base-unit * 8;    // 64px
+
+// Consistent padding values
+$padding-card-small: $spacing-sm;    // 16px for smaller cards
+$padding-card-large: $spacing-md;    // 24px for major containers
+$padding-screen: $spacing-lg;        // 32px for screens
+$padding-screen-mobile: $spacing-sm; // 16px for mobile screens
+$padding-container-mobile: $spacing-sm; // 16px for mobile containers
+
+// Button spacing
+$button-margin: $spacing-sm + 4px;   // 12px for improved spacing
+$button-padding-vertical: 12px;
+$button-padding-horizontal: $spacing-md; // 24px
+
 // Mixins
 @mixin futuristic-gradient($color1, $color2) {
   background: linear-gradient(135deg, $color1 0%, $color2 100%);
@@ -108,7 +129,7 @@ body {
   position: relative;
 }
 
-// Screen container and transitions
+// Screen container and transitions - UPDATED SPACING
 .screen-container {
   min-height: 100vh;
   position: relative;
@@ -116,8 +137,12 @@ body {
 
 .screen {
   min-height: 100vh;
-  padding: 32px;
+  padding: $padding-screen; // 32px consistent with design system
   animation: observerFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @media (max-width: 768px) {
+    padding: $padding-screen-mobile; // 16px on mobile
+  }
 }
 
 @keyframes observerFadeIn {
@@ -131,17 +156,22 @@ body {
   }
 }
 
+// UPDATED CONTAINER SPACING
 .container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  
+  @media (max-width: 768px) {
+    padding: 0 $padding-container-mobile; // 16px side padding on mobile
+  }
 }
 
-// Typography
+// Typography - CONFIRMED SPACING
 .title {
   font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: $spacing-md; // 24px - confirmed good
   color: $text-primary;
   font-family: 'Inter', 'Roboto', sans-serif;
   text-transform: uppercase;
@@ -166,7 +196,7 @@ body {
 
 .subtitle {
   font-size: 1.1rem;
-  margin-bottom: 48px;
+  margin-bottom: $spacing-xl; // 48px - confirmed good
   color: $text-secondary;
   font-weight: 400;
   line-height: 1.6;
@@ -202,12 +232,12 @@ body {
   }
 }
 
-// Ant Design Button Overrides
+// UPDATED BUTTON SPACING
 .ant-btn {
   @include button-base;
-  padding: 12px 24px;
+  padding: $button-padding-vertical $button-padding-horizontal; // 12px 24px
   font-size: 0.9rem;
-  margin: 8px;
+  margin: $button-margin; // Updated to 12px for improved spacing
   height: auto;
   min-height: 44px;
   
@@ -490,17 +520,17 @@ body {
   background: rgba($text-secondary, 0.2);
 }
 
-// Stats
+// UPDATED STATS SPACING
 .stats-container {
-  margin: 32px 0;
+  margin: $spacing-lg 0; // 32px 0 - confirmed good for major section breaks
 }
 
 .stat-container {
-  margin: 24px 0;
+  margin: $spacing-md 0; // 24px 0
   background: rgba($background-secondary, 0.6);
   border: 1px solid rgba($accent-primary, 0.3);
   border-radius: 12px;
-  padding: 24px;
+  padding: $padding-card-large; // 24px consistent padding for major containers
   backdrop-filter: blur(10px);
   @include clean-hover;
   animation: observerSlideIn 0.5s ease;
@@ -577,13 +607,17 @@ body {
   51%, 100% { opacity: 0; }
 }
 
-// Character profiles and team displays
+// UPDATED COMPONENT SPACING - Major containers with consistent 24px padding
 .character-profile {
   background: rgba($background-secondary, 0.8) !important;
   border: 1px solid rgba($accent-primary, 0.3) !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   @include clean-hover;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .team-config-box {
@@ -592,6 +626,10 @@ body {
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   @include observer-shadow;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .story-form {
@@ -600,6 +638,10 @@ body {
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   @include observer-shadow;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .example-box {
@@ -607,6 +649,10 @@ body {
   border: 1px solid rgba($accent-primary, 0.4) !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .war-story-container {
@@ -615,6 +661,10 @@ body {
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   @include observer-shadow;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .characters-sidebar {
@@ -622,6 +672,10 @@ body {
   border: 1px solid rgba($accent-primary, 0.3) !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .character-customization {
@@ -629,6 +683,10 @@ body {
   border: 1px solid rgba($accent-primary, 0.3) !important;
   border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+  }
 }
 
 .character-item {
@@ -643,60 +701,15 @@ body {
   }
 }
 
-// Responsive design
-@media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
-  }
-  
-  .screen {
-    padding: 16px;
-  }
-  
-  .ant-card {
-    margin: 16px 0;
-  }
-  
-  .ant-btn {
-    padding: 10px 20px;
-    font-size: 0.8rem;
-  }
-  
-  .title {
-    font-size: 2rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-  }
-}
-
-// Custom scrollbar
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: $background-secondary;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, $accent-primary, $accent-secondary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, lighten($accent-primary, 10%), lighten($accent-secondary, 10%));
-}
-
-// Special observer-style elements
+// UPDATED OBSERVER PANEL SPACING
 .observer-panel {
   background: rgba($background-secondary, 0.9);
   border: 1px solid rgba($accent-primary, 0.4);
   border-radius: 8px;
-  padding: 24px;
+  padding: $padding-card-large; // 24px consistent padding for major containers
   backdrop-filter: blur(15px);
   @include observer-shadow;
+  position: relative;
   
   &::before {
     content: '';
@@ -711,15 +724,16 @@ body {
 
 .data-grid {
   display: grid;
-  gap: 16px;
+  gap: $spacing-sm; // 16px consistent grid gap
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+// UPDATED METRIC CARD SPACING
 .metric-card {
   background: rgba($background-secondary, 0.8);
   border: 1px solid rgba($accent-primary, 0.3);
   border-radius: 8px;
-  padding: 16px;
+  padding: $padding-card-small; // 16px for smaller cards
   backdrop-filter: blur(10px);
   @include clean-hover;
   
@@ -727,7 +741,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     color: $accent-secondary;
-    margin-bottom: 8px;
+    margin-bottom: $spacing-xs; // 8px
   }
   
   .metric-label {
@@ -761,7 +775,7 @@ body {
 .simulation-status {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-xs; // 8px
   padding: 6px 12px;
   background: rgba($accent-primary, 0.1);
   border: 1px solid rgba($accent-primary, 0.3);
@@ -770,4 +784,68 @@ body {
   color: $accent-primary;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+// UPDATED RESPONSIVE DESIGN
+@media (max-width: 768px) {
+  .container {
+    padding: 0 $padding-container-mobile; // 16px side padding confirmed
+  }
+  
+  .screen {
+    padding: $padding-screen-mobile; // 16px confirmed
+  }
+  
+  .ant-card {
+    margin: $spacing-sm 0; // 16px vertical margin
+    
+    .ant-card-body {
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+  
+  .ant-btn {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    margin: $spacing-xs; // 8px margin on mobile
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .stat-container,
+  .observer-panel,
+  .team-config-box,
+  .story-form,
+  .example-box,
+  .war-story-container,
+  .characters-sidebar,
+  .character-customization {
+    .ant-card-body {
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $background-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, $accent-primary, $accent-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, lighten($accent-primary, 10%), lighten($accent-secondary, 10%));
 }
