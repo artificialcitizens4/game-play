@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, Row, Col, Typography, Space, Avatar } from 'antd';
+import { Card, Typography, Space, Row, Col, Avatar, Progress } from 'antd';
 import { ArrowLeftOutlined, RocketOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { setCurrentScreen } from '../store/slices/gameSlice';
@@ -615,7 +615,7 @@ const ViewCharactersScreen = () => {
 
       // Prepare the game initialization payload
       const gameInitPayload = {
-        storySummary: storySummary || gameState.story.background || 'An epic battle between two mighty factions.',
+        baseStory: storySummary || gameState.story.background || 'An epic battle between two mighty factions.',
         personas: formatPersonasForAPI(personas),
         battlemap: minimalBattlemap
       };
