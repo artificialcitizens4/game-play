@@ -26,7 +26,7 @@ const BattlefieldMapEditor = ({onExportMap}) => {
     // Listen for messages from the iframe
     const handleMessage = (event) => {
       // Verify the origin for security
-      if (event.origin !== 'https://imaginative-figolla-9cbf50.netlify.app') {
+      if (event.origin !== 'https://map-q.vercel.app') {
         return;
       }
 
@@ -688,7 +688,7 @@ const BattlefieldMapEditor = ({onExportMap}) => {
   };
 
   const openExternalGenerator = () => {
-    window.open('https://imaginative-figolla-9cbf50.netlify.app', '_blank', 'noopener,noreferrer');
+    window.open('https://map-q.vercel.app/', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -822,7 +822,7 @@ const BattlefieldMapEditor = ({onExportMap}) => {
           >
             <iframe
               ref={iframeRef}
-              src="https://imaginative-figolla-9cbf50.netlify.app"
+              src="https://map-q.vercel.app/"
               style={{
                 width: '100%',
                 height: '100%',
