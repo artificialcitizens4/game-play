@@ -62,7 +62,7 @@ const Button = ({
       disabled={disabled}
       icon={icon}
       style={{
-        fontFamily: "'Comic Sans MS', cursive, sans-serif",
+        fontFamily: "'Inter', 'Roboto', sans-serif",
         ...props.style
       }}
       {...props}

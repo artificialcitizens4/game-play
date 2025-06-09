@@ -13,8 +13,8 @@ const MainScreen = () => {
   useEffect(() => {
     const modeCards = document.querySelectorAll('.mode-card');
     modeCards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.3}s`;
-      card.classList.add('gentle-fade-in');
+      card.style.animationDelay = `${index * 0.2}s`;
+      card.classList.add('observer-fade-in');
     });
   }, []);
 
@@ -29,10 +29,12 @@ const MainScreen = () => {
       <SoundToggle />
       
       <div className="container">
-        <Title level={1} className="title">🌸 War Command 🌸</Title>
-        <Paragraph className="subtitle">Create your magical war adventure</Paragraph>
+        <Title level={1} className="title">War Command</Title>
+        <Paragraph className="subtitle">
+          Observe autonomous agents in strategic warfare scenarios. Create contexts, generate stories, and watch events unfold in real-time.
+        </Paragraph>
         
-        <Row gutter={[48, 24]} justify="center" style={{ marginTop: '4rem' }}>
+        <Row gutter={[48, 32]} justify="center" style={{ marginTop: '4rem' }}>
           <Col xs={24} md={12} lg={8}>
             <Card 
               className="mode-card"
@@ -40,7 +42,7 @@ const MainScreen = () => {
               onClick={showCreateMode}
               style={{
                 textAlign: 'center',
-                height: '320px',
+                height: '280px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -49,68 +51,85 @@ const MainScreen = () => {
             >
               <Space direction="vertical" size="large" style={{ width: '100%' }}>
                 <div style={{ 
-                  fontSize: '4rem',
-                  filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.1))'
+                  fontSize: '3rem',
+                  color: '#45B1E3',
+                  filter: 'drop-shadow(0 0 10px rgba(69, 177, 227, 0.3))'
                 }}>
-                  🎨
+                  <ToolOutlined />
                 </div>
                 <Title level={3} style={{ 
-                  color: '#5D4E37', 
+                  color: '#F4F4F4', 
                   margin: 0,
-                  fontFamily: "'Comic Sans MS', cursive, sans-serif"
+                  fontFamily: "'Inter', 'Roboto', sans-serif",
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px'
                 }}>
-                  Create War Story
+                  Create Scenario
                 </Title>
                 <Paragraph style={{ 
-                  color: '#8B7355', 
+                  color: '#555A62', 
                   margin: 0, 
-                  fontSize: '1.1rem',
-                  fontFamily: "'Comic Sans MS', cursive, sans-serif",
-                  lineHeight: 1.6
+                  fontSize: '0.9rem',
+                  lineHeight: 1.6,
+                  maxWidth: '240px',
+                  margin: '0 auto'
                 }}>
-                  Craft your own magical war tale with custom characters and enchanted battlefields
+                  Design war contexts and observe autonomous agent behavior in strategic simulations
                 </Paragraph>
               </Space>
             </Card>
           </Col>
         </Row>
 
-        {/* Decorative elements */}
+        {/* Observer status indicators */}
+        <div style={{
+          position: 'fixed',
+          bottom: '32px',
+          left: '32px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          zIndex: 100
+        }}>
+          <div className="simulation-status">
+            <div className="war-indicator"></div>
+            System Ready
+          </div>
+        </div>
+
+        {/* Abstract geometric elements */}
         <div style={{
           position: 'absolute',
-          top: '20%',
-          left: '10%',
-          fontSize: '2rem',
-          opacity: 0.3,
-          animation: 'gentleFloat 8s ease-in-out infinite',
+          top: '15%',
+          left: '8%',
+          width: '2px',
+          height: '60px',
+          background: 'linear-gradient(180deg, #3B8C91, transparent)',
+          opacity: 0.4,
           zIndex: -1
-        }}>
-          🦋
-        </div>
+        }}></div>
         
         <div style={{
           position: 'absolute',
-          top: '60%',
-          right: '15%',
-          fontSize: '1.5rem',
-          opacity: 0.3,
-          animation: 'gentleFloat 10s ease-in-out infinite reverse',
+          top: '25%',
+          right: '12%',
+          width: '40px',
+          height: '2px',
+          background: 'linear-gradient(90deg, #45B1E3, transparent)',
+          opacity: 0.4,
           zIndex: -1
-        }}>
-          🌿
-        </div>
+        }}></div>
         
         <div style={{
           position: 'absolute',
           bottom: '20%',
-          left: '20%',
-          fontSize: '1.8rem',
+          left: '15%',
+          width: '8px',
+          height: '8px',
+          border: '1px solid #3B8C91',
           opacity: 0.3,
-          animation: 'gentleFloat 12s ease-in-out infinite',
           zIndex: -1
-        }}>
-          ✨
-        </div>
+        }}></div>
       </div>
     </div>
   );

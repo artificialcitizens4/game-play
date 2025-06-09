@@ -9,31 +9,29 @@ const ParticleBackground = () => {
       // Clear existing particles
       particlesContainer.innerHTML = '';
 
-      // Create fewer, more gentle particles
-      for (let i = 0; i < 12; i++) {
+      // Create minimal, abstract particles for observer atmosphere
+      for (let i = 0; i < 8; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
         
-        // Vary particle sizes for a more organic feel
-        const size = Math.random() * 6 + 3; // 3-9px
+        // Small, subtle particles
+        const size = Math.random() * 3 + 1; // 1-4px
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         
-        // Random pastel colors for particles
-        const colors = ['#FFB3BA', '#BFEFFF', '#B5EAD7', '#FFDFBA', '#C7CEEA', '#FFD1DC'];
+        // Minimal color palette - teal and electric blue
+        const colors = ['#3B8C91', '#45B1E3'];
         particle.style.background = colors[Math.floor(Math.random() * colors.length)];
         
-        // Add subtle border for Studio Ghibli feel
-        particle.style.border = '1px solid rgba(139, 115, 85, 0.3)';
-        
-        particle.style.animationDelay = Math.random() * 12 + 's';
-        particle.style.animationDuration = (Math.random() * 6 + 10) + 's'; // Slower, more gentle
-        
-        // Add some particles with different shapes
-        if (Math.random() > 0.7) {
-          particle.style.borderRadius = '30% 70% 70% 30% / 30% 30% 70% 70%'; // Organic shape
+        // Some particles as small geometric shapes
+        if (Math.random() > 0.6) {
+          particle.style.borderRadius = '0'; // Square particles
+          particle.style.transform = 'rotate(45deg)'; // Diamond shape
         }
+        
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's'; // Very slow, contemplative
         
         particlesContainer.appendChild(particle);
       }
@@ -41,8 +39,8 @@ const ParticleBackground = () => {
 
     createParticles();
 
-    // Recreate particles less frequently for a calmer effect
-    const interval = setInterval(createParticles, 15000);
+    // Recreate particles very infrequently for minimal distraction
+    const interval = setInterval(createParticles, 25000);
 
     return () => clearInterval(interval);
   }, []);

@@ -26,17 +26,17 @@ const SoundToggle = ({ className = '' }) => {
       className={`sound-toggle ${className}`}
       style={{
         position: 'fixed',
-        top: '30px',
-        right: '30px',
+        top: '32px',
+        right: '32px',
         zIndex: 1000,
-        width: '55px',
-        height: '55px',
+        width: '48px',
+        height: '48px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: '1.2rem'
+        fontSize: '1.1rem'
       }}
-      title={uiState.soundEnabled ? 'Mute Sound' : 'Enable Sound'}
+      title={uiState.soundEnabled ? 'Mute Audio' : 'Enable Audio'}
     />
   );
 };

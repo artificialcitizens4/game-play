@@ -1,51 +1,54 @@
-// Studio Ghibli Inspired Variables
-$pastel-pink: #FFB3BA;
-$pastel-blue: #BFEFFF;
-$pastel-green: #B5EAD7;
-$pastel-yellow: #FFDFBA;
-$pastel-lavender: #C7CEEA;
-$pastel-peach: #FFD1DC;
-$pastel-mint: #C1FFC1;
-$pastel-cream: #FFF8DC;
+// Futuristic Observer Variables
+$deep-slate-blue: #2F4F70;
+$gunmetal-gray: #2A2E36;
+$soft-white: #F4F4F4;
+$charcoal-gray: #555A62;
+$teal: #3B8C91;
+$electric-blue: #45B1E3;
 
-$soft-white: #FEFEFE;
-$warm-gray: #F5F5F0;
-$gentle-shadow: rgba(0, 0, 0, 0.08);
-$outline-color: #8B7355;
-$text-primary: #5D4E37;
-$text-secondary: #8B7355;
+$background-primary: $deep-slate-blue;
+$background-secondary: $gunmetal-gray;
+$text-primary: $soft-white;
+$text-secondary: $charcoal-gray;
+$accent-primary: $teal;
+$accent-secondary: $electric-blue;
 
 // Mixins
-@mixin soft-gradient($color1, $color2) {
+@mixin futuristic-gradient($color1, $color2) {
   background: linear-gradient(135deg, $color1 0%, $color2 100%);
 }
 
-@mixin ghibli-shadow {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 
-              0 4px 16px rgba(0, 0, 0, 0.04),
-              0 2px 8px rgba(0, 0, 0, 0.02);
+@mixin observer-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              0 4px 16px rgba(0, 0, 0, 0.2),
+              0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@mixin gentle-hover {
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+@mixin subtle-glow($color) {
+  box-shadow: 0 0 20px rgba($color, 0.3);
+}
+
+@mixin clean-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover {
-    transform: translateY(-4px) scale(1.02);
-    @include ghibli-shadow;
+    transform: translateY(-2px);
+    @include subtle-glow($accent-primary);
   }
 }
 
 @mixin button-base {
-  border: 3px solid $outline-color;
-  border-radius: 25px;
+  border: 1px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-weight: 600;
-  text-transform: none;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
   
   &::before {
     content: '';
@@ -54,8 +57,8 @@ $text-secondary: #8B7355;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.6s ease;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
   }
   
   &:hover::before {
@@ -63,16 +66,16 @@ $text-secondary: #8B7355;
   }
   
   &:hover {
-    transform: translateY(-3px);
-    @include ghibli-shadow;
+    transform: translateY(-1px);
+    @include subtle-glow($accent-secondary);
   }
   
   &:active {
-    transform: translateY(-1px) scale(0.98);
+    transform: translateY(0);
   }
   
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.4;
     cursor: not-allowed;
     transform: none;
   }
@@ -86,12 +89,18 @@ $text-secondary: #8B7355;
 }
 
 body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  @include soft-gradient($pastel-cream, $warm-gray);
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background: $background-primary;
   color: $text-primary;
   overflow-x: hidden;
   min-height: 100vh;
   background-attachment: fixed;
+  
+  // Subtle space-like background pattern
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(69, 177, 227, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 140, 145, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(42, 46, 54, 0.3) 0%, transparent 50%);
 }
 
 .app {
@@ -107,18 +116,18 @@ body {
 
 .screen {
   min-height: 100vh;
-  padding: 20px;
-  animation: gentleFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 32px;
+  animation: observerFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes gentleFadeIn {
+@keyframes observerFadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -130,134 +139,153 @@ body {
 
 // Typography
 .title {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 2rem;
-  animation: gentlePulse 3s ease-in-out infinite;
-  background: linear-gradient(45deg, $pastel-pink, $pastel-blue, $pastel-green);
-  background-size: 200% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  margin-bottom: 24px;
+  color: $text-primary;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+  }
   
   @media (max-width: 768px) {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 
 .subtitle {
-  font-size: 1.3rem;
-  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  margin-bottom: 48px;
   color: $text-secondary;
-  animation: gentleSlideUp 1s ease 0.3s both;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
   
   @media (max-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 
 // Sound Toggle
 .sound-toggle {
-  background: $pastel-mint !important;
-  border: 3px solid $outline-color !important;
-  color: $text-primary !important;
-  border-radius: 50% !important;
-  @include gentle-hover;
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid $accent-primary !important;
+  color: $accent-primary !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px) !important;
+  @include clean-hover;
+  
+  &:hover {
+    background: rgba($accent-primary, 0.1) !important;
+    color: $accent-secondary !important;
+    border-color: $accent-secondary !important;
+  }
   
   @media (max-width: 768px) {
-    top: 15px !important;
-    right: 15px !important;
-    width: 45px !important;
-    height: 45px !important;
+    top: 16px !important;
+    right: 16px !important;
+    width: 44px !important;
+    height: 44px !important;
   }
 }
 
 // Ant Design Button Overrides
 .ant-btn {
   @include button-base;
-  padding: 15px 30px;
-  font-size: 1.1rem;
-  margin: 10px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  margin: 8px;
   height: auto;
+  min-height: 44px;
   
   &.btn-primary {
-    @include soft-gradient($pastel-green, $pastel-mint);
-    border-color: $outline-color;
+    background: $accent-secondary;
+    border-color: $accent-secondary;
     color: $text-primary;
     
     &:hover {
-      @include soft-gradient(lighten($pastel-green, 5%), lighten($pastel-mint, 5%));
-      border-color: darken($outline-color, 10%);
+      background: $accent-primary;
+      border-color: $accent-primary;
       color: $text-primary;
     }
   }
   
   &.btn-secondary {
-    @include soft-gradient($pastel-peach, $pastel-pink);
-    border-color: $outline-color;
-    color: $text-primary;
+    background: transparent;
+    border-color: $accent-secondary;
+    color: $accent-secondary;
     
     &:hover {
-      @include soft-gradient(lighten($pastel-peach, 5%), lighten($pastel-pink, 5%));
-      border-color: darken($outline-color, 10%);
+      background: $accent-secondary;
+      border-color: $accent-secondary;
       color: $text-primary;
     }
   }
   
   &.btn-save {
-    @include soft-gradient($pastel-yellow, $pastel-peach);
-    border-color: $outline-color;
+    background: $accent-primary;
+    border-color: $accent-primary;
     color: $text-primary;
-    font-size: 1.2rem;
-    padding: 18px 35px;
+    font-size: 1rem;
+    padding: 16px 32px;
     
     &:hover {
-      @include soft-gradient(lighten($pastel-yellow, 5%), lighten($pastel-peach, 5%));
-      border-color: darken($outline-color, 10%);
+      background: lighten($accent-primary, 10%);
+      border-color: lighten($accent-primary, 10%);
       color: $text-primary;
     }
   }
   
   &.btn-launch {
-    @include soft-gradient($pastel-blue, $pastel-lavender);
-    border-color: $outline-color;
+    background: linear-gradient(135deg, $accent-secondary, $accent-primary);
+    border-color: transparent;
     color: $text-primary;
-    font-size: 1.4rem;
-    padding: 20px 40px;
+    font-size: 1.1rem;
+    padding: 18px 36px;
+    font-weight: 600;
     
     &:hover {
-      @include soft-gradient(lighten($pastel-blue, 5%), lighten($pastel-lavender, 5%));
-      border-color: darken($outline-color, 10%);
-      color: $text-primary;
-      animation: gentleBounce 0.6s ease;
+      background: linear-gradient(135deg, lighten($accent-secondary, 10%), lighten($accent-primary, 10%));
+      transform: translateY(-2px);
+      @include subtle-glow($accent-secondary);
     }
   }
 }
 
 .back-btn {
   position: fixed;
-  top: 30px;
-  left: 30px;
+  top: 32px;
+  left: 32px;
   z-index: 1000;
-  @include soft-gradient($pastel-cream, $soft-white);
-  border: 3px solid $outline-color;
-  color: $text-primary;
+  background: rgba($background-secondary, 0.9);
+  border: 1px solid $accent-primary;
+  color: $accent-primary;
   padding: 12px 20px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
   backdrop-filter: blur(10px);
-  @include ghibli-shadow;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  @include observer-shadow;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover {
-    @include soft-gradient(lighten($pastel-cream, 5%), lighten($soft-white, 2%));
-    border-color: darken($outline-color, 10%);
-    color: $text-primary;
-    transform: translateX(-5px) translateY(-2px);
+    background: rgba($accent-primary, 0.1);
+    border-color: $accent-secondary;
+    color: $accent-secondary;
+    transform: translateX(-4px);
   }
   
   &::before {
@@ -265,31 +293,32 @@ body {
   }
   
   @media (max-width: 768px) {
-    top: 15px;
-    left: 15px;
-    padding: 10px 15px;
-    font-size: 0.9rem;
+    top: 16px;
+    left: 16px;
+    padding: 10px 16px;
+    font-size: 0.8rem;
   }
 }
 
 .skip-btn {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 32px;
+  right: 32px;
   z-index: 1000;
 }
 
 // Ant Design Card Overrides
 .ant-card {
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color;
-  border-radius: 25px;
-  @include ghibli-shadow;
+  background: rgba($background-secondary, 0.6);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  @include observer-shadow;
   
   .ant-card-head {
-    border-bottom: 2px solid rgba($outline-color, 0.3);
+    border-bottom: 1px solid rgba($accent-primary, 0.2);
     background: transparent;
-    border-radius: 22px 22px 0 0;
+    border-radius: 16px 16px 0 0;
   }
   
   .ant-card-body {
@@ -299,72 +328,80 @@ body {
 
 // Mode selection
 .mode-card {
-  @include gentle-hover;
+  @include clean-hover;
   position: relative;
   overflow: hidden;
-  @include soft-gradient($pastel-mint, $pastel-green);
+  background: rgba($background-secondary, 0.8);
+  backdrop-filter: blur(15px);
   
   &::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: rotate(45deg);
-    transition: all 0.8s ease;
-    opacity: 0;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba($accent-secondary, 0.1), transparent);
+    transition: left 0.8s ease;
   }
   
   &:hover::before {
-    animation: gentleShine 1s ease;
+    left: 100%;
+  }
+  
+  &:hover {
+    border-color: $accent-secondary;
+    @include subtle-glow($accent-secondary);
   }
 }
 
 // Experience selection
 .experience-card {
-  @include gentle-hover;
+  @include clean-hover;
   position: relative;
   overflow: hidden;
-  @include soft-gradient($pastel-blue, $pastel-lavender);
+  background: rgba($background-secondary, 0.8);
+  backdrop-filter: blur(15px);
   
   &::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: rotate(45deg);
-    transition: all 0.8s ease;
-    opacity: 0;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba($accent-primary, 0.1), transparent);
+    transition: left 0.8s ease;
   }
   
   &:hover::before {
-    animation: gentleShine 1s ease;
+    left: 100%;
   }
   
   &.selected {
-    transform: translateY(-8px) scale(1.02);
-    @include ghibli-shadow;
-    @include soft-gradient($pastel-pink, $pastel-peach);
+    transform: translateY(-4px);
+    @include subtle-glow($accent-primary);
+    border-color: $accent-primary;
+    background: rgba($accent-primary, 0.1);
     
     &::after {
-      content: '✓ Selected';
+      content: 'SELECTED';
       position: absolute;
-      top: 15px;
-      right: 15px;
-      @include soft-gradient($pastel-yellow, $pastel-peach);
+      top: 16px;
+      right: 16px;
+      background: $accent-primary;
       color: $text-primary;
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 1px;
-      border: 2px solid $outline-color;
     }
+  }
+  
+  &:hover {
+    border-color: $accent-secondary;
+    @include subtle-glow($accent-secondary);
   }
 }
 
@@ -372,18 +409,20 @@ body {
 .ant-input,
 .ant-input-number,
 .ant-input-number-input {
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color;
-  border-radius: 15px;
+  background: rgba($background-secondary, 0.8);
+  border: 1px solid rgba($accent-primary, 0.5);
+  border-radius: 8px;
   color: $text-primary;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 12px 16px;
+  backdrop-filter: blur(10px);
   
   &:focus,
   &:hover {
-    border-color: darken($outline-color, 10%);
-    @include ghibli-shadow;
+    border-color: $accent-secondary;
+    @include subtle-glow($accent-secondary);
+    background: rgba($background-secondary, 0.9);
   }
   
   &::placeholder {
@@ -395,17 +434,17 @@ body {
   width: 100%;
   
   .ant-input-number-handler-wrap {
-    @include soft-gradient($pastel-mint, $pastel-green);
-    border-left: 2px solid $outline-color;
-    border-radius: 0 12px 12px 0;
+    background: rgba($background-secondary, 0.8);
+    border-left: 1px solid rgba($accent-primary, 0.5);
+    border-radius: 0 8px 8px 0;
   }
   
   .ant-input-number-handler {
     border: none;
-    color: $text-primary;
+    color: $accent-primary;
     
     &:hover {
-      color: darken($text-primary, 15%);
+      color: $accent-secondary;
     }
   }
 }
@@ -413,56 +452,58 @@ body {
 // Ant Design Slider Overrides
 .ant-slider {
   .ant-slider-rail {
-    background: rgba($outline-color, 0.2);
-    height: 8px;
-    border-radius: 4px;
+    background: rgba($text-secondary, 0.3);
+    height: 6px;
+    border-radius: 3px;
   }
   
   .ant-slider-track {
-    background: linear-gradient(90deg, $pastel-green, $pastel-blue);
-    height: 8px;
-    border-radius: 4px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+    height: 6px;
+    border-radius: 3px;
   }
   
   .ant-slider-handle {
-    border: 4px solid $outline-color;
-    background: $soft-white;
-    width: 20px;
-    height: 20px;
-    @include ghibli-shadow;
+    border: 3px solid $accent-secondary;
+    background: $text-primary;
+    width: 18px;
+    height: 18px;
+    @include subtle-glow($accent-secondary);
     
     &:hover,
     &:focus {
-      border-color: darken($outline-color, 10%);
-      @include ghibli-shadow;
+      border-color: $accent-primary;
+      @include subtle-glow($accent-primary);
     }
   }
 }
 
 // Ant Design Progress Overrides
 .ant-progress-bg {
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+  background: linear-gradient(90deg, $accent-primary, $accent-secondary);
 }
 
 .ant-progress-inner {
-  border-radius: 10px;
-  background: rgba($outline-color, 0.1);
+  border-radius: 4px;
+  background: rgba($text-secondary, 0.2);
 }
 
 // Stats
 .stats-container {
-  margin: 2rem 0;
+  margin: 32px 0;
 }
 
 .stat-container {
-  margin: 2rem 0;
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color;
-  border-radius: 20px;
-  padding: 1.5rem;
-  @include gentle-hover;
-  animation: gentleSlideIn 0.6s ease;
+  margin: 24px 0;
+  background: rgba($background-secondary, 0.6);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  @include clean-hover;
+  animation: observerSlideIn 0.5s ease;
   animation-fill-mode: both;
   
   &:nth-child(1) { animation-delay: 0.1s; }
@@ -471,13 +512,14 @@ body {
   &:nth-child(4) { animation-delay: 0.4s; }
   
   &:hover {
-    @include soft-gradient(lighten($soft-white, 2%), lighten($pastel-cream, 5%));
-    border-color: darken($outline-color, 10%);
-    transform: translateX(10px) translateY(-3px);
+    background: rgba($background-secondary, 0.8);
+    border-color: $accent-secondary;
+    transform: translateX(8px) translateY(-2px);
+    @include subtle-glow($accent-secondary);
   }
 }
 
-// Particles
+// Particles - Minimal and abstract
 .particles {
   position: fixed;
   top: 0;
@@ -490,81 +532,38 @@ body {
 
 .particle {
   position: absolute;
-  background: $pastel-pink;
+  background: $accent-primary;
   border-radius: 50%;
-  animation: gentleFloat 12s infinite linear;
-  opacity: 0.6;
+  animation: observerFloat 20s infinite linear;
+  opacity: 0.3;
 }
 
 // Animations
-@keyframes gentlePulse {
-  0%, 100% { 
-    background-position: 0% 50%;
-  }
-  50% { 
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes gentleBounce {
-  0%, 100% { 
-    transform: translateY(-3px) scale(1.02);
-  }
-  50% { 
-    transform: translateY(-6px) scale(1.04);
-  }
-}
-
-@keyframes gentleSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gentleSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes gentleShine {
-  0% { 
-    transform: translateX(-100%) translateY(-100%) rotate(45deg); 
-    opacity: 0; 
-  }
-  50% { 
-    opacity: 0.6; 
-  }
-  100% { 
-    transform: translateX(100%) translateY(100%) rotate(45deg); 
-    opacity: 0; 
-  }
-}
-
-@keyframes gentleFloat {
+@keyframes observerFloat {
   0% {
-    transform: translateY(100vh) rotate(0deg) scale(0.8);
+    transform: translateY(100vh) translateX(0) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.6;
+    opacity: 0.3;
   }
   90% {
-    opacity: 0.6;
+    opacity: 0.3;
   }
   100% {
-    transform: translateY(-100px) rotate(180deg) scale(1.2);
+    transform: translateY(-100px) translateX(50px) rotate(180deg);
     opacity: 0;
+  }
+}
+
+@keyframes observerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -580,101 +579,195 @@ body {
 
 // Character profiles and team displays
 .character-profile {
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
-  @include gentle-hover;
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include clean-hover;
 }
 
 .team-config-box {
-  @include soft-gradient($pastel-mint, $pastel-green);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
-  @include ghibli-shadow;
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
 }
 
 .story-form {
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
-  @include ghibli-shadow;
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
 }
 
 .example-box {
-  @include soft-gradient($pastel-yellow, $pastel-peach);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
+  background: rgba($accent-primary, 0.1) !important;
+  border: 1px solid rgba($accent-primary, 0.4) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .war-story-container {
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
-  @include ghibli-shadow;
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
 }
 
 .characters-sidebar {
-  @include soft-gradient($pastel-blue, $pastel-lavender);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .character-customization {
-  @include soft-gradient($soft-white, $pastel-cream);
-  border: 3px solid $outline-color !important;
-  border-radius: 25px !important;
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .character-item {
-  border-radius: 15px !important;
-  @include gentle-hover;
+  border-radius: 8px !important;
+  @include clean-hover;
+  background: rgba($background-secondary, 0.4) !important;
   
   &.active {
-    @include soft-gradient($pastel-pink, $pastel-peach);
-    border: 3px solid darken($outline-color, 10%) !important;
+    background: rgba($accent-primary, 0.2) !important;
+    border: 1px solid $accent-primary !important;
+    @include subtle-glow($accent-primary);
   }
 }
 
 // Responsive design
 @media (max-width: 768px) {
   .container {
-    padding: 0 1rem;
+    padding: 0 16px;
+  }
+  
+  .screen {
+    padding: 16px;
   }
   
   .ant-card {
-    margin: 1rem 0;
+    margin: 16px 0;
   }
   
   .ant-btn {
-    padding: 12px 20px;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 0.8rem;
   }
   
   .title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
   
   .subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 
 // Custom scrollbar
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: $pastel-cream;
-  border-radius: 6px;
+  background: $background-secondary;
 }
 
 ::-webkit-scrollbar-thumb {
-  @include soft-gradient($pastel-green, $pastel-blue);
-  border-radius: 6px;
-  border: 2px solid $outline-color;
+  background: linear-gradient(180deg, $accent-primary, $accent-secondary);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @include soft-gradient(darken($pastel-green, 5%), darken($pastel-blue, 5%));
+  background: linear-gradient(180deg, lighten($accent-primary, 10%), lighten($accent-secondary, 10%));
+}
+
+// Special observer-style elements
+.observer-panel {
+  background: rgba($background-secondary, 0.9);
+  border: 1px solid rgba($accent-primary, 0.4);
+  border-radius: 8px;
+  padding: 24px;
+  backdrop-filter: blur(15px);
+  @include observer-shadow;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+  }
+}
+
+.data-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.metric-card {
+  background: rgba($background-secondary, 0.8);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  @include clean-hover;
+  
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $accent-secondary;
+    margin-bottom: 8px;
+  }
+  
+  .metric-label {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+// Abstract war visualization elements
+.war-indicator {
+  width: 4px;
+  height: 4px;
+  background: $accent-secondary;
+  border-radius: 50%;
+  animation: warPulse 2s ease-in-out infinite;
+}
+
+@keyframes warPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.simulation-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba($accent-primary, 0.1);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: $accent-primary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
