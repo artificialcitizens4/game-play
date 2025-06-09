@@ -34,6 +34,33 @@ $button-margin: $spacing-sm + 4px;   // 12px for improved spacing
 $button-padding-vertical: 12px;
 $button-padding-horizontal: $spacing-md; // 24px
 
+// Typography Scale
+$font-size-title: 3rem;        // h1 - Main titles
+$font-size-subtitle: 1.5rem;   // h2 - Subtitles (updated from 1.1rem)
+$font-size-section: 1.25rem;   // h3 - Section titles/card headers
+$font-size-body: 1rem;         // p - Standard body text
+$font-size-button: 0.9rem;     // Buttons and inputs
+$font-size-small: 0.8rem;      // Labels and small text
+
+// Typography line heights
+$line-height-title: 1.2;
+$line-height-subtitle: 1.5;    // Updated for better readability
+$line-height-section: 1.3;
+$line-height-body: 1.6;
+
+// Typography letter spacing
+$letter-spacing-title: 3px;
+$letter-spacing-uppercase: 1px;
+$letter-spacing-normal: 0;
+
+// Mobile typography scale
+$font-size-title-mobile: 2rem;
+$font-size-subtitle-mobile: 1.2rem;
+$font-size-section-mobile: 1.1rem;
+$font-size-body-mobile: 0.9rem;
+$font-size-button-mobile: 0.8rem;
+$font-size-small-mobile: 0.7rem;
+
 // Mixins
 @mixin futuristic-gradient($color1, $color2) {
   background: linear-gradient(135deg, $color1 0%, $color2 100%);
@@ -65,7 +92,7 @@ $button-padding-horizontal: $spacing-md; // 24px
   font-family: 'Inter', 'Roboto', sans-serif;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: $letter-spacing-uppercase;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -116,6 +143,8 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   background-attachment: fixed;
+  font-size: $font-size-body;
+  line-height: $line-height-body;
   
   // Subtle space-like background pattern
   background-image: 
@@ -129,7 +158,7 @@ body {
   position: relative;
 }
 
-// Screen container and transitions - UPDATED SPACING
+// Screen container and transitions
 .screen-container {
   min-height: 100vh;
   position: relative;
@@ -156,7 +185,7 @@ body {
   }
 }
 
-// UPDATED CONTAINER SPACING
+// Container spacing
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -167,15 +196,16 @@ body {
   }
 }
 
-// Typography - CONFIRMED SPACING
+// Typography Scale Implementation
 .title {
-  font-size: 3rem;
+  font-size: $font-size-title;
   font-weight: 700;
   margin-bottom: $spacing-md; // 24px - confirmed good
   color: $text-primary;
   font-family: 'Inter', 'Roboto', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: $letter-spacing-title;
+  line-height: $line-height-title;
   position: relative;
   
   &::after {
@@ -190,22 +220,57 @@ body {
   }
   
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: $font-size-title-mobile;
   }
 }
 
 .subtitle {
-  font-size: 1.1rem;
+  font-size: $font-size-subtitle; // Updated from 1.1rem to 1.5rem
   margin-bottom: $spacing-xl; // 48px - confirmed good
   color: $text-secondary;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: $line-height-subtitle; // Updated to 1.5 for better readability
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: $font-size-subtitle-mobile;
+  }
+}
+
+// Section titles (h3) for card headers
+h3, .section-title {
+  font-size: $font-size-section;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: $line-height-section;
+  margin-bottom: $spacing-sm;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-section-mobile;
+  }
+}
+
+// Body text standardization
+p, .body-text {
+  font-size: $font-size-body;
+  line-height: $line-height-body;
+  color: $text-primary;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-body-mobile;
+  }
+}
+
+// Small text and labels
+.small-text, .metric-label, .simulation-status {
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-uppercase;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-small-mobile;
   }
 }
 
@@ -232,11 +297,11 @@ body {
   }
 }
 
-// UPDATED BUTTON SPACING
+// Button typography and spacing
 .ant-btn {
   @include button-base;
   padding: $button-padding-vertical $button-padding-horizontal; // 12px 24px
-  font-size: 0.9rem;
+  font-size: $font-size-button; // 0.9rem
   margin: $button-margin; // Updated to 12px for improved spacing
   height: auto;
   min-height: 44px;
@@ -269,7 +334,7 @@ body {
     background: $accent-primary;
     border-color: $accent-primary;
     color: $text-primary;
-    font-size: 1rem;
+    font-size: $font-size-body; // Updated to 1rem
     padding: 16px 32px;
     
     &:hover {
@@ -283,7 +348,7 @@ body {
     background: linear-gradient(135deg, $accent-secondary, $accent-primary);
     border-color: transparent;
     color: $text-primary;
-    font-size: 1.1rem;
+    font-size: 1.1rem; // Updated to fit scale better
     padding: 18px 36px;
     font-weight: 600;
     
@@ -292,6 +357,10 @@ body {
       transform: translateY(-2px);
       @include subtle-glow($accent-secondary);
     }
+  }
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-button-mobile;
   }
 }
 
@@ -304,12 +373,14 @@ body {
   border: 1px solid $accent-primary;
   color: $accent-primary;
   padding: 12px 20px;
-  font-size: 0.9rem;
+  font-size: $font-size-button;
   font-weight: 500;
   border-radius: 8px;
   backdrop-filter: blur(10px);
   @include observer-shadow;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: $letter-spacing-uppercase;
+  text-transform: uppercase;
   
   &:hover {
     background: rgba($accent-primary, 0.1);
@@ -326,7 +397,7 @@ body {
     top: 16px;
     left: 16px;
     padding: 10px 16px;
-    font-size: 0.8rem;
+    font-size: $font-size-button-mobile;
   }
 }
 
@@ -349,10 +420,25 @@ body {
     border-bottom: 1px solid rgba($accent-primary, 0.2);
     background: transparent;
     border-radius: 16px 16px 0 0;
+    
+    .ant-card-head-title {
+      font-size: $font-size-section;
+      font-weight: 600;
+      color: $text-primary;
+      
+      @media (max-width: 768px) {
+        font-size: $font-size-section-mobile;
+      }
+    }
   }
   
   .ant-card-body {
     background: transparent;
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -423,9 +509,9 @@ body {
       color: $text-primary;
       padding: 6px 12px;
       border-radius: 4px;
-      font-size: 0.7rem;
+      font-size: $font-size-small;
       font-weight: 600;
-      letter-spacing: 1px;
+      letter-spacing: $letter-spacing-uppercase;
     }
   }
   
@@ -444,7 +530,7 @@ body {
   border-radius: 8px;
   color: $text-primary;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: $font-size-button;
   padding: 12px 16px;
   backdrop-filter: blur(10px);
   
@@ -457,6 +543,10 @@ body {
   
   &::placeholder {
     color: rgba($text-secondary, 0.7);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-button-mobile;
   }
 }
 
@@ -520,7 +610,7 @@ body {
   background: rgba($text-secondary, 0.2);
 }
 
-// UPDATED STATS SPACING
+// Stats container spacing
 .stats-container {
   margin: $spacing-lg 0; // 32px 0 - confirmed good for major section breaks
 }
@@ -607,7 +697,7 @@ body {
   51%, 100% { opacity: 0; }
 }
 
-// UPDATED COMPONENT SPACING - Major containers with consistent 24px padding
+// Component spacing - Major containers with consistent 24px padding
 .character-profile {
   background: rgba($background-secondary, 0.8) !important;
   border: 1px solid rgba($accent-primary, 0.3) !important;
@@ -617,6 +707,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -629,6 +724,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -641,6 +741,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -652,6 +757,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -664,6 +774,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -675,6 +790,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -686,6 +806,11 @@ body {
   
   .ant-card-body {
     padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+    }
   }
 }
 
@@ -701,7 +826,7 @@ body {
   }
 }
 
-// UPDATED OBSERVER PANEL SPACING
+// Observer panel spacing
 .observer-panel {
   background: rgba($background-secondary, 0.9);
   border: 1px solid rgba($accent-primary, 0.4);
@@ -710,6 +835,7 @@ body {
   backdrop-filter: blur(15px);
   @include observer-shadow;
   position: relative;
+  font-size: $font-size-body;
   
   &::before {
     content: '';
@@ -720,6 +846,10 @@ body {
     height: 2px;
     background: linear-gradient(90deg, $accent-primary, $accent-secondary);
   }
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-body-mobile;
+  }
 }
 
 .data-grid {
@@ -728,7 +858,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-// UPDATED METRIC CARD SPACING
+// Metric card spacing
 .metric-card {
   background: rgba($background-secondary, 0.8);
   border: 1px solid rgba($accent-primary, 0.3);
@@ -742,13 +872,18 @@ body {
     font-weight: 700;
     color: $accent-secondary;
     margin-bottom: $spacing-xs; // 8px
+    line-height: 1.2;
   }
   
   .metric-label {
-    font-size: 0.9rem;
+    font-size: $font-size-small;
     color: $text-secondary;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: $letter-spacing-uppercase;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-small-mobile;
+    }
   }
 }
 
@@ -780,13 +915,17 @@ body {
   background: rgba($accent-primary, 0.1);
   border: 1px solid rgba($accent-primary, 0.3);
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: $font-size-small;
   color: $accent-primary;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: $letter-spacing-uppercase;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-small-mobile;
+  }
 }
 
-// UPDATED RESPONSIVE DESIGN
+// Responsive design
 @media (max-width: 768px) {
   .container {
     padding: 0 $padding-container-mobile; // 16px side padding confirmed
@@ -806,16 +945,7 @@ body {
   
   .ant-btn {
     padding: 10px 20px;
-    font-size: 0.8rem;
     margin: $spacing-xs; // 8px margin on mobile
-  }
-  
-  .title {
-    font-size: 2rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
   }
   
   .stat-container,
