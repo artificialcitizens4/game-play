@@ -144,14 +144,35 @@ export const initializeGameBattle = createAsyncThunk(
 // New async thunk for fetching experience mode data (simplified without pagination)
 export const fetchExperienceData = createAsyncThunk(
   'api/fetchExperienceData',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/gamestory`, {
         timeout: 100000
       });
       
+      console.log('Experience data API response:', response.data);
+      
+      // Handle different response structures
+      let experienceData = [];
+      
+      if (response.data) {
+        if (Array.isArray(response.data)) {
+          experienceData = response.data;
+        } else if (response.data.data && Array.isArray(response.data.data)) {
+          experienceData = response.data.data;
+        } else if (response.data.personas) {
+          // Single experience object
+          experienceData = [response.data];
+        } else {
+          console.warn('Unexpected API response structure:', response.data);
+          experienceData = [response.data];
+        }
+      }
+      
+      console.log('Processed experience data:', experienceData);
+      
       return {
-        data: response.data,
+        data: experienceData,
         hasMore: false // No pagination, so no more data to load
       };
     } catch (error) {

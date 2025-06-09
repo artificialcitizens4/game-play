@@ -92,20 +92,12 @@ const gameSlice = createSlice({
       // Find and update the persona in the personas array
       const personaIndex = state.personas.findIndex(p => p.name === personaName);
       if (personaIndex !== -1) {
-        // Only update the four editable traits
-        const editableTraits = ['morale', 'strength', 'fatigue', 'health'];
-        const updatedTraits = {};
-        
-        editableTraits.forEach(trait => {
-          if (traits[trait] !== undefined) {
-            updatedTraits[trait] = traits[trait];
+        // Update the persona directly with the new trait values
+        Object.keys(traits).forEach(traitKey => {
+          if (traits[traitKey] !== undefined) {
+            state.personas[personaIndex][traitKey] = traits[traitKey];
           }
         });
-        
-        state.personas[personaIndex] = { 
-          ...state.personas[personaIndex],
-          ...updatedTraits
-        };
       }
       
       // Track modifications for potential API sync later
@@ -135,6 +127,8 @@ const gameSlice = createSlice({
     // Updated action to store new API response data structure
     setApiGameData: (state, action) => {
       const apiData = action.payload;
+      console.log('Setting API game data:', apiData);
+      
       state.apiGameData = apiData;
       state.gameId = apiData.id;
       state.personas = apiData.personas || [];
@@ -152,6 +146,8 @@ const gameSlice = createSlice({
       // Extract faction names for teams from personas
       if (apiData.personas && apiData.personas.length > 0) {
         const uniqueFactions = [...new Set(apiData.personas.map(p => p.faction))];
+        console.log('Unique factions found:', uniqueFactions);
+        
         if (uniqueFactions.length >= 2) {
           state.story.team1Name = uniqueFactions[0];
           state.story.team2Name = uniqueFactions[1];
@@ -162,6 +158,21 @@ const gameSlice = createSlice({
           
           state.story.team1Size = team1Personas.length;
           state.story.team2Size = team2Personas.length;
+        } else if (uniqueFactions.length === 1) {
+          // If only one faction, split into two teams
+          const allPersonas = apiData.personas;
+          const midPoint = Math.ceil(allPersonas.length / 2);
+          
+          state.story.team1Name = uniqueFactions[0] + ' Alpha';
+          state.story.team2Name = uniqueFactions[0] + ' Beta';
+          state.story.team1Size = midPoint;
+          state.story.team2Size = allPersonas.length - midPoint;
+          
+          // Update personas to have the new faction names
+          state.personas = apiData.personas.map((persona, index) => ({
+            ...persona,
+            faction: index < midPoint ? state.story.team1Name : state.story.team2Name
+          }));
         }
       }
     },
@@ -169,6 +180,8 @@ const gameSlice = createSlice({
     // Updated action to convert personas to characters with new structure
     convertPersonasToCharacters: (state) => {
       if (!state.personas.length) return;
+      
+      console.log('Converting personas to characters:', state.personas);
       
       const newCharacters = {};
       const team1Name = state.story.team1Name;
@@ -189,6 +202,8 @@ const gameSlice = createSlice({
         const team = persona.faction === team1Name ? 1 : 2;
         const characterType = typeToCharacterType[persona.type] || 'assault';
         const key = `team${team}_${characterType}_${index}`;
+        
+        console.log(`Converting persona ${persona.name} to character ${key}`);
         
         // Convert persona data to our character stats format
         newCharacters[key] = {
@@ -221,6 +236,7 @@ const gameSlice = createSlice({
         };
       });
       
+      console.log('Generated characters:', newCharacters);
       state.characters = { ...state.characters, ...newCharacters };
     },
     
@@ -233,8 +249,14 @@ const gameSlice = createSlice({
     
     loadExperienceData: (state, action) => {
       const experienceData = action.payload;
-      state.story = experienceData.story;
-      state.characters = experienceData.characters;
+      console.log('Loading experience data:', experienceData);
+      
+      // Don't override the story if we already have API data
+      if (!state.apiGameData) {
+        state.story = experienceData.story;
+        state.characters = experienceData.characters;
+      }
+      
       state.gameMode = 'experience';
       state.selectedExperience = experienceData.id;
     }

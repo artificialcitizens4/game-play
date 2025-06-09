@@ -25,31 +25,17 @@ const SelectExperienceScreen = () => {
   };
 
   const handleSelectExperience = (experience) => {
+    console.log('Selected experience:', experience);
     setSelectedExperience(experience.id);
     
-    // Create game data for the selected experience
-    const gameData = {
-      story: {
-        background: experience.baseStory || experience.story,
-        team1Name: getTeamName(experience, 0),
-        team1Size: getTeamSize(experience, 0),
-        team2Name: getTeamName(experience, 1),
-        team2Size: getTeamSize(experience, 1),
-        characters: getCharactersDescription(experience)
-      },
-      characters: generateCharactersFromExperience(experience),
-      currentCharacter: null,
-      currentTeam: null
-    };
-
+    // Set the game mode first
     dispatch(setGameMode('experience'));
-    dispatch(loadExperienceData(gameData));
     
-    // Set API game data if available
-    if (experience.personas) {
-      dispatch({ type: 'game/setApiGameData', payload: experience });
-      dispatch({ type: 'game/convertPersonasToCharacters' });
-    }
+    // Store the API game data directly in Redux
+    dispatch({ type: 'game/setApiGameData', payload: experience });
+    
+    // Convert personas to characters format
+    dispatch({ type: 'game/convertPersonasToCharacters' });
     
     // Navigate to team setup
     dispatch(setCurrentScreen('team-setup'));
@@ -74,57 +60,12 @@ const SelectExperienceScreen = () => {
 
   const getCharactersDescription = (experience) => {
     if (experience.personas && experience.personas.length > 0) {
-      const commanders = experience.personas.filter(p => p.role === 'Commander');
+      const commanders = experience.personas.filter(p => p.type === 'Commander');
       if (commanders.length >= 2) {
         return `${commanders[0].name} leads ${commanders[0].faction} with ${commanders[0].npcType.toLowerCase()} expertise, while ${commanders[1].name} commands ${commanders[1].faction} with ${commanders[1].npcType.toLowerCase()} tactics.`;
       }
     }
     return 'Elite warriors from both sides step forward as champions, each bringing unique skills and unwavering determination to the battlefield.';
-  };
-
-  const generateCharactersFromExperience = (experience) => {
-    const characters = {};
-    
-    if (experience.personas && experience.personas.length > 0) {
-      const factions = [...new Set(experience.personas.map(p => p.faction))];
-      
-      experience.personas.forEach((persona, index) => {
-        const teamNumber = factions.indexOf(persona.faction) + 1;
-        const roleMap = {
-          'Commander': 'commander',
-          'Scout': 'scout',
-          'Medic': 'medic',
-          'Sabotager': 'demolition',
-          'Infantry': 'assault'
-        };
-        
-        const characterType = roleMap[persona.role] || 'assault';
-        const key = `team${teamNumber}_${characterType}_${index}`;
-        
-        characters[key] = {
-          fatigue: Math.min(100 - (persona.traits.fatigue || 20), 100),
-          moral: persona.traits.morale || 50,
-          health: persona.traits.health || 50,
-          terrain: persona.traits.adaptability || 50,
-          personaData: persona
-        };
-      });
-    } else {
-      // Generate default characters if no personas available
-      const defaultCharacters = {
-        team1_commander: { fatigue: 85, moral: 90, health: 80, terrain: 75 },
-        team1_scout: { fatigue: 70, moral: 85, health: 75, terrain: 90 },
-        team1_medic: { fatigue: 60, moral: 95, health: 85, terrain: 65 },
-        team1_assault: { fatigue: 75, moral: 80, health: 70, terrain: 85 },
-        team2_commander: { fatigue: 90, moral: 85, health: 85, terrain: 80 },
-        team2_assault: { fatigue: 95, moral: 75, health: 90, terrain: 70 },
-        team2_scout: { fatigue: 80, moral: 70, health: 75, terrain: 95 },
-        team2_demolition: { fatigue: 85, moral: 80, health: 80, terrain: 75 }
-      };
-      Object.assign(characters, defaultCharacters);
-    }
-    
-    return characters;
   };
 
   const getDifficultyColor = (difficulty) => {
@@ -138,8 +79,10 @@ const SelectExperienceScreen = () => {
   };
 
   const formatExperienceData = (item) => {
+    console.log('Formatting experience item:', item);
+    
     // Handle different data structures from API
-    const title = item.title || item.story || 'War Experience';
+    const title = item.title || item.story || `War Experience ${item.id || 'Unknown'}`;
     const description = item.baseStory || item.description || item.story || 'An epic battle awaits...';
     const difficulty = item.difficulty || 'Medium';
     
@@ -149,12 +92,21 @@ const SelectExperienceScreen = () => {
     
     if (item.personas && item.personas.length > 0) {
       const factions = [...new Set(item.personas.map(p => p.faction))];
+      console.log('Found factions:', factions);
+      
       if (factions.length >= 2) {
         const team1Personas = item.personas.filter(p => p.faction === factions[0]);
         const team2Personas = item.personas.filter(p => p.faction === factions[1]);
         
         team1Info = { name: factions[0], size: team1Personas.length };
         team2Info = { name: factions[1], size: team2Personas.length };
+      } else if (factions.length === 1) {
+        // If only one faction, split personas into two teams
+        const allPersonas = item.personas;
+        const midPoint = Math.ceil(allPersonas.length / 2);
+        
+        team1Info = { name: factions[0] + ' Alpha', size: midPoint };
+        team2Info = { name: factions[0] + ' Beta', size: allPersonas.length - midPoint };
       }
     }
     
@@ -297,6 +249,8 @@ const SelectExperienceScreen = () => {
     );
   }
 
+  console.log('Experience data to render:', experienceData.data);
+
   return (
     <div className="screen select-experience-screen">
       <Button 
@@ -326,14 +280,14 @@ const SelectExperienceScreen = () => {
             return (
               <Col xs={24} lg={12} key={experience.id || index}>
                 <Card 
-                  className={`experience-card ${selectedExperience === experience.id ? 'selected' : ''}`}
+                  className={`experience-card ${selectedExperience === (experience.id || index) ? 'selected' : ''}`}
                   hoverable
                   onClick={() => handleSelectExperience(experience)}
                   style={{
-                    backgroundColor: selectedExperience === experience.id 
+                    backgroundColor: selectedExperience === (experience.id || index)
                       ? 'rgba(255, 107, 53, 0.1)' 
                       : 'rgba(46, 213, 115, 0.05)',
-                    border: selectedExperience === experience.id 
+                    border: selectedExperience === (experience.id || index)
                       ? '3px solid #ff6b35' 
                       : '2px solid #2ed573',
                     borderRadius: '15px',
@@ -414,9 +368,25 @@ const SelectExperienceScreen = () => {
                           </Col>
                         </Row>
                       </div>
+
+                      {/* Show personas count if available */}
+                      {experience.personas && experience.personas.length > 0 && (
+                        <div style={{ 
+                          marginTop: '1rem',
+                          textAlign: 'center',
+                          background: 'rgba(46, 213, 115, 0.05)',
+                          border: '1px solid rgba(46, 213, 115, 0.2)',
+                          borderRadius: '6px',
+                          padding: '0.5rem'
+                        }}>
+                          <Text style={{ color: '#2ed573', fontSize: '0.8rem' }}>
+                            👥 {experience.personas.length} unique warriors ready for battle
+                          </Text>
+                        </div>
+                      )}
                     </div>
                     
-                    {selectedExperience === experience.id && (
+                    {selectedExperience === (experience.id || index) && (
                       <div style={{ textAlign: 'center', marginTop: 'auto' }}>
                         <Button 
                           variant="launch"
