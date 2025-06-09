@@ -1615,6 +1615,394 @@ a, .link-text, .clickable-text {
   }
 }
 
+// Build Teams Screen Specific Styles
+.build-teams-screen {
+  // Mode indicator
+  .mode-indicator {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    .mode-indicator-badge {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 1rem;
+      border: 1px solid;
+      
+      &.mode-indicator-badge--experience {
+        background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
+        border-color: $color-team-red-text !important;
+      }
+      
+      &.mode-indicator-badge--create {
+        background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
+        border-color: $color-team-neutral-text !important;
+      }
+      
+      .mode-indicator-text {
+        color: $color-text-primary !important;
+        font-size: $font-size-body;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  // Main layout
+  .build-teams-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 3rem;
+    
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  // Roster panel (left column)
+  .roster-panel {
+    .roster-card {
+      @include card-style;
+      height: 100%;
+    }
+    
+    .roster-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 600px;
+    }
+    
+    .team-selection {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid $color-card-border;
+      
+      .team-selection-title {
+        font-size: $font-size-section;
+        color: $color-text-heading !important;
+        font-family: $font-family-display;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      
+      .team-selection-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        
+        .team-selection-button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+    
+    .character-roster {
+      flex: 1;
+      
+      .roster-title {
+        font-size: $font-size-body;
+        color: $color-text-heading !important;
+        font-family: $font-family-display;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      
+      .character-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+  }
+  
+  // Character roster items
+  .character-roster-item {
+    @include token-style;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    &.character-roster-item--active {
+      background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
+      border-color: $color-team-blue-text !important;
+      transform: translateY(-2px);
+    }
+    
+    .character-roster-avatar {
+      flex-shrink: 0;
+      
+      .character-avatar {
+        background: transparent !important;
+        font-size: 1.5rem;
+      }
+    }
+    
+    .character-roster-info {
+      flex: 1;
+      min-width: 0;
+      
+      .character-roster-name {
+        color: $color-text-heading !important;
+        font-size: $font-size-body;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      
+      .character-roster-type {
+        color: $color-text-muted !important;
+        font-size: $font-size-small;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      
+      .character-roster-stats {
+        .character-roster-stat {
+          color: $color-text-primary !important;
+          font-size: $font-size-small;
+        }
+      }
+    }
+    
+    .character-roster-indicator {
+      flex-shrink: 0;
+      
+      .unsaved-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $color-text-emphasis;
+        animation: pulse 2s infinite;
+      }
+    }
+  }
+  
+  // Character sheet (right column)
+  .character-sheet {
+    .character-sheet-card {
+      @include card-style;
+    }
+    
+    .character-sheet-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-height: 600px;
+    }
+    
+    .character-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid $color-card-border;
+      
+      .character-header-avatar {
+        flex-shrink: 0;
+        
+        .character-header-avatar-img {
+          background: transparent !important;
+          font-size: 3rem;
+        }
+      }
+      
+      .character-header-info {
+        flex: 1;
+        
+        .character-header-name {
+          font-size: $font-size-subtitle;
+          font-family: $font-family-display;
+          font-weight: 800;
+          color: $color-text-heading !important;
+          margin: 0 0 0.5rem 0;
+          background: linear-gradient(45deg, $color-text-blue-faction, $color-text-red-faction);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        
+        .character-header-type {
+          color: $color-text-emphasis !important;
+          font-size: $font-size-body;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+        
+        .character-header-meta {
+          .character-header-faction {
+            color: $color-text-muted !important;
+            font-size: $font-size-small;
+            display: block;
+            margin-bottom: 0.25rem;
+          }
+          
+          .character-header-id {
+            color: $color-text-muted !important;
+            font-size: $font-size-small;
+          }
+        }
+      }
+    }
+  }
+  
+  // Character sections
+  .character-section {
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, $color-team-blue, $color-team-red);
+      border-radius: 1px;
+      margin: 1.5rem 0;
+      opacity: 0.3;
+    }
+    
+    .section-heading {
+      font-size: $font-size-section;
+      color: $color-text-heading !important;
+      font-family: $font-family-display;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+    }
+    
+    .section-text {
+      color: $color-text-primary !important;
+      font-size: $font-size-body;
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
+    &.character-stats-section {
+      flex: 1;
+      
+      .stats-container {
+        margin: 1.5rem 0;
+      }
+    }
+  }
+  
+  // Character background and motivation
+  .character-background,
+  .character-motivation {
+    margin-bottom: 1.5rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  // Personality grid
+  .personality-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    
+    .personality-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background: $color-inset-bg !important;
+      border-radius: 0.5rem;
+      
+      .personality-label {
+        color: $color-text-primary !important;
+        font-size: $font-size-small;
+      }
+      
+      .personality-value {
+        color: $color-text-heading !important;
+        font-size: $font-size-small;
+        font-weight: 700;
+      }
+    }
+  }
+  
+  // Skills grid
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background: $color-inset-bg !important;
+      border-radius: 0.5rem;
+      
+      .skill-label {
+        color: $color-text-primary !important;
+        font-size: $font-size-small;
+      }
+      
+      .skill-value {
+        color: $color-text-heading !important;
+        font-size: $font-size-small;
+        font-weight: 700;
+      }
+    }
+  }
+  
+  // Additional info
+  .additional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background: $color-inset-bg !important;
+      border-radius: 0.5rem;
+      
+      .info-label {
+        color: $color-text-primary !important;
+        font-size: $font-size-small;
+      }
+      
+      .info-value {
+        color: $color-text-heading !important;
+        font-size: $font-size-small;
+        font-weight: 700;
+      }
+    }
+  }
+  
+  // Character sheet actions
+  .character-sheet-actions {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid $color-card-border;
+  }
+  
+  // Proceed section
+  .proceed-section {
+    text-align: center;
+    margin-top: 3rem;
+  }
+}
+
 // Responsive design
 @media (max-width: 768px) {
   .container {
@@ -1643,6 +2031,24 @@ a, .link-text, .clickable-text {
   .character-customization {
     .ant-card-body {
       padding: $spacing-sm !important;
+    }
+  }
+  
+  // Build teams mobile adjustments
+  .build-teams-screen {
+    .build-teams-layout {
+      grid-template-columns: 1fr;
+    }
+    
+    .character-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+    
+    .personality-grid,
+    .skills-grid {
+      grid-template-columns: 1fr;
     }
   }
 }

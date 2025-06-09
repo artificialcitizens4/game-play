@@ -164,190 +164,145 @@ const BuildTeamsScreen = () => {
           }
         </Text>
         
-        {/* Show mode indicator */}
-        <div style={{ textAlign: 'center', margin: '1rem 0' }}>
-          <div style={{ 
-            display: 'inline-block',
-            background: gameState.gameMode === 'experience' 
-              ? 'rgba(255, 107, 53, 0.1)' 
-              : 'rgba(46, 213, 115, 0.1)',
-            border: `1px solid ${gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573'}`,
-            borderRadius: '8px',
-            padding: '0.5rem 1rem'
-          }}>
-            <Text style={{ 
-              color: gameState.gameMode === 'experience' ? '#ff6b35' : '#2ed573',
-              fontWeight: 'bold',
-              fontSize: '0.9rem'
-            }}>
-              {gameState.gameMode === 'experience' 
-                ? '🎮 Experience Mode: Pre-loaded warriors with unique backstories'
-                : '🛠️ Create Mode: Build your custom army'
-              }
+        {/* Game Mode Indicator */}
+        <div className="mode-indicator">
+          <div className={`mode-indicator-badge mode-indicator-badge--${gameState.gameMode}`}>
+            <Text className="mode-indicator-text">
+              {gameState.gameMode === 'experience' ? '🎮 Experience Mode: Pre-loaded warriors with unique backstories' : '🛠️ Create Mode: Build your custom army'}
             </Text>
           </div>
         </div>
         
-        <div style={{ textAlign: 'center', margin: '2rem 0' }}>
-          <Space size="large">
-            <Button 
-              onClick={() => switchTeam(1)}
-              variant={selectedTeam === 1 ? 'primary' : 'secondary'}
-              size="large"
-            >
-              ⚔️ {gameState.story.team1Name || 'TEAM ONE'} ({team1Personas.length})
-            </Button>
-            <Button 
-              onClick={() => switchTeam(2)}
-              variant={selectedTeam === 2 ? 'primary' : 'secondary'}
-              size="large"
-            >
-              🛡️ {gameState.story.team2Name || 'TEAM TWO'} ({team2Personas.length})
-            </Button>
-          </Space>
-        </div>
-        
-        <Row gutter={[32, 32]} style={{ marginTop: '2rem' }}>
-          <Col xs={24} lg={8}>
-            <Card 
-              title={
-                <Text strong style={{ color: '#ff6b35' }}>
-                  {selectedTeam === 1 ? '⚔️ Team One' : '🛡️ Team Two'} Warriors
-                </Text>
-              }
-              className="characters-sidebar"
-              bordered={false}
-            >
-              <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                {getCurrentTeamPersonas().map((persona) => (
-                  <Card
-                    key={persona.name}
-                    size="small"
-                    hoverable
-                    className={`character-item ${selectedPersona?.name === persona.name ? 'active' : ''}`}
-                    onClick={() => selectPersona(persona)}
-                    style={{
-                      backgroundColor: selectedPersona?.name === persona.name 
-                        ? 'rgba(255, 107, 53, 0.1)' 
-                        : 'transparent',
-                      borderColor: selectedPersona?.name === persona.name 
-                        ? '#ff6b35' 
-                        : 'rgba(46, 213, 115, 0.3)'
-                    }}
-                  >
-                    <Row align="middle" gutter={[12, 0]}>
-                      <Col>
-                        <Avatar size="large" style={{ backgroundColor: 'transparent', fontSize: '2rem' }}>
-                          {getPersonaAvatar(persona)}
-                        </Avatar>
-                      </Col>
-                      <Col flex={1}>
-                        <div>
-                          <Text strong style={{ color: '#ffffff', display: 'block' }}>
+        <div className="build-teams-layout">
+          {/* Roster Panel (Left Column) */}
+          <div className="roster-panel">
+            <Card className="roster-card" bordered={false}>
+              <div className="roster-content">
+                {/* Team Selection */}
+                <div className="team-selection">
+                  <Text className="team-selection-title">Select Team</Text>
+                  <div className="team-selection-buttons">
+                    <Button 
+                      onClick={() => switchTeam(1)}
+                      variant={selectedTeam === 1 ? 'primary' : 'secondary'}
+                      size="large"
+                      className="team-selection-button"
+                    >
+                      ⚔️ {gameState.story.team1Name || 'TEAM ONE'} ({team1Personas.length})
+                    </Button>
+                    <Button 
+                      onClick={() => switchTeam(2)}
+                      variant={selectedTeam === 2 ? 'primary' : 'secondary'}
+                      size="large"
+                      className="team-selection-button"
+                    >
+                      🛡️ {gameState.story.team2Name || 'TEAM TWO'} ({team2Personas.length})
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Character Roster */}
+                <div className="character-roster">
+                  <Text className="roster-title">
+                    {selectedTeam === 1 ? '⚔️ Team One' : '🛡️ Team Two'} Warriors
+                  </Text>
+                  <div className="character-list">
+                    {getCurrentTeamPersonas().map((persona) => (
+                      <div
+                        key={persona.name}
+                        className={`character-roster-item ${selectedPersona?.name === persona.name ? 'character-roster-item--active' : ''}`}
+                        onClick={() => selectPersona(persona)}
+                      >
+                        <div className="character-roster-avatar">
+                          <Avatar size="large" className="character-avatar">
+                            {getPersonaAvatar(persona)}
+                          </Avatar>
+                        </div>
+                        <div className="character-roster-info">
+                          <Text strong className="character-roster-name">
                             {persona.name}
                           </Text>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.8rem' }}>
+                          <Text className="character-roster-type">
                             {persona.type} - {persona.npcType}
                           </Text>
-                          <div style={{ marginTop: '0.5rem' }}>
-                            <Text style={{ color: getStatColor(persona.morale), fontSize: '0.7rem' }}>
+                          <div className="character-roster-stats">
+                            <Text className="character-roster-stat">
                               Morale: {persona.morale} | Health: {persona.health}
                             </Text>
                           </div>
                         </div>
-                      </Col>
-                      {selectedPersona?.name === persona.name && hasUnsavedChanges && (
-                        <Col>
-                          <div style={{ 
-                            width: '8px', 
-                            height: '8px', 
-                            borderRadius: '50%', 
-                            backgroundColor: '#ffa502',
-                            animation: 'pulse 2s infinite'
-                          }} />
-                        </Col>
-                      )}
-                    </Row>
-                  </Card>
-                ))}
-              </Space>
-            </Card>
-          </Col>
-          
-          <Col xs={24} lg={16}>
-            <Card className="character-customization" bordered={false}>
-              {selectedPersona && (
-                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '600px' }}>
-                  <div style={{ marginBottom: '2rem' }}>
-                    <Row align="middle" gutter={[24, 0]} justify="center">
-                      <Col>
-                        <Avatar size={80} style={{ backgroundColor: 'transparent', fontSize: '4rem' }}>
-                          {getPersonaAvatar(selectedPersona)}
-                        </Avatar>
-                      </Col>
-                      <Col>
-                        <div style={{ textAlign: 'left' }}>
-                          <Title level={2} style={{ margin: 0, background: 'linear-gradient(45deg, #2ed573, #ff6b35)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            {selectedPersona.name}
-                          </Title>
-                          <Text style={{ color: '#ff6b35', fontSize: '1.1rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                            {selectedPersona.type} - {selectedPersona.npcType}
-                          </Text>
-                          <div style={{ marginTop: '0.5rem' }}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.9rem', fontStyle: 'italic' }}>
-                              {selectedPersona.faction} • Age: {selectedPersona.age}
-                            </Text>
+                        {selectedPersona?.name === persona.name && hasUnsavedChanges && (
+                          <div className="character-roster-indicator">
+                            <div className="unsaved-indicator" />
                           </div>
-                          {selectedPersona.agentId && (
-                            <div style={{ marginTop: '0.25rem' }}>
-                              <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.8rem' }}>
-                                ID: {selectedPersona.agentId}
-                              </Text>
-                            </div>
-                          )}
-                        </div>
-                      </Col>
-                    </Row>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+          
+          {/* Character Sheet (Right Column) */}
+          <div className="character-sheet">
+            <Card className="character-sheet-card" bordered={false}>
+              {selectedPersona && (
+                <div className="character-sheet-content">
+                  {/* Character Header */}
+                  <div className="character-header">
+                    <div className="character-header-avatar">
+                      <Avatar size={80} className="character-header-avatar-img">
+                        {getPersonaAvatar(selectedPersona)}
+                      </Avatar>
+                    </div>
+                    <div className="character-header-info">
+                      <Title level={2} className="character-header-name">
+                        {selectedPersona.name}
+                      </Title>
+                      <Text className="character-header-type">
+                        {selectedPersona.type} - {selectedPersona.npcType}
+                      </Text>
+                      <div className="character-header-meta">
+                        <Text className="character-header-faction">
+                          {selectedPersona.faction} • Age: {selectedPersona.age}
+                        </Text>
+                        {selectedPersona.agentId && (
+                          <Text className="character-header-id">
+                            ID: {selectedPersona.agentId}
+                          </Text>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Background and Motivation */}
+                  {/* Character Background */}
                   {(selectedPersona.background || selectedPersona.motivation) && (
-                    <Card 
-                      size="small"
-                      style={{ 
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        marginBottom: '2rem'
-                      }}
-                    >
+                    <div className="character-section">
+                      <div className="section-divider" />
                       {selectedPersona.background && (
-                        <div style={{ marginBottom: '1rem' }}>
-                          <Text strong style={{ color: '#2ed573', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
-                            Background:
-                          </Text>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                        <div className="character-background">
+                          <h4 className="section-heading">Background</h4>
+                          <Text className="section-text">
                             "{selectedPersona.background}"
                           </Text>
                         </div>
                       )}
                       {selectedPersona.motivation && (
-                        <div>
-                          <Text strong style={{ color: '#ff6b35', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
-                            Motivation:
-                          </Text>
-                          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                        <div className="character-motivation">
+                          <h4 className="section-heading">Motivation</h4>
+                          <Text className="section-text">
                             "{selectedPersona.motivation}"
                           </Text>
                         </div>
                       )}
-                    </Card>
+                    </div>
                   )}
                   
-                  {/* Editable Traits */}
-                  <div style={{ flex: 1, marginBottom: '2rem' }}>
-                    <Title level={4} style={{ color: '#ff6b35', marginBottom: '1.5rem', textAlign: 'center' }}>
-                      ⚙️ EDITABLE COMBAT STATS
-                    </Title>
+                  {/* Editable Combat Stats */}
+                  <div className="character-section character-stats-section">
+                    <div className="section-divider" />
+                    <h4 className="section-heading">⚙️ Editable Combat Stats</h4>
                     
                     <div className="stats-container">
                       <StatSlider
@@ -374,122 +329,100 @@ const BuildTeamsScreen = () => {
                         onChange={(value) => updateTrait('health', value)}
                       />
                     </div>
-
-                    {/* Read-only Personality Traits */}
-                    {selectedPersona.personality && (
-                      <Card 
-                        size="small"
-                        title={<Text style={{ color: '#2ed573', fontSize: '1rem' }}>🧠 Personality Traits (Read-Only)</Text>}
-                        style={{ 
-                          backgroundColor: 'rgba(46, 213, 115, 0.05)',
-                          border: '1px solid rgba(46, 213, 115, 0.3)',
-                          marginTop: '1.5rem'
-                        }}
-                      >
-                        <Row gutter={[16, 8]}>
-                          <Col span={12}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              ⚔️ Bravery: <span style={{ color: getStatColor(selectedPersona.personality.bravery), fontWeight: 'bold' }}>
-                                {selectedPersona.personality.bravery}
-                              </span>
-                            </Text>
-                          </Col>
-                          <Col span={12}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              🤝 Loyalty: <span style={{ color: getStatColor(selectedPersona.personality.loyalty), fontWeight: 'bold' }}>
-                                {selectedPersona.personality.loyalty}
-                              </span>
-                            </Text>
-                          </Col>
-                          <Col span={12}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              🔄 Adaptability: <span style={{ color: getStatColor(selectedPersona.personality.adaptability), fontWeight: 'bold' }}>
-                                {selectedPersona.personality.adaptability}
-                              </span>
-                            </Text>
-                          </Col>
-                          <Col span={12}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              ⚡ Impulsiveness: <span style={{ color: getStatColor(100 - selectedPersona.personality.impulsiveness), fontWeight: 'bold' }}>
-                                {selectedPersona.personality.impulsiveness}
-                              </span>
-                            </Text>
-                          </Col>
-                          <Col span={12}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              🎯 Discipline: <span style={{ color: getStatColor(selectedPersona.personality.discipline), fontWeight: 'bold' }}>
-                                {selectedPersona.personality.discipline}
-                              </span>
-                            </Text>
-                          </Col>
-                          <Col span={12}>
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              🧠 Tactical: <span style={{ color: getStatColor(selectedPersona.personality.tactical_thinking), fontWeight: 'bold' }}>
-                                {selectedPersona.personality.tactical_thinking}
-                              </span>
-                            </Text>
-                          </Col>
-                        </Row>
-                      </Card>
-                    )}
-
-                    {/* Read-only Skills */}
-                    {selectedPersona.skills && (
-                      <Card 
-                        size="small"
-                        title={<Text style={{ color: '#ff6b35', fontSize: '1rem' }}>🎯 Skills (Read-Only)</Text>}
-                        style={{ 
-                          backgroundColor: 'rgba(255, 107, 53, 0.05)',
-                          border: '1px solid rgba(255, 107, 53, 0.3)',
-                          marginTop: '1rem'
-                        }}
-                      >
-                        <Row gutter={[16, 8]}>
-                          {Object.entries(selectedPersona.skills).map(([skillKey, skillValue], index) => (
-                            <Col span={12} key={skillKey}>
-                              <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                                🔸 Skill {index + 1}: <span style={{ color: getStatColor(skillValue), fontWeight: 'bold' }}>
-                                  {skillValue}
-                                </span>
-                              </Text>
-                            </Col>
-                          ))}
-                        </Row>
-                      </Card>
-                    )}
-
-                    {/* Additional Info */}
-                    {(selectedPersona.terrainStronghold || selectedPersona.affiliation) && (
-                      <Card 
-                        size="small"
-                        title={<Text style={{ color: '#ffa502', fontSize: '1rem' }}>📍 Additional Info</Text>}
-                        style={{ 
-                          backgroundColor: 'rgba(255, 165, 2, 0.05)',
-                          border: '1px solid rgba(255, 165, 2, 0.3)',
-                          marginTop: '1rem'
-                        }}
-                      >
-                        <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                          {selectedPersona.terrainStronghold && (
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              🏔️ Terrain Stronghold: <span style={{ color: '#ffa502', fontWeight: 'bold' }}>
-                                {selectedPersona.terrainStronghold}
-                              </span>
-                            </Text>
-                          )}
-                          {selectedPersona.affiliation && (
-                            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                              🏛️ Affiliation: <span style={{ color: '#ffa502', fontWeight: 'bold' }}>
-                                {selectedPersona.affiliation}
-                              </span>
-                            </Text>
-                          )}
-                        </Space>
-                      </Card>
-                    )}
                   </div>
+
+                  {/* Personality Traits */}
+                  {selectedPersona.personality && (
+                    <div className="character-section">
+                      <div className="section-divider" />
+                      <h4 className="section-heading">🧠 Personality Traits (Read-Only)</h4>
+                      <div className="personality-grid">
+                        <div className="personality-item">
+                          <Text className="personality-label">⚔️ Bravery:</Text>
+                          <Text className="personality-value">
+                            {selectedPersona.personality.bravery}
+                          </Text>
+                        </div>
+                        <div className="personality-item">
+                          <Text className="personality-label">🤝 Loyalty:</Text>
+                          <Text className="personality-value">
+                            {selectedPersona.personality.loyalty}
+                          </Text>
+                        </div>
+                        <div className="personality-item">
+                          <Text className="personality-label">🔄 Adaptability:</Text>
+                          <Text className="personality-value">
+                            {selectedPersona.personality.adaptability}
+                          </Text>
+                        </div>
+                        <div className="personality-item">
+                          <Text className="personality-label">⚡ Impulsiveness:</Text>
+                          <Text className="personality-value">
+                            {selectedPersona.personality.impulsiveness}
+                          </Text>
+                        </div>
+                        <div className="personality-item">
+                          <Text className="personality-label">🎯 Discipline:</Text>
+                          <Text className="personality-value">
+                            {selectedPersona.personality.discipline}
+                          </Text>
+                        </div>
+                        <div className="personality-item">
+                          <Text className="personality-label">🧠 Tactical:</Text>
+                          <Text className="personality-value">
+                            {selectedPersona.personality.tactical_thinking}
+                          </Text>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Skills */}
+                  {selectedPersona.skills && (
+                    <div className="character-section">
+                      <div className="section-divider" />
+                      <h4 className="section-heading">🎯 Skills (Read-Only)</h4>
+                      <div className="skills-grid">
+                        {Object.entries(selectedPersona.skills).map(([skillKey, skillValue], index) => (
+                          <div key={skillKey} className="skill-item">
+                            <Text className="skill-label">🔸 Skill {index + 1}:</Text>
+                            <Text className="skill-value">
+                              {skillValue}
+                            </Text>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Additional Info */}
+                  {(selectedPersona.terrainStronghold || selectedPersona.affiliation) && (
+                    <div className="character-section">
+                      <div className="section-divider" />
+                      <h4 className="section-heading">📍 Additional Info</h4>
+                      <div className="additional-info">
+                        {selectedPersona.terrainStronghold && (
+                          <div className="info-item">
+                            <Text className="info-label">🏔️ Terrain Stronghold:</Text>
+                            <Text className="info-value">
+                              {selectedPersona.terrainStronghold}
+                            </Text>
+                          </div>
+                        )}
+                        {selectedPersona.affiliation && (
+                          <div className="info-item">
+                            <Text className="info-label">🏛️ Affiliation:</Text>
+                            <Text className="info-value">
+                              {selectedPersona.affiliation}
+                            </Text>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   
-                  <div style={{ textAlign: 'center', marginTop: 'auto' }}>
+                  {/* Save Button */}
+                  <div className="character-sheet-actions">
                     <Button 
                       onClick={saveCurrentPersona}
                       variant="save"
@@ -503,10 +436,10 @@ const BuildTeamsScreen = () => {
                 </div>
               )}
             </Card>
-          </Col>
-        </Row>
+          </div>
+        </div>
         
-        <div style={{ marginTop: '3rem', textAlign: 'center' }}>
+        <div className="proceed-section">
           <Button 
             onClick={proceedToMapEditor} 
             variant="launch"
@@ -515,14 +448,6 @@ const BuildTeamsScreen = () => {
           >
             DESIGN BATTLEFIELD
           </Button>
-          
-          {hasUnsavedChanges && (
-            <div style={{ marginTop: '1rem' }}>
-              <Text style={{ color: '#ffa502', fontSize: '0.9rem' }}>
-                💡 You have unsaved changes. They will be auto-saved when you proceed.
-              </Text>
-            </div>
-          )}
         </div>
       </div>
     </div>
