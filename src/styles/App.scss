@@ -1,20 +1,33 @@
-// Import Google Fonts - Inter for body text, Oxanium for titles
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oxanium:wght@400;600;700&display=swap');
+// Import Toon Board Game Fonts
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Nunito:wght@700;800&display=swap');
 
-// Futuristic Observer Variables
-$deep-slate-blue: #2F4F70;
-$gunmetal-gray: #2A2E36;
-$soft-white: #F4F4F4;
-$charcoal-gray: #555A62;
-$teal: #3B8C91;
-$electric-blue: #45B1E3;
+// Toon Board Game Color Palette
+$color-background: #f5f3ef;
+$color-text-primary: #6d635b;
+$color-text-secondary: #8b7942;
 
-$background-primary: $deep-slate-blue;
-$background-secondary: $gunmetal-gray;
-$text-primary: $soft-white;
-$text-secondary: $charcoal-gray;
-$accent-primary: $teal;
-$accent-secondary: $electric-blue;
+$color-card-bg-start: #ffffff;
+$color-card-bg-end: #fefcf7;
+$color-card-border: #d7d0c7;
+$color-card-border-hover: #b3a99d;
+
+$color-token-bg: #fdfaf2;
+$color-token-border: #e9e4db;
+$color-token-border-hover: #d1cbbc;
+
+$color-inset-bg: #e0dace;
+$color-inset-border: #d1cbbc;
+
+$color-team-blue: #a7c7e7;
+$color-team-red: #ffb3ba;
+$color-team-neutral: #a7e7c7;
+
+$color-team-blue-text: #5a82ad;
+$color-team-red-text: #d97c84;
+$color-team-neutral-text: #5aad8c;
+
+$color-toggle-active: #4ade80;
+$color-toggle-active-border: #22c55e;
 
 // Base Unit System - 8px grid
 $base-unit: 8px;
@@ -37,108 +50,76 @@ $button-margin: $spacing-sm + 4px;   // 12px for improved spacing
 $button-padding-vertical: 12px;
 $button-padding-horizontal: $spacing-md; // 24px
 
-// Updated Typography Scale with Font Families
-$font-family-primary: 'Inter', 'Roboto', sans-serif;     // Body text
-$font-family-display: 'Oxanium', sans-serif;             // Titles and headers
+// Typography Scale with Toon Board Game Fonts
+$font-family-primary: 'Lato', sans-serif;     // Body text
+$font-family-display: 'Nunito', sans-serif;   // Titles and headers
 
 // Typography Scale
-$font-size-title: 3rem;        // h1 - Main titles | font-weight: 700 | font-family: 'Oxanium'
-$font-size-subtitle: 1.75rem;  // h2 - Subtitles | font-weight: 600 | font-family: 'Oxanium' (updated from 1.5rem)
-$font-size-section: 1.25rem;   // h3 - Section titles/card headers | font-weight: 600 | font-family: 'Oxanium'
-$font-size-body: 1rem;         // p - Standard body text | font-weight: 400 | font-family: 'Inter'
-$font-size-button: 0.9rem;     // Buttons and inputs | font-weight: 500 | font-family: 'Inter'
-$font-size-small: 0.8rem;      // Labels and small text | font-weight: 400 | font-family: 'Inter'
+$font-size-title: 3rem;        // h1 - Main titles | font-weight: 800 | font-family: 'Nunito'
+$font-size-subtitle: 1.75rem;  // h2 - Subtitles | font-weight: 700 | font-family: 'Nunito'
+$font-size-section: 1.25rem;   // h3 - Section titles/card headers | font-weight: 700 | font-family: 'Nunito'
+$font-size-body: 1rem;         // p - Standard body text | font-weight: 400 | font-family: 'Lato'
+$font-size-button: 0.9rem;     // Buttons and inputs | font-weight: 700 | font-family: 'Lato'
+$font-size-small: 0.8rem;      // Labels and small text | font-weight: 400 | font-family: 'Lato'
 
 // Game title - 4x larger than regular title
 $font-size-game-title: 12rem;  // 4x the regular title size
 
 // Typography line heights
 $line-height-title: 1.2;
-$line-height-subtitle: 1.4;    // Updated for better readability at 1.75rem
+$line-height-subtitle: 1.4;
 $line-height-section: 1.3;
 $line-height-body: 1.6;
 
-// Typography letter spacing - Updated for stylized look
-$letter-spacing-title: 3px;
+// Typography letter spacing
+$letter-spacing-title: 2px;
 $letter-spacing-game-title: 8px;  // Larger letter spacing for game title
-$letter-spacing-uppercase: 1.5px;  // Updated from 1px for more stylized look
+$letter-spacing-uppercase: 1px;
 $letter-spacing-normal: 0;
 
 // Mobile typography scale
 $font-size-title-mobile: 2rem;
 $font-size-game-title-mobile: 6rem;  // 4x mobile title size
-$font-size-subtitle-mobile: 1.35rem;  // Updated from 1.2rem
+$font-size-subtitle-mobile: 1.35rem;
 $font-size-section-mobile: 1.1rem;
-$font-size-body-mobile: 1rem;         // Keep at 1rem for mobile readability
+$font-size-body-mobile: 1rem;
 $font-size-button-mobile: 0.8rem;
 $font-size-small-mobile: 0.7rem;
 
-// Mixins
-@mixin futuristic-gradient($color1, $color2) {
-  background: linear-gradient(135deg, $color1 0%, $color2 100%);
+// Mixins for Toon Board Game Style
+@mixin card-style {
+  background: linear-gradient(160deg, $color-card-bg-start 0%, $color-card-bg-end 100%);
+  border: 2px solid $color-card-border;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  color: $color-text-primary;
 }
 
-@mixin observer-shadow {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
-              0 4px 16px rgba(0, 0, 0, 0.2),
-              0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-@mixin subtle-glow($color) {
-  box-shadow: 0 0 20px rgba($color, 0.3);
-}
-
-@mixin clean-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+@mixin token-style {
+  background-color: $color-token-bg;
+  border: 2px solid $color-token-border;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 0.75rem;
+  color: $color-text-primary;
+  transition: all 0.25s ease;
   
   &:hover {
     transform: translateY(-2px);
-    @include subtle-glow($accent-primary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    border-color: $color-token-border-hover;
+  }
+  
+  &.active, &.selected {
+    background: #fff;
+    border-color: $color-card-border-hover;
   }
 }
 
-@mixin button-base {
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: $font-family-primary;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-  
-  &:hover::before {
-    left: 100%;
-  }
-  
-  &:hover {
-    transform: translateY(-1px);
-    @include subtle-glow($accent-secondary);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-  }
+@mixin inset-style {
+  background: $color-inset-bg;
+  border: 2px solid $color-inset-border;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);
+  border-radius: 0.75rem;
 }
 
 // Global styles
@@ -149,20 +130,14 @@ $font-size-small-mobile: 0.7rem;
 }
 
 body {
-  font-family: $font-family-primary; // Inter is now primary
-  background: $background-primary;
-  color: $text-primary;
+  font-family: 'Lato', sans-serif;
+  color: #6d635b;
+  background-color: #f5f3ef;
+  background-image: url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e8e4d9" fill-opacity="0.4"%3E%3Cpath d="M0 0h40v40H0zM40 40h40v40H40z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+  font-size: 15px;
   overflow-x: hidden;
   min-height: 100vh;
-  background-attachment: fixed;
-  font-size: $font-size-body;
   line-height: $line-height-body;
-  
-  // Subtle space-like background pattern
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(69, 177, 227, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(59, 140, 145, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(42, 46, 54, 0.3) 0%, transparent 50%);
 }
 
 .app {
@@ -178,15 +153,15 @@ body {
 
 .screen {
   min-height: 100vh;
-  padding: $padding-screen; // 32px consistent with design system
-  animation: observerFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: $padding-screen;
+  animation: fadeInScreen 0.5s ease-in-out;
   
   @media (max-width: 768px) {
-    padding: $padding-screen-mobile; // 16px on mobile
+    padding: $padding-screen-mobile;
   }
 }
 
-@keyframes observerFadeIn {
+@keyframes fadeInScreen {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -204,26 +179,22 @@ body {
   text-align: center;
   
   @media (max-width: 768px) {
-    padding: 0 $padding-container-mobile; // 16px side padding on mobile
+    padding: 0 $padding-container-mobile;
   }
 }
 
 // Game Title - 4x larger than regular title
 .game-title {
-  font-size: $font-size-game-title; // 12rem
-  font-weight: 700;
-  font-family: $font-family-display; // Oxanium for titles
-  margin-bottom: $spacing-md; // 24px
-  color: $text-primary;
+  font-size: $font-size-game-title;
+  font-weight: 800;
+  font-family: $font-family-display;
+  margin-bottom: $spacing-md;
+  color: $color-text-primary;
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-game-title; // 8px for dramatic effect
+  letter-spacing: $letter-spacing-game-title;
   line-height: $line-height-title;
   position: relative;
-  background: linear-gradient(135deg, $accent-primary 0%, $accent-secondary 50%, $text-primary 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 40px rgba($accent-secondary, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   
   &::after {
     content: '';
@@ -233,12 +204,12 @@ body {
     transform: translateX(-50%);
     width: 120px;
     height: 4px;
-    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
-    box-shadow: 0 0 20px rgba($accent-secondary, 0.5);
+    background: linear-gradient(90deg, $color-team-blue, $color-team-red);
+    border-radius: 2px;
   }
   
   @media (max-width: 768px) {
-    font-size: $font-size-game-title-mobile; // 6rem
+    font-size: $font-size-game-title-mobile;
     letter-spacing: 4px;
     
     &::after {
@@ -263,10 +234,10 @@ body {
 // Typography Scale Implementation
 .title {
   font-size: $font-size-title;
-  font-weight: 700;
-  font-family: $font-family-display; // Oxanium for titles
-  margin-bottom: $spacing-md; // 24px
-  color: $text-primary;
+  font-weight: 800;
+  font-family: $font-family-display;
+  margin-bottom: $spacing-md;
+  color: $color-text-primary;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-title;
   line-height: $line-height-title;
@@ -280,7 +251,8 @@ body {
     transform: translateX(-50%);
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+    background: linear-gradient(90deg, $color-team-blue, $color-team-red);
+    border-radius: 1px;
   }
   
   @media (max-width: 768px) {
@@ -289,28 +261,28 @@ body {
 }
 
 .subtitle {
-  font-size: $font-size-subtitle; // Updated from 1.1rem to 1.75rem
-  font-weight: 600;
-  font-family: $font-family-display; // Oxanium for subtitles
-  margin-bottom: $spacing-xl; // 48px
-  color: $text-secondary;
-  line-height: $line-height-subtitle; // Updated to 1.4 for better readability
-  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
+  font-size: $font-size-subtitle;
+  font-weight: 700;
+  font-family: $font-family-display;
+  margin-bottom: $spacing-xl;
+  color: $color-text-secondary;
+  line-height: $line-height-subtitle;
+  letter-spacing: $letter-spacing-uppercase;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   
   @media (max-width: 768px) {
-    font-size: $font-size-subtitle-mobile; // 1.35rem
+    font-size: $font-size-subtitle-mobile;
   }
 }
 
 // Section titles (h3) for card headers
 h3, .section-title {
   font-size: $font-size-section;
-  font-weight: 600;
-  font-family: $font-family-display; // Oxanium for section titles
-  color: $text-primary;
+  font-weight: 700;
+  font-family: $font-family-display;
+  color: $color-text-primary;
   line-height: $line-height-section;
   letter-spacing: $letter-spacing-uppercase;
   margin-bottom: $spacing-sm;
@@ -324,9 +296,9 @@ h3, .section-title {
 p, .body-text {
   font-size: $font-size-body;
   font-weight: 400;
-  font-family: $font-family-primary; // Inter for body text
+  font-family: $font-family-primary;
   line-height: $line-height-body;
-  color: $text-primary;
+  color: $color-text-primary;
   
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
@@ -337,9 +309,9 @@ p, .body-text {
 .small-text, .metric-label, .simulation-status {
   font-size: $font-size-small;
   font-weight: 400;
-  font-family: $font-family-primary; // Inter for small text
+  font-family: $font-family-primary;
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
+  letter-spacing: $letter-spacing-uppercase;
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
@@ -348,127 +320,118 @@ p, .body-text {
 
 // Sound Toggle
 .sound-toggle {
-  background: rgba($background-secondary, 0.8) !important;
-  border: 1px solid $accent-primary !important;
-  color: $accent-primary !important;
-  border-radius: 8px !important;
-  backdrop-filter: blur(10px) !important;
-  @include clean-hover;
-  
-  &:hover {
-    background: rgba($accent-primary, 0.1) !important;
-    color: $accent-secondary !important;
-    border-color: $accent-secondary !important;
-  }
+  @include token-style;
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
   
   @media (max-width: 768px) {
-    top: 16px !important;
-    right: 16px !important;
-    width: 44px !important;
-    height: 44px !important;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
   }
 }
 
-// Button typography and spacing
+// Button styles
 .ant-btn {
-  @include button-base;
-  padding: $button-padding-vertical $button-padding-horizontal; // 12px 24px
-  font-size: $font-size-button; // 0.9rem
-  font-weight: 500;
-  font-family: $font-family-primary; // Inter for buttons
-  margin: $button-margin; // Updated to 12px for improved spacing
+  @include token-style;
+  padding: $button-padding-vertical $button-padding-horizontal;
+  font-size: $font-size-button;
+  font-weight: 700;
+  font-family: $font-family-primary;
+  margin: $button-margin;
   height: auto;
   min-height: 44px;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-uppercase;
+  cursor: pointer;
   
   &.btn-primary {
-    background: $accent-secondary;
-    border-color: $accent-secondary;
-    color: $text-primary;
+    background: linear-gradient(160deg, $color-team-blue 0%, lighten($color-team-blue, 10%) 100%);
+    border-color: $color-team-blue-text;
+    color: $color-team-blue-text;
     
     &:hover {
-      background: $accent-primary;
-      border-color: $accent-primary;
-      color: $text-primary;
+      background: linear-gradient(160deg, lighten($color-team-blue, 5%) 0%, lighten($color-team-blue, 15%) 100%);
+      border-color: darken($color-team-blue-text, 10%);
+      color: darken($color-team-blue-text, 10%);
     }
   }
   
   &.btn-secondary {
-    background: transparent;
-    border-color: $accent-secondary;
-    color: $accent-secondary;
+    background: $color-token-bg;
+    border-color: $color-token-border;
+    color: $color-text-primary;
     
     &:hover {
-      background: $accent-secondary;
-      border-color: $accent-secondary;
-      color: $text-primary;
+      background: #fff;
+      border-color: $color-card-border-hover;
+      color: $color-text-primary;
     }
   }
   
   &.btn-save {
-    background: $accent-primary;
-    border-color: $accent-primary;
-    color: $text-primary;
-    font-size: $font-size-body; // Updated to 1rem
+    background: linear-gradient(160deg, $color-team-red 0%, lighten($color-team-red, 10%) 100%);
+    border-color: $color-team-red-text;
+    color: $color-team-red-text;
+    font-size: $font-size-body;
     padding: 16px 32px;
     
     &:hover {
-      background: lighten($accent-primary, 10%);
-      border-color: lighten($accent-primary, 10%);
-      color: $text-primary;
+      background: linear-gradient(160deg, lighten($color-team-red, 5%) 0%, lighten($color-team-red, 15%) 100%);
+      border-color: darken($color-team-red-text, 10%);
+      color: darken($color-team-red-text, 10%);
     }
   }
   
   &.btn-launch {
-    background: linear-gradient(135deg, $accent-secondary, $accent-primary);
-    border-color: transparent;
-    color: $text-primary;
-    font-size: 1.1rem; // Acceptable variant within scale
+    background: linear-gradient(160deg, $color-team-neutral 0%, lighten($color-team-neutral, 10%) 100%);
+    border-color: $color-team-neutral-text;
+    color: $color-team-neutral-text;
+    font-size: 1.1rem;
     padding: 18px 36px;
-    font-weight: 600;
+    font-weight: 700;
     
     &:hover {
-      background: linear-gradient(135deg, lighten($accent-secondary, 10%), lighten($accent-primary, 10%));
-      transform: translateY(-2px);
-      @include subtle-glow($accent-secondary);
+      background: linear-gradient(160deg, lighten($color-team-neutral, 5%) 0%, lighten($color-team-neutral, 15%) 100%);
+      border-color: darken($color-team-neutral-text, 10%);
+      color: darken($color-team-neutral-text, 10%);
     }
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
   
   @media (max-width: 768px) {
     font-size: $font-size-button-mobile;
     padding: 10px 20px;
-    margin: $spacing-xs; // 8px margin on mobile
+    margin: $spacing-xs;
   }
 }
 
 .back-btn {
+  @include token-style;
   position: fixed;
   top: 32px;
   left: 32px;
   z-index: 1000;
-  background: rgba($background-secondary, 0.9);
-  border: 1px solid $accent-primary;
-  color: $accent-primary;
   padding: 12px 20px;
   font-size: $font-size-button;
-  font-weight: 500;
+  font-weight: 700;
   font-family: $font-family-primary;
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  @include observer-shadow;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: $letter-spacing-uppercase;
   text-transform: uppercase;
-  
-  &:hover {
-    background: rgba($accent-primary, 0.1);
-    border-color: $accent-secondary;
-    color: $accent-secondary;
-    transform: translateX(-4px);
-  }
-  
-  &::before {
-    display: none;
-  }
   
   @media (max-width: 768px) {
     top: 16px;
@@ -487,22 +450,18 @@ p, .body-text {
 
 // Ant Design Card Overrides
 .ant-card {
-  background: rgba($background-secondary, 0.6);
-  border: 1px solid rgba($accent-primary, 0.3);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  @include observer-shadow;
+  @include card-style;
   
   .ant-card-head {
-    border-bottom: 1px solid rgba($accent-primary, 0.2);
+    border-bottom: 1px solid $color-card-border;
     background: transparent;
-    border-radius: 16px 16px 0 0;
+    border-radius: 1rem 1rem 0 0;
     
     .ant-card-head-title {
       font-size: $font-size-section;
-      font-weight: 600;
-      font-family: $font-family-display; // Oxanium for card headers
-      color: $text-primary;
+      font-weight: 700;
+      font-family: $font-family-display;
+      color: $color-text-primary;
       letter-spacing: $letter-spacing-uppercase;
       
       @media (max-width: 768px) {
@@ -514,7 +473,7 @@ p, .body-text {
   .ant-card-body {
     background: transparent;
     font-size: $font-size-body;
-    font-family: $font-family-primary; // Inter for card body content
+    font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
@@ -525,81 +484,48 @@ p, .body-text {
 
 // Mode selection
 .mode-card {
-  @include clean-hover;
-  position: relative;
-  overflow: hidden;
-  background: rgba($background-secondary, 0.8);
-  backdrop-filter: blur(15px);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba($accent-secondary, 0.1), transparent);
-    transition: left 0.8s ease;
-  }
-  
-  &:hover::before {
-    left: 100%;
-  }
+  @include card-style;
+  transition: all 0.25s ease;
+  cursor: pointer;
   
   &:hover {
-    border-color: $accent-secondary;
-    @include subtle-glow($accent-secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: $color-card-border-hover;
   }
 }
 
 // Experience selection
 .experience-card {
-  @include clean-hover;
-  position: relative;
-  overflow: hidden;
-  background: rgba($background-secondary, 0.8);
-  backdrop-filter: blur(15px);
+  @include card-style;
+  transition: all 0.25s ease;
+  cursor: pointer;
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba($accent-primary, 0.1), transparent);
-    transition: left 0.8s ease;
-  }
-  
-  &:hover::before {
-    left: 100%;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: $color-card-border-hover;
   }
   
   &.selected {
+    background: linear-gradient(160deg, lighten($color-team-blue, 20%) 0%, lighten($color-team-blue, 25%) 100%);
+    border-color: $color-team-blue-text;
     transform: translateY(-4px);
-    @include subtle-glow($accent-primary);
-    border-color: $accent-primary;
-    background: rgba($accent-primary, 0.1);
     
     &::after {
       content: 'SELECTED';
       position: absolute;
       top: 16px;
       right: 16px;
-      background: $accent-primary;
-      color: $text-primary;
+      background: $color-team-blue;
+      color: $color-team-blue-text;
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 0.5rem;
       font-size: $font-size-small;
-      font-weight: 600;
+      font-weight: 700;
       font-family: $font-family-primary;
       letter-spacing: $letter-spacing-uppercase;
     }
-  }
-  
-  &:hover {
-    border-color: $accent-secondary;
-    @include subtle-glow($accent-secondary);
   }
 }
 
@@ -607,25 +533,14 @@ p, .body-text {
 .ant-input,
 .ant-input-number,
 .ant-input-number-input {
-  background: rgba($background-secondary, 0.8);
-  border: 1px solid rgba($accent-primary, 0.5);
-  border-radius: 8px;
-  color: $text-primary;
+  @include token-style;
   font-family: $font-family-primary;
   font-size: $font-size-button;
-  font-weight: 500;
+  font-weight: 400;
   padding: 12px 16px;
-  backdrop-filter: blur(10px);
-  
-  &:focus,
-  &:hover {
-    border-color: $accent-secondary;
-    @include subtle-glow($accent-secondary);
-    background: rgba($background-secondary, 0.9);
-  }
   
   &::placeholder {
-    color: rgba($text-secondary, 0.7);
+    color: rgba($color-text-secondary, 0.7);
   }
   
   @media (max-width: 768px) {
@@ -637,17 +552,17 @@ p, .body-text {
   width: 100%;
   
   .ant-input-number-handler-wrap {
-    background: rgba($background-secondary, 0.8);
-    border-left: 1px solid rgba($accent-primary, 0.5);
-    border-radius: 0 8px 8px 0;
+    background: $color-token-bg;
+    border-left: 1px solid $color-token-border;
+    border-radius: 0 0.75rem 0.75rem 0;
   }
   
   .ant-input-number-handler {
     border: none;
-    color: $accent-primary;
+    color: $color-text-primary;
     
     &:hover {
-      color: $accent-secondary;
+      color: $color-text-secondary;
     }
   }
 }
@@ -655,302 +570,226 @@ p, .body-text {
 // Ant Design Slider Overrides
 .ant-slider {
   .ant-slider-rail {
-    background: rgba($text-secondary, 0.3);
+    background: $color-inset-bg;
     height: 6px;
     border-radius: 3px;
   }
   
   .ant-slider-track {
-    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+    background: linear-gradient(90deg, $color-team-blue, $color-team-neutral);
     height: 6px;
     border-radius: 3px;
   }
   
   .ant-slider-handle {
-    border: 3px solid $accent-secondary;
-    background: $text-primary;
+    border: 3px solid $color-team-blue-text;
+    background: #fff;
     width: 18px;
     height: 18px;
-    @include subtle-glow($accent-secondary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     
     &:hover,
     &:focus {
-      border-color: $accent-primary;
-      @include subtle-glow($accent-primary);
+      border-color: $color-team-neutral-text;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
   }
 }
 
 // Ant Design Progress Overrides
 .ant-progress-bg {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s ease;
   border-radius: 4px;
-  background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+  background: linear-gradient(90deg, $color-team-blue, $color-team-neutral);
 }
 
 .ant-progress-inner {
   border-radius: 4px;
-  background: rgba($text-secondary, 0.2);
+  background: $color-inset-bg;
 }
 
 // Stats container spacing
 .stats-container {
-  margin: $spacing-lg 0; // 32px 0 - confirmed good for major section breaks
+  @include inset-style;
+  margin: $spacing-lg 0;
+  padding: $padding-card-large;
 }
 
 .stat-container {
-  margin: $spacing-md 0; // 24px 0
-  background: rgba($background-secondary, 0.6);
-  border: 1px solid rgba($accent-primary, 0.3);
-  border-radius: 12px;
-  padding: $padding-card-large; // 24px consistent padding for major containers
-  backdrop-filter: blur(10px);
-  @include clean-hover;
-  animation: observerSlideIn 0.5s ease;
-  animation-fill-mode: both;
-  
-  &:nth-child(1) { animation-delay: 0.1s; }
-  &:nth-child(2) { animation-delay: 0.2s; }
-  &:nth-child(3) { animation-delay: 0.3s; }
-  &:nth-child(4) { animation-delay: 0.4s; }
+  @include card-style;
+  margin: $spacing-md 0;
+  padding: $padding-card-large;
+  transition: all 0.25s ease;
   
   &:hover {
-    background: rgba($background-secondary, 0.8);
-    border-color: $accent-secondary;
-    transform: translateX(8px) translateY(-2px);
-    @include subtle-glow($accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-color: $color-card-border-hover;
   }
 }
 
-// Particles - Minimal and abstract
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.particle {
-  position: absolute;
-  background: $accent-primary;
-  border-radius: 50%;
-  animation: observerFloat 20s infinite linear;
-  opacity: 0.3;
-}
-
-// Component spacing - Major containers with consistent 24px padding
+// Component spacing - Major containers
 .character-profile {
-  background: rgba($background-secondary, 0.8) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include clean-hover;
+  @include card-style;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .team-config-box {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include observer-shadow;
+  @include card-style;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .story-form {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include observer-shadow;
+  @include card-style;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .example-box {
-  background: rgba($accent-primary, 0.1) !important;
-  border: 1px solid rgba($accent-primary, 0.4) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
+  @include card-style;
+  background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%);
+  border-color: $color-team-neutral-text;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .war-story-container {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include observer-shadow;
+  @include card-style;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .characters-sidebar {
-  background: rgba($background-secondary, 0.8) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
+  @include card-style;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .character-customization {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
+  @include card-style;
   
   .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
+    padding: $padding-card-large !important;
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
 
 .character-item {
-  border-radius: 8px !important;
-  @include clean-hover;
-  background: rgba($background-secondary, 0.4) !important;
-  
-  &.active {
-    background: rgba($accent-primary, 0.2) !important;
-    border: 1px solid $accent-primary !important;
-    @include subtle-glow($accent-primary);
-  }
+  @include token-style;
+  cursor: pointer;
 }
 
 // Observer panel spacing
 .observer-panel {
-  background: rgba($background-secondary, 0.9);
-  border: 1px solid rgba($accent-primary, 0.4);
-  border-radius: 8px;
-  padding: $padding-card-large; // 24px consistent padding for major containers
-  backdrop-filter: blur(15px);
-  @include observer-shadow;
+  @include card-style;
+  padding: $padding-card-large;
   position: relative;
   font-size: $font-size-body;
   font-family: $font-family-primary;
   line-height: $line-height-body;
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
-  }
-  
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
-    padding: $spacing-sm; // 16px padding on mobile
+    padding: $spacing-sm;
   }
 }
 
 .data-grid {
   display: grid;
-  gap: $spacing-sm; // 16px consistent grid gap
+  gap: $spacing-sm;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 // Metric card spacing
 .metric-card {
-  background: rgba($background-secondary, 0.8);
-  border: 1px solid rgba($accent-primary, 0.3);
-  border-radius: 8px;
-  padding: $padding-card-small; // 16px for smaller cards
-  backdrop-filter: blur(10px);
-  @include clean-hover;
+  @include token-style;
+  padding: $padding-card-small;
   
   .metric-value {
     font-size: 2rem;
-    font-weight: 700;
-    font-family: $font-family-display; // Oxanium for metric values
-    color: $accent-secondary;
-    margin-bottom: $spacing-xs; // 8px
+    font-weight: 800;
+    font-family: $font-family-display;
+    color: $color-team-blue-text;
+    margin-bottom: $spacing-xs;
     line-height: 1.2;
   }
   
   .metric-label {
     font-size: $font-size-small;
     font-weight: 400;
-    font-family: $font-family-primary; // Inter for labels
-    color: $text-secondary;
+    font-family: $font-family-primary;
+    color: $color-text-secondary;
     text-transform: uppercase;
-    letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
+    letter-spacing: $letter-spacing-uppercase;
     
     @media (max-width: 768px) {
       font-size: $font-size-small-mobile;
@@ -958,100 +797,63 @@ p, .body-text {
   }
 }
 
-// Abstract war visualization elements
+// War visualization elements
 .war-indicator {
   width: 4px;
   height: 4px;
-  background: $accent-secondary;
+  background: $color-toggle-active;
   border-radius: 50%;
-  animation: warPulse 2s ease-in-out infinite;
+  animation: pulse 2s ease-in-out infinite;
 }
 
-@keyframes warPulse {
+@keyframes pulse {
   0%, 100% {
-    opacity: 0.3;
+    opacity: 0.6;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.5);
+    transform: scale(1.2);
   }
 }
 
 .simulation-status {
   display: inline-flex;
   align-items: center;
-  gap: $spacing-xs; // 8px
+  gap: $spacing-xs;
   padding: 6px 12px;
-  background: rgba($accent-primary, 0.1);
-  border: 1px solid rgba($accent-primary, 0.3);
+  background: lighten($color-team-neutral, 25%);
+  border: 1px solid $color-team-neutral-text;
   border-radius: 20px;
   font-size: $font-size-small;
   font-weight: 400;
-  font-family: $font-family-primary; // Inter for status text
-  color: $accent-primary;
+  font-family: $font-family-primary;
+  color: $color-team-neutral-text;
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
+  letter-spacing: $letter-spacing-uppercase;
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
   }
 }
 
-// Animations
-@keyframes observerFloat {
-  0% {
-    transform: translateY(100vh) translateX(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.3;
-  }
-  90% {
-    opacity: 0.3;
-  }
-  100% {
-    transform: translateY(-100px) translateX(50px) rotate(180deg);
-    opacity: 0;
-  }
-}
-
-@keyframes observerSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInLine {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
+// Particles - Removed for toon board game theme
 
 // Responsive design
 @media (max-width: 768px) {
   .container {
-    padding: 0 $padding-container-mobile; // 16px side padding confirmed
+    padding: 0 $padding-container-mobile;
   }
   
   .screen {
-    padding: $padding-screen-mobile; // 16px confirmed
+    padding: $padding-screen-mobile;
   }
   
   .ant-card {
-    margin: $spacing-sm 0; // 16px vertical margin
+    margin: $spacing-sm 0;
     
     .ant-card-body {
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
   
@@ -1064,7 +866,7 @@ p, .body-text {
   .characters-sidebar,
   .character-customization {
     .ant-card-body {
-      padding: $spacing-sm !important; // 16px padding on mobile
+      padding: $spacing-sm !important;
     }
   }
 }
@@ -1075,14 +877,14 @@ p, .body-text {
 }
 
 ::-webkit-scrollbar-track {
-  background: $background-secondary;
+  background: $color-inset-bg;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, $accent-primary, $accent-secondary);
+  background: linear-gradient(180deg, $color-team-blue, $color-team-neutral);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, lighten($accent-primary, 10%), lighten($accent-secondary, 10%));
+  background: linear-gradient(180deg, darken($color-team-blue, 10%), darken($color-team-neutral, 10%));
 }
