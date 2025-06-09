@@ -55,6 +55,10 @@ export const useStorySubmission = () => {
   return useAppSelector(state => state.api.storySubmission);
 };
 
+export const useGameBattleInit = () => {
+  return useAppSelector(state => state.api.gameBattleInit);
+};
+
 export const useExperiences = () => {
   return useAppSelector(state => state.api.experiences);
 };
@@ -105,6 +109,7 @@ export const useLoadingStates = () => {
     story: state.api.storySubmission.loading,
     experiences: state.api.experiences.loading,
     experienceData: state.api.experienceData.loading,
+    gameBattleInit: state.api.gameBattleInit.loading,
     warResults: state.api.warResults.loading,
     gameData: state.api.gameDataFetch.loading
   }));

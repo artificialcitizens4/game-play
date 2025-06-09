@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Card, Row, Col, Typography, Space, Avatar, Progress, Descriptions } from 'antd';
-import { ArrowLeftOutlined, RocketOutlined } from '@ant-design/icons';
+import { Card, Row, Col, Typography, Space, Avatar, Progress, Descriptions, message } from 'antd';
+import { ArrowLeftOutlined, RocketOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { setCurrentScreen } from '../store/slices/gameSlice';
-import { useGameState, usePersonas, usePersonasByFaction, useAppDispatch } from '../hooks/useRedux';
+import { initializeGameBattle } from '../store/slices/apiSlice';
+import { useGameState, usePersonas, useBaseStory, usePersonasByFaction, useAppDispatch, useGameBattleInit } from '../hooks/useRedux';
 import Button from './Button';
 
 const { Title, Text } = Typography;
@@ -12,8 +13,10 @@ const ViewCharactersScreen = () => {
   const dispatch = useAppDispatch();
   const gameState = useGameState();
   const personas = usePersonas();
+  const baseStory = useBaseStory();
   const team1Personas = usePersonasByFaction(gameState.story.team1Name);
   const team2Personas = usePersonasByFaction(gameState.story.team2Name);
+  const gameBattleInit = useGameBattleInit();
   
   const [selectedTeam, setSelectedTeam] = useState(1);
   const [animationPhase, setAnimationPhase] = useState('entering');
@@ -58,30 +61,87 @@ const ViewCharactersScreen = () => {
     }
   };
 
-  const handleStartWar = () => {
-    const warData = {
-      teams: {
-        team1: {
-          name: gameState.story.team1Name || 'Team Alpha',
-          size: gameState.story.team1Size || 4,
-          personas: team1Personas,
-          strength: calculateTeamStrength(team1Personas)
-        },
-        team2: {
-          name: gameState.story.team2Name || 'Team Beta',
-          size: gameState.story.team2Size || 4,
-          personas: team2Personas,
-          strength: calculateTeamStrength(team2Personas)
-        }
-      },
-      battlefield: gameState.battlefieldMap,
-      story: gameState.story,
-      gameId: gameState.gameId,
-      apiGameData: gameState.apiGameData
-    };
+  const formatPersonasForAPI = (personas) => {
+    const formattedPersonas = {};
+    
+    personas.forEach((persona, index) => {
+      // Create a unique key for each persona
+      const key = `${persona.faction.toLowerCase().replace(/\s+/g, '_')}_${persona.type.toLowerCase()}_${index + 1}`;
+      
+      formattedPersonas[key] = {
+        agentId: persona.agentId,
+        name: persona.name,
+        faction: persona.faction,
+        type: persona.type,
+        age: persona.age,
+        background: persona.background,
+        motivation: persona.motivation,
+        personality: persona.personality,
+        skills: persona.skills,
+        morale: persona.morale,
+        strength: persona.strength,
+        fatigue: persona.fatigue,
+        health: persona.health,
+        affiliation: persona.affiliation,
+        terrainStronghold: persona.terrainStronghold
+      };
+    });
+    
+    return formattedPersonas;
+  };
 
-    // For now, go to start game screen
-    dispatch(setCurrentScreen('start-game'));
+  const handleStartWar = async () => {
+    try {
+      // Prepare the game initialization payload
+      const gameInitPayload = {
+        baseStory: baseStory || gameState.story.background || 'An epic battle between two mighty factions.',
+        personas: formatPersonasForAPI(personas),
+        battlemap: gameState.battlefieldMap || {
+          map_dimensions: {
+            width: 10,
+            height: 10
+          },
+          hex_data: [
+            {
+              coord: "5,5",
+              terrain: "Clear",
+              elevation: 1
+            }
+          ]
+        }
+      };
+
+      console.log('Initializing game with payload:', gameInitPayload);
+
+      // Call the game initialization API
+      const result = await dispatch(initializeGameBattle(gameInitPayload));
+      
+      if (initializeGameBattle.fulfilled.match(result)) {
+        const { sessionId, battlemap } = result.payload;
+        const mapId = battlemap?.mapId;
+        
+        if (mapId) {
+          // Success! Redirect to the battle viewer
+          const battleViewerUrl = `https://wondrous-haupia-545f08.netlify.app/?mapId=${mapId}`;
+          
+          message.success('Battle initialized successfully! Redirecting to battlefield...');
+          
+          // Small delay to show the success message
+          setTimeout(() => {
+            window.open(battleViewerUrl, '_blank', 'noopener,noreferrer');
+          }, 1500);
+        } else {
+          message.error('Battle initialized but no map ID received');
+        }
+      } else {
+        // Handle API error
+        const errorMessage = result.payload?.message || 'Failed to initialize battle';
+        message.error(errorMessage);
+      }
+    } catch (error) {
+      console.error('Error starting war:', error);
+      message.error('An unexpected error occurred while starting the battle');
+    }
   };
 
   const goBack = () => {
@@ -116,6 +176,7 @@ const ViewCharactersScreen = () => {
         onClick={goBack}
         variant="secondary"
         icon={<ArrowLeftOutlined />}
+        disabled={gameBattleInit.loading}
       >
         BACK
       </Button>
@@ -146,6 +207,7 @@ const ViewCharactersScreen = () => {
                     variant={selectedTeam === 1 ? 'primary' : 'secondary'}
                     size="large"
                     style={{ minWidth: '200px' }}
+                    disabled={gameBattleInit.loading}
                   >
                     ⚔️ {gameState.story.team1Name || 'TEAM ALPHA'}
                   </Button>
@@ -154,6 +216,7 @@ const ViewCharactersScreen = () => {
                     variant={selectedTeam === 2 ? 'primary' : 'secondary'}
                     size="large"
                     style={{ minWidth: '200px' }}
+                    disabled={gameBattleInit.loading}
                   >
                     🛡️ {gameState.story.team2Name || 'TEAM BETA'}
                   </Button>
@@ -440,8 +503,10 @@ const ViewCharactersScreen = () => {
             <Button 
               onClick={handleStartWar}
               variant="launch"
-              icon={<RocketOutlined />}
+              icon={gameBattleInit.loading ? <LoadingOutlined spin /> : <RocketOutlined />}
               size="large"
+              disabled={gameBattleInit.loading}
+              loading={gameBattleInit.loading}
               style={{
                 fontSize: '1.5rem',
                 padding: '20px 40px',
@@ -449,17 +514,36 @@ const ViewCharactersScreen = () => {
                 minWidth: '300px'
               }}
             >
-              🔥 START THE WAR! 🔥
+              {gameBattleInit.loading ? '🔥 INITIALIZING BATTLE... 🔥' : '🔥 START THE WAR! 🔥'}
             </Button>
             
             <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem' }}>
-              All warriors are assembled and ready for battle
+              {gameBattleInit.loading 
+                ? 'Setting up the battlefield and deploying forces...'
+                : 'All warriors are assembled and ready for battle'
+              }
             </Text>
             
             {gameState.gameId && (
               <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.8rem' }}>
                 Game ID: {gameState.gameId}
               </Text>
+            )}
+
+            {/* Show API status */}
+            {gameBattleInit.error && (
+              <div style={{ 
+                background: 'rgba(255, 107, 53, 0.1)',
+                border: '1px solid #ff6b35',
+                borderRadius: '8px',
+                padding: '1rem',
+                maxWidth: '400px',
+                margin: '0 auto'
+              }}>
+                <Text style={{ color: '#ff6b35', fontSize: '0.9rem' }}>
+                  ⚠️ {gameBattleInit.error.message}
+                </Text>
+              </div>
             )}
           </Space>
         </div>

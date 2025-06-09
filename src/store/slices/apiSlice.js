@@ -108,6 +108,39 @@ export const submitStoryToAPI = createAsyncThunk(
   }
 );
 
+// New async thunk for initializing the game battle
+export const initializeGameBattle = createAsyncThunk(
+  'api/initializeGameBattle',
+  async (gameData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/game/initialize', gameData, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        timeout: 100000
+      });
+      
+      return response.data;
+    } catch (error) {
+      let errorMessage = 'Failed to initialize game battle';
+      
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Request timeout. Please try again.';
+      } else if (error.response) {
+        errorMessage = `Server error: ${error.response.status} - ${error.response.data?.message || 'Unknown error'}`;
+      } else if (error.request) {
+        errorMessage = 'Unable to connect to the game server. Please check your connection.';
+      }
+      
+      return rejectWithValue({
+        message: errorMessage,
+        status: error.response?.status,
+        data: error.response?.data
+      });
+    }
+  }
+);
+
 // New async thunk for fetching experience mode data (simplified without pagination)
 export const fetchExperienceData = createAsyncThunk(
   'api/fetchExperienceData',
@@ -215,6 +248,16 @@ const initialState = {
     data: null
   },
   
+  // Game battle initialization state
+  gameBattleInit: {
+    loading: false,
+    success: false,
+    error: null,
+    data: null,
+    sessionId: null,
+    mapId: null
+  },
+  
   // Experience data state (simplified without pagination)
   experienceData: {
     loading: false,
@@ -266,6 +309,17 @@ const apiSlice = createSlice({
         success: false,
         error: null,
         data: null
+      };
+    },
+    
+    clearGameBattleInit: (state) => {
+      state.gameBattleInit = {
+        loading: false,
+        success: false,
+        error: null,
+        data: null,
+        sessionId: null,
+        mapId: null
       };
     },
     
@@ -349,6 +403,32 @@ const apiSlice = createSlice({
           id: Date.now(),
           timestamp: new Date().toISOString(),
           type: 'story_submission',
+          error: action.payload
+        });
+      });
+    
+    // Game battle initialization
+    builder
+      .addCase(initializeGameBattle.pending, (state) => {
+        state.gameBattleInit.loading = true;
+        state.gameBattleInit.error = null;
+        state.lastApiCall = new Date().toISOString();
+      })
+      .addCase(initializeGameBattle.fulfilled, (state, action) => {
+        state.gameBattleInit.loading = false;
+        state.gameBattleInit.success = true;
+        state.gameBattleInit.data = action.payload;
+        state.gameBattleInit.sessionId = action.payload.sessionId;
+        state.gameBattleInit.mapId = action.payload.battlemap?.mapId;
+        state.retryCount = 0;
+      })
+      .addCase(initializeGameBattle.rejected, (state, action) => {
+        state.gameBattleInit.loading = false;
+        state.gameBattleInit.error = action.payload;
+        state.apiErrors.push({
+          id: Date.now(),
+          timestamp: new Date().toISOString(),
+          type: 'game_battle_init',
           error: action.payload
         });
       });
@@ -460,6 +540,7 @@ const apiSlice = createSlice({
 
 export const {
   clearStorySubmission,
+  clearGameBattleInit,
   clearExperienceData,
   clearWarResults,
   clearGameDataFetch,
