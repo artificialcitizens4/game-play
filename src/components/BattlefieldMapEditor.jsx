@@ -94,29 +94,558 @@ const BattlefieldMapEditor = ({onExportMap}) => {
     return {
       battlefield_type: 'plains',
       map_dimensions: {
-        width: 12,
+        width: 10,
         height: 10
       },
-      hex_data: generateDefaultHexData(),
-      strategic_zones: generateDefaultZones(),
-      objects: generateDefaultObjects()
+      hex_data: [
+        {
+          "coord": "0,0",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "1,0",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,0",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "3,0",
+          "terrain": "Clear",
+          "elevation": 2
+        },
+        {
+          "coord": "4,0",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "5,0",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "6,0",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,0",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,0",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,0",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "0,1",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "1,1",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,1",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "3,1",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,1",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "5,1",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "6,1",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,1",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "8,1",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "9,1",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "0,2",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "1,2",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,2",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "3,2",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,2",
+          "terrain": "Clear",
+          "elevation": 2
+        },
+        {
+          "coord": "5,2",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "6,2",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "7,2",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "8,2",
+          "terrain": "Clear",
+          "elevation": 2
+        },
+        {
+          "coord": "9,2",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "0,3",
+          "terrain": "Clear",
+          "elevation": 2
+        },
+        {
+          "coord": "1,3",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "3,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "5,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "6,3",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "7,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,3",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "0,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "1,4",
+          "terrain": "Clear",
+          "elevation": 2
+        },
+        {
+          "coord": "2,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "3,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,4",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "5,4",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "6,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,4",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "0,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "1,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "2,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "3,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,5",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "5,5",
+          "terrain": "Room",
+          "elevation": 1
+        },
+        {
+          "coord": "6,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,5",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,5",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "0,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "1,6",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "3,6",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "4,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "5,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "6,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,6",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "9,6",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "0,7",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "1,7",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,7",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "3,7",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,7",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "5,7",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "6,7",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "7,7",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "8,7",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,7",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "0,8",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "1,8",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "2,8",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "3,8",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,8",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "5,8",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "6,8",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,8",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,8",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,8",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "0,9",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "1,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "2,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "3,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "4,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "5,9",
+          "terrain": "Forest (Light)",
+          "elevation": 2
+        },
+        {
+          "coord": "6,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "7,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "8,9",
+          "terrain": "Clear",
+          "elevation": 1
+        },
+        {
+          "coord": "9,9",
+          "terrain": "Clear",
+          "elevation": 1
+        }
+      ],
+      strategic_zones: [
+        {
+          id: 'zone_1',
+          name: 'Alpha Point',
+          strategic_value: 5,
+          hexes: [{ col: 3, row: 3 }, { col: 4, row: 3 }, { col: 3, row: 4 }],
+          color: '#ff6b35'
+        },
+        {
+          id: 'zone_2',
+          name: 'Bravo Ridge',
+          strategic_value: 7,
+          hexes: [{ col: 8, row: 6 }, { col: 9, row: 6 }, { col: 8, row: 7 }],
+          color: '#2ed573'
+        },
+        {
+          id: 'zone_3',
+          name: 'Charlie Hill',
+          strategic_value: 6,
+          hexes: [{ col: 5, row: 2 }, { col: 6, row: 2 }, { col: 5, row: 3 }],
+          color: '#ffa502'
+        }
+      ],
+      objects: [
+        {
+          id: 'obj_1',
+          name: 'Command Post',
+          type: 'military',
+          emoji: '⚔️',
+          coordinates: { hex: { col: 5, row: 5 } }
+        },
+        {
+          id: 'obj_2',
+          name: 'Supply Depot',
+          type: 'building',
+          emoji: '🏠',
+          coordinates: { hex: { col: 2, row: 7 } }
+        },
+        {
+          id: 'obj_3',
+          name: 'Ancient Monument',
+          type: 'landmark',
+          emoji: '🏛️',
+          coordinates: { hex: { col: 9, row: 3 } }
+        }
+      ]
     };
-  };
-
-  const generateDefaultHexData = () => {
-    const hexData = [];
-    for (let row = 0; row < 10; row++) {
-      for (let col = 0; col < 12; col++) {
-        const terrain = Math.random() > 0.7 ? 'Forest (Light)' : 
-                       Math.random() > 0.8 ? 'Hill (Steep/Ridge)' : 'Clear';
-        hexData.push({
-          coord: `${col},${row}`,
-          terrain: terrain,
-          elevation: Math.floor(Math.random() * 3) + 1
-        });
-      }
-    }
-    return hexData;
   };
 
   const generateDefaultZones = () => {
@@ -145,7 +674,7 @@ const BattlefieldMapEditor = ({onExportMap}) => {
         name: 'Command Post',
         type: 'military',
         emoji: '⚔️',
-        coordinates: { hex: { col: 6, row: 5 } }
+        coordinates: { hex: { col: 5, row: 5 } }
       }
     ];
   };
@@ -237,7 +766,7 @@ const BattlefieldMapEditor = ({onExportMap}) => {
                   </Button>
                   
                   <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-                    A pre-designed battlefield with strategic zones and varied terrain
+                    A pre-designed 10x10 battlefield with strategic zones and varied terrain
                   </Text>
                   
                   <div style={{ margin: '1rem 0', borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '1rem' }}>
