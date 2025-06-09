@@ -1830,7 +1830,7 @@ a, .link-text, .clickable-text {
 
 .character-header-name {
   margin: 0 !important;
-  background: linear-gradient(45deg, $color-team-blue-text, $color-team-red-faction) !important;
+  background: linear-gradient(45deg, $color-text-blue-faction, $color-text-red-faction) !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -1878,7 +1878,7 @@ a, .link-text, .clickable-text {
 
 .section-divider {
   height: 2px;
-  background: linear-gradient(90deg, transparent, $color-team-blue-text, $color-team-red-faction, transparent);
+  background: linear-gradient(90deg, transparent, $color-team-blue-text, $color-team-red-text, transparent);
   border-radius: 1px;
   margin: 0.5rem 0;
 }
@@ -2071,7 +2071,7 @@ a, .link-text, .clickable-text {
 
 .character-identity-name {
   margin: 0 !important;
-  background: linear-gradient(45deg, $color-team-blue-text, $color-team-red-faction) !important;
+  background: linear-gradient(45deg, $color-text-blue-faction, $color-text-red-faction) !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
