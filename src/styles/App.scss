@@ -1082,6 +1082,236 @@ a, .link-text, .clickable-text {
   }
 }
 
+// Story Screen Specific Styles
+.story-screen {
+  // Two-column grid layout
+  .story-screen__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; // Main content is twice as wide as sidebar
+    gap: 2rem;
+    align-items: flex-start;
+    text-align: left; // Override center alignment for better readability
+    
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr; // Stack on tablets and below
+      gap: 1.5rem;
+    }
+  }
+  
+  // Main content column
+  .story-screen__main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  // Sidebar column
+  .story-screen__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  // Story form content
+  .story-form__content {
+    width: 100%;
+    
+    .ant-space-item {
+      width: 100%;
+    }
+  }
+  
+  // Story input section
+  .story-input-section {
+    width: 100%;
+    
+    .story-input-label {
+      font-size: $font-size-section;
+      color: $color-text-heading !important;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-family: $font-family-display;
+      font-weight: 700;
+    }
+    
+    .story-textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .character-count {
+      text-align: right;
+      margin-top: 0.5rem;
+      
+      .character-count-text {
+        color: $color-text-muted !important;
+        font-size: $font-size-small;
+      }
+    }
+  }
+  
+  // Army configuration section
+  .army-config-section {
+    width: 100%;
+    
+    .army-config-title {
+      font-size: $font-size-section;
+      color: $color-text-heading !important;
+      display: block;
+      margin-bottom: 1rem;
+      font-family: $font-family-display;
+      font-weight: 700;
+    }
+    
+    .army-config-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+  }
+  
+  // Team size cards
+  .team-size-card {
+    @include token-style;
+    
+    &.team-size-card--team1 {
+      background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
+      border-color: $color-team-blue-text !important;
+    }
+    
+    &.team-size-card--team2 {
+      background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
+      border-color: $color-team-red-text !important;
+    }
+    
+    .team-size-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+      .team-size-label {
+        color: $color-text-heading !important;
+        font-size: $font-size-body;
+        font-family: $font-family-display;
+        font-weight: 700;
+      }
+      
+      .team-size-input {
+        width: 100%;
+      }
+      
+      .team-size-description {
+        color: $color-text-muted !important;
+        font-size: $font-size-small;
+        line-height: 1.4;
+      }
+    }
+  }
+  
+  // Form actions
+  .form-actions {
+    text-align: center;
+    
+    .next-button {
+      margin-bottom: 1rem;
+    }
+    
+    .form-help-text {
+      margin-top: 1rem;
+      
+      .form-help-message {
+        color: $color-text-muted !important;
+        font-size: $font-size-small;
+      }
+    }
+    
+    .team-summary {
+      margin-top: 1rem;
+      
+      .team-summary-text {
+        color: $color-text-primary !important;
+        font-size: $font-size-small;
+      }
+    }
+  }
+  
+  // Example content
+  .example-content {
+    .example-title {
+      color: $color-text-heading !important;
+      font-size: $font-size-section;
+      font-family: $font-family-display;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    
+    .example-items {
+      .example-item {
+        margin-bottom: 1rem;
+        color: $color-text-primary !important;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        strong {
+          color: $color-text-heading !important;
+        }
+      }
+    }
+  }
+  
+  // Status messages
+  .status-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .status-card {
+    @include token-style;
+    
+    &.status-card--loading {
+      background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
+      border-color: $color-team-blue-text !important;
+    }
+    
+    &.status-card--success {
+      background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
+      border-color: $color-team-neutral-text !important;
+    }
+    
+    &.status-card--error {
+      background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
+      border-color: $color-team-red-text !important;
+    }
+    
+    .status-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      
+      .status-spinner {
+        color: $color-team-blue-text !important;
+        font-size: 1rem;
+      }
+    }
+    
+    .status-text {
+      color: $color-text-primary !important;
+      font-size: $font-size-small;
+      font-weight: 500;
+    }
+  }
+}
+
 // Responsive design
 @media (max-width: 768px) {
   .container {
