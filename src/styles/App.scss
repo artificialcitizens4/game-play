@@ -14,22 +14,20 @@ $color-text-neutral-faction: #5aad8c; // Neutral/green team text
 $color-text-emphasis: #8b7942;       // Notifications, special messages, emphasis
 $color-text-muted: #a89f94;          // Disabled, non-interactive, secondary info
 
-// Legacy color variables for components (will be phased out)
-$color-text-secondary: $color-text-emphasis; // Maps to emphasis color
-
-$color-card-bg-start: #ffffff;
-$color-card-bg-end: #fefcf7;
+// Solid Background Colors - NO TRANSPARENCY
+$color-card-bg-start: #ffffff;       // 100% opaque white
+$color-card-bg-end: #fefcf7;         // 100% opaque cream
 $color-card-border: #d7d0c7;
 $color-card-border-hover: #b3a99d;
 
-$color-token-bg: #fdfaf2;
+$color-token-bg: #fdfaf2;            // 100% opaque token background
 $color-token-border: #e9e4db;
 $color-token-border-hover: #d1cbbc;
 
-$color-inset-bg: #e0dace;
+$color-inset-bg: #e0dace;            // 100% opaque inset background
 $color-inset-border: #d1cbbc;
 
-$color-team-blue: #a7c7e7;
+$color-team-blue: #a7c7e7;           // 100% opaque team colors
 $color-team-red: #ffb3ba;
 $color-team-neutral: #a7e7c7;
 
@@ -39,6 +37,9 @@ $color-team-neutral-text: $color-text-neutral-faction;
 
 $color-toggle-active: #4ade80;
 $color-toggle-active-border: #22c55e;
+
+// Special notification background
+$color-notification-bg: #fffacd;     // 100% opaque light yellow
 
 // Base Unit System - 8px grid
 $base-unit: 8px;
@@ -97,7 +98,7 @@ $font-size-body-mobile: 1rem;
 $font-size-button-mobile: 0.8rem;
 $font-size-small-mobile: 0.7rem;
 
-// Mixins for Toon Board Game Style
+// Mixins for Toon Board Game Style - ALL OPAQUE BACKGROUNDS
 @mixin card-style {
   background: linear-gradient(160deg, $color-card-bg-start 0%, $color-card-bg-end 100%);
   border: 2px solid $color-card-border;
@@ -121,7 +122,7 @@ $font-size-small-mobile: 0.7rem;
   }
   
   &.active, &.selected {
-    background: #fff;
+    background: $color-card-bg-start; // Solid white, not transparent
     border-color: $color-card-border-hover;
   }
 }
@@ -180,8 +181,8 @@ $font-size-small-mobile: 0.7rem;
 
 body {
   font-family: 'Lato', sans-serif;
-  color: $color-text-primary;
-  background-color: #f5f3ef;
+  color: $color-text-primary; // Global default text color
+  background-color: #f5f3ef;  // 100% opaque background
   background-image: url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e8e4d9" fill-opacity="0.4"%3E%3Cpath d="M0 0h40v40H0zM40 40h40v40H40z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
   font-size: 15px;
   overflow-x: hidden;
@@ -238,7 +239,7 @@ body {
   font-weight: 800;
   font-family: $font-family-display;
   margin-bottom: $spacing-md;
-  color: $color-text-heading;
+  color: $color-text-heading; // Primary heading color
   text-transform: uppercase;
   letter-spacing: $letter-spacing-game-title;
   line-height: $line-height-title;
@@ -281,12 +282,12 @@ body {
 }
 
 // Typography Scale Implementation
-.title {
+.title, .sidebar-header {
   font-size: $font-size-title;
   font-weight: 800;
   font-family: $font-family-display;
   margin-bottom: $spacing-md;
-  color: $color-text-heading;
+  color: $color-text-heading; // Primary heading color
   text-transform: uppercase;
   letter-spacing: $letter-spacing-title;
   line-height: $line-height-title;
@@ -314,7 +315,7 @@ body {
   font-weight: 700;
   font-family: $font-family-display;
   margin-bottom: $spacing-xl;
-  color: $color-text-emphasis;
+  color: $color-text-emphasis; // Notification/emphasis color for subtitles
   line-height: $line-height-subtitle;
   letter-spacing: $letter-spacing-uppercase;
   max-width: 600px;
@@ -331,7 +332,7 @@ h3, .section-title {
   font-size: $font-size-section;
   font-weight: 700;
   font-family: $font-family-display;
-  color: $color-text-heading;
+  color: $color-text-heading; // Primary heading color
   line-height: $line-height-section;
   letter-spacing: $letter-spacing-uppercase;
   margin-bottom: $spacing-sm;
@@ -347,7 +348,7 @@ p, .body-text {
   font-weight: 400;
   font-family: $font-family-primary;
   line-height: $line-height-body;
-  color: $color-text-primary;
+  color: $color-text-primary; // Body text color
   
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
@@ -361,7 +362,7 @@ p, .body-text {
   font-family: $font-family-primary;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
-  color: $color-text-muted;
+  color: $color-text-muted; // Muted color for labels
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
@@ -369,8 +370,8 @@ p, .body-text {
 }
 
 // Links and interactive text
-a, .link-text {
-  color: $color-text-interactive;
+a, .link-text, .clickable-text {
+  color: $color-text-interactive; // Interactive text color
   text-decoration: none;
   cursor: pointer;
   transition: color 0.25s ease;
@@ -407,7 +408,7 @@ a, .link-text {
   }
 }
 
-// Button styles
+// Button styles - ALL OPAQUE BACKGROUNDS
 .ant-btn {
   @include token-style;
   padding: $button-padding-vertical $button-padding-horizontal;
@@ -420,6 +421,7 @@ a, .link-text {
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
   cursor: pointer;
+  color: $color-text-interactive; // Interactive text color for buttons
   
   &.btn-primary {
     background: linear-gradient(160deg, $color-team-blue 0%, lighten($color-team-blue, 10%) 100%);
@@ -434,12 +436,12 @@ a, .link-text {
   }
   
   &.btn-secondary {
-    background: $color-token-bg;
+    background: $color-token-bg; // Solid token background
     border-color: $color-token-border;
     color: $color-text-primary;
     
     &:hover {
-      background: #fff;
+      background: $color-card-bg-start; // Solid white
       border-color: $color-card-border-hover;
       color: $color-text-primary;
     }
@@ -474,11 +476,12 @@ a, .link-text {
     }
   }
   
-  &:disabled {
+  &:disabled, &[disabled] {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
-    color: $color-text-muted;
+    color: $color-text-muted; // Muted color for disabled buttons
+    background: lighten($color-inset-bg, 5%); // Solid disabled background
   }
   
   @media (max-width: 768px) {
@@ -521,7 +524,7 @@ a, .link-text {
   z-index: 1000;
 }
 
-// Ant Design Card Overrides
+// Ant Design Card Overrides - ALL OPAQUE BACKGROUNDS
 .ant-card {
   @include card-style;
   
@@ -534,7 +537,7 @@ a, .link-text {
       font-size: $font-size-section;
       font-weight: 700;
       font-family: $font-family-display;
-      color: $color-text-heading;
+      color: $color-text-heading; // Primary heading color
       letter-spacing: $letter-spacing-uppercase;
       
       @media (max-width: 768px) {
@@ -548,7 +551,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-primary; // Body text color
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -591,7 +594,7 @@ a, .link-text {
       position: absolute;
       top: 16px;
       right: 16px;
-      background: $color-team-blue;
+      background: $color-team-blue; // Solid background
       color: $color-team-blue-text;
       padding: 6px 12px;
       border-radius: 0.5rem;
@@ -603,7 +606,7 @@ a, .link-text {
   }
 }
 
-// Ant Design Input Overrides
+// Ant Design Input Overrides - ALL OPAQUE BACKGROUNDS
 .ant-input,
 .ant-input-number,
 .ant-input-number-input {
@@ -612,10 +615,10 @@ a, .link-text {
   font-size: $font-size-button;
   font-weight: 400;
   padding: 12px 16px;
-  color: $color-text-primary;
+  color: $color-text-primary; // Body text color
   
   &::placeholder {
-    color: $color-text-muted;
+    color: $color-text-muted; // Muted color for placeholders
   }
   
   @media (max-width: 768px) {
@@ -627,7 +630,7 @@ a, .link-text {
   width: 100%;
   
   .ant-input-number-handler-wrap {
-    background: $color-token-bg;
+    background: $color-token-bg; // Solid background
     border-left: 1px solid $color-token-border;
     border-radius: 0 0.75rem 0.75rem 0;
   }
@@ -645,7 +648,7 @@ a, .link-text {
 // Ant Design Slider Overrides
 .ant-slider {
   .ant-slider-rail {
-    background: $color-inset-bg;
+    background: $color-inset-bg; // Solid background
     height: 6px;
     border-radius: 3px;
   }
@@ -658,7 +661,7 @@ a, .link-text {
   
   .ant-slider-handle {
     border: 3px solid $color-team-blue-text;
-    background: #fff;
+    background: $color-card-bg-start; // Solid white background
     width: 18px;
     height: 18px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -680,10 +683,10 @@ a, .link-text {
 
 .ant-progress-inner {
   border-radius: 4px;
-  background: $color-inset-bg;
+  background: $color-inset-bg; // Solid background
 }
 
-// Stats container spacing
+// Stats container spacing - INSET STYLE
 .stats-container {
   @include inset-style;
   margin: $spacing-lg 0;
@@ -703,14 +706,11 @@ a, .link-text {
   }
 }
 
-// Team-specific styling
+// Team-specific styling with faction colors
 .blue-team {
   .ant-card-head-title,
   h3,
-  .section-title {
-    color: $color-text-blue-faction !important;
-  }
-  
+  .section-title,
   .team-name,
   .faction-text {
     color: $color-text-blue-faction !important;
@@ -720,10 +720,7 @@ a, .link-text {
 .red-team {
   .ant-card-head-title,
   h3,
-  .section-title {
-    color: $color-text-red-faction !important;
-  }
-  
+  .section-title,
   .team-name,
   .faction-text {
     color: $color-text-red-faction !important;
@@ -733,10 +730,7 @@ a, .link-text {
 .neutral-team {
   .ant-card-head-title,
   h3,
-  .section-title {
-    color: $color-text-neutral-faction !important;
-  }
-  
+  .section-title,
   .team-name,
   .faction-text {
     color: $color-text-neutral-faction !important;
@@ -745,8 +739,8 @@ a, .link-text {
 
 // Summary bar and special notifications
 .summary-bar {
-  background: #fffacd; // Light yellow background for notifications
-  color: $color-text-emphasis;
+  background: $color-notification-bg; // Solid notification background
+  color: $color-text-emphasis; // Emphasis color for notifications
   padding: $padding-card-small;
   border-radius: 0.5rem;
   border: 1px solid lighten($color-text-emphasis, 20%);
@@ -757,7 +751,7 @@ a, .link-text {
   }
 }
 
-// Component spacing - Major containers
+// Component spacing - Major containers with OPAQUE BACKGROUNDS
 .character-profile {
   @include card-style;
   
@@ -884,12 +878,12 @@ a, .link-text {
   cursor: pointer;
   
   .character-name {
-    color: $color-text-heading;
+    color: $color-text-heading; // Primary heading color
     font-weight: 700;
   }
   
   .character-role {
-    color: $color-text-muted;
+    color: $color-text-muted; // Muted color for roles
     font-size: $font-size-small;
   }
 }
@@ -925,7 +919,7 @@ a, .link-text {
     font-size: 2rem;
     font-weight: 800;
     font-family: $font-family-display;
-    color: $color-text-blue-faction;
+    color: $color-text-blue-faction; // Blue faction color for values
     margin-bottom: $spacing-xs;
     line-height: 1.2;
   }
@@ -934,7 +928,7 @@ a, .link-text {
     font-size: $font-size-small;
     font-weight: 400;
     font-family: $font-family-primary;
-    color: $color-text-muted;
+    color: $color-text-muted; // Muted color for labels
     text-transform: uppercase;
     letter-spacing: $letter-spacing-uppercase;
     
@@ -969,13 +963,13 @@ a, .link-text {
   align-items: center;
   gap: $spacing-xs;
   padding: 6px 12px;
-  background: lighten($color-team-neutral, 25%);
+  background: lighten($color-team-neutral, 25%); // Solid background
   border: 1px solid $color-team-neutral-text;
   border-radius: 20px;
   font-size: $font-size-small;
   font-weight: 400;
   font-family: $font-family-primary;
-  color: $color-text-emphasis;
+  color: $color-text-emphasis; // Emphasis color
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
   
@@ -986,7 +980,7 @@ a, .link-text {
 
 // Sidebar headers
 .sidebar-header {
-  color: $color-text-heading !important;
+  color: $color-text-heading !important; // Primary heading color
   font-weight: 700;
   font-family: $font-family-display;
 }
@@ -994,12 +988,17 @@ a, .link-text {
 // Global toggle button states
 .global-toggle-btn {
   &.active {
-    color: $color-text-interactive;
+    color: $color-text-interactive; // Interactive color when active
   }
   
   &.inactive {
-    color: $color-text-muted;
+    color: $color-text-muted; // Muted color when inactive
   }
+}
+
+// Text muted class for disabled elements
+.text-muted, [disabled] {
+  color: $color-text-muted !important;
 }
 
 // Responsive design
@@ -1040,7 +1039,7 @@ a, .link-text {
 }
 
 ::-webkit-scrollbar-track {
-  background: $color-inset-bg;
+  background: $color-inset-bg; // Solid background
 }
 
 ::-webkit-scrollbar-thumb {
