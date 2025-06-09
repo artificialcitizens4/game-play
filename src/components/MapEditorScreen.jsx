@@ -32,11 +32,6 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
     onSaveBattlefieldMap(exportedMapData);
     
     message.success("Battlefield map saved successfully!");
-
-    // Auto-proceed to next screen after a short delay
-    setTimeout(() => {
-      proceedToWarSummary();
-    }, 2000);
   };
 
   const proceedToWarSummary = () => {
@@ -665,104 +660,71 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
           Design your battlefield and customize the terrain for epic warfare
         </Text>
 
-        {/* Show mode indicator */}
+        {/* Game Mode Indicator */}
         {gameState.gameMode === 'experience' && (
-          <div style={{ 
-            textAlign: 'center', 
-            marginBottom: '2rem',
-            background: 'rgba(255, 107, 53, 0.1)',
-            border: '1px solid #ff6b35',
-            borderRadius: '8px',
-            padding: '1rem',
-            maxWidth: '600px',
-            margin: '0 auto 2rem auto'
-          }}>
-            <Text style={{ color: '#ff6b35', fontSize: '1rem', fontWeight: 'bold' }}>
-              🎮 EXPERIENCE MODE
-            </Text>
-            <br />
-            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
-              Warriors are pre-loaded with unique backstories • Design your battlefield for the ultimate showdown
-            </Text>
+          <div className="mode-indicator">
+            <div className="mode-indicator-badge mode-indicator-badge--experience">
+              <Text className="mode-indicator-text">
+                🎮 EXPERIENCE MODE
+              </Text>
+              <Text className="mode-indicator-description">
+                Warriors are pre-loaded with unique backstories • Design your battlefield for the ultimate showdown
+              </Text>
+            </div>
           </div>
         )}
 
-        <div style={{ margin: "2rem 0" }}>
+        {/* Holotable Container */}
+        <div className="holotable-container">
           <BattlefieldMapEditor
             onExportMap={handleMapExport}
             gameData={gameData}
           />
         </div>
 
-        <div style={{ textAlign: "center", marginTop: "3rem" }}>
-          {/* Show completion status */}
-          {isMapComplete && (
-            <div
-              style={{
-                background: "rgba(46, 213, 115, 0.1)",
-                border: "1px solid #2ed573",
-                borderRadius: "8px",
-                padding: "1rem",
-                marginBottom: "2rem",
-                maxWidth: "400px",
-                margin: "0 auto 2rem auto",
-              }}
-            >
-              <Text style={{ color: "#2ed573", fontSize: "1rem" }}>
-                ✅ Battlefield Ready: {mapData?.battlefield_type || "Custom"} (
-                {mapData?.map_dimensions?.width || 10}x
-                {mapData?.map_dimensions?.height || 10})
-              </Text>
-              <br />
-              <Text
-                style={{
-                  color: "rgba(255, 255, 255, 0.8)",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Proceeding to war summary...
-              </Text>
+        {/* Control Panel */}
+        <div className="control-panel">
+          <div className="control-panel-content">
+            {/* Status Message */}
+            <div className="control-panel-status">
+              {isMapComplete ? (
+                <Text className="status-message status-message--success">
+                  ✅ Map Saved: {mapData?.battlefield_type || "Custom"} (
+                  {mapData?.map_dimensions?.width || 10}x
+                  {mapData?.map_dimensions?.height || 10})
+                </Text>
+              ) : (
+                <Text className="status-message status-message--info">
+                  💡 Create a custom battlefield or use a default map to continue
+                </Text>
+              )}
             </div>
-          )}
 
-          {/* Action buttons */}
-          {!isMapComplete && (
-            <div
-              style={{
-                display: "flex",
-                gap: "1rem",
-                justifyContent: "center",
-                flexWrap: "wrap",
-              }}
-            >
+            {/* Control Buttons */}
+            <div className="control-panel-actions">
               <Button
                 onClick={proceedToWarSummary}
                 variant="primary"
                 icon={<ArrowRightOutlined />}
                 size="large"
-                disabled={!mapData}
+                disabled={!isMapComplete}
+                className="control-button control-button--continue"
               >
                 CONTINUE WITH MAP
               </Button>
 
-              <Button onClick={skipMapEditor} variant="secondary" size="large">
-                USE DEFAULT MAP
-              </Button>
+              {!isMapComplete && (
+                <Button 
+                  onClick={skipMapEditor} 
+                  variant="secondary" 
+                  size="large"
+                  className="control-button control-button--default"
+                >
+                  USE DEFAULT MAP
+                </Button>
+              )}
             </div>
-          )}
-
-          {!isMapComplete && (
-            <div style={{ marginTop: "1rem" }}>
-              <Text
-                style={{
-                  color: "rgba(255, 255, 255, 0.6)",
-                  fontSize: "0.9rem",
-                }}
-              >
-                💡 Create a custom battlefield or use a default map to continue
-              </Text>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
