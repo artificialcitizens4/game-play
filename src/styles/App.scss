@@ -101,37 +101,37 @@ $font-size-small-mobile: 0.7rem;
 // Mixins for Toon Board Game Style - ALL OPAQUE BACKGROUNDS
 @mixin card-style {
   background: linear-gradient(160deg, $color-card-bg-start 0%, $color-card-bg-end 100%);
-  border: 2px solid $color-card-border;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  border-radius: 1rem;
-  color: $color-text-primary;
+  border: 1px solid $color-card-border !important; // Lighter, friendlier border
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important; // Softer shadow
+  border-radius: 1rem !important;
+  color: $color-text-primary !important;
 }
 
 @mixin token-style {
-  background-color: $color-token-bg;
-  border: 2px solid $color-token-border;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
-  border-radius: 0.75rem;
-  color: $color-text-primary;
+  background-color: $color-token-bg !important;
+  border: 1px solid $color-token-border !important; // Lighter border
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important; // Very subtle shadow
+  border-radius: 0.75rem !important;
+  color: $color-text-primary !important;
   transition: all 0.25s ease;
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    border-color: $color-token-border-hover;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08) !important;
+    border-color: $color-token-border-hover !important;
   }
   
   &.active, &.selected {
-    background: $color-card-bg-start; // Solid white, not transparent
-    border-color: $color-card-border-hover;
+    background: $color-card-bg-start !important; // Solid white, not transparent
+    border-color: $color-card-border-hover !important;
   }
 }
 
 @mixin inset-style {
-  background: $color-inset-bg;
-  border: 2px solid $color-inset-border;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);
-  border-radius: 0.75rem;
+  background: $color-inset-bg !important;
+  border: 1px solid $color-inset-border !important; // Lighter border
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06) !important; // Softer inset shadow
+  border-radius: 0.75rem !important;
 }
 
 // Text Color Utility Classes
@@ -424,55 +424,55 @@ a, .link-text, .clickable-text {
   color: $color-text-interactive; // Interactive text color for buttons
   
   &.btn-primary {
-    background: linear-gradient(160deg, $color-team-blue 0%, lighten($color-team-blue, 10%) 100%);
-    border-color: $color-team-blue-text;
-    color: $color-team-blue-text;
+    background: linear-gradient(160deg, $color-team-blue 0%, lighten($color-team-blue, 10%) 100%) !important;
+    border-color: $color-team-blue-text !important;
+    color: $color-team-blue-text !important;
     
     &:hover {
-      background: linear-gradient(160deg, lighten($color-team-blue, 5%) 0%, lighten($color-team-blue, 15%) 100%);
-      border-color: darken($color-team-blue-text, 10%);
-      color: darken($color-team-blue-text, 10%);
+      background: linear-gradient(160deg, lighten($color-team-blue, 5%) 0%, lighten($color-team-blue, 15%) 100%) !important;
+      border-color: darken($color-team-blue-text, 10%) !important;
+      color: darken($color-team-blue-text, 10%) !important;
     }
   }
   
   &.btn-secondary {
-    background: $color-token-bg; // Solid token background
-    border-color: $color-token-border;
-    color: $color-text-primary;
+    background: $color-token-bg !important; // Solid token background
+    border-color: $color-token-border !important;
+    color: $color-text-primary !important;
     
     &:hover {
-      background: $color-card-bg-start; // Solid white
-      border-color: $color-card-border-hover;
-      color: $color-text-primary;
+      background: $color-card-bg-start !important; // Solid white
+      border-color: $color-card-border-hover !important;
+      color: $color-text-primary !important;
     }
   }
   
   &.btn-save {
-    background: linear-gradient(160deg, $color-team-red 0%, lighten($color-team-red, 10%) 100%);
-    border-color: $color-team-red-text;
-    color: $color-team-red-text;
+    background: linear-gradient(160deg, $color-team-red 0%, lighten($color-team-red, 10%) 100%) !important;
+    border-color: $color-team-red-text !important;
+    color: $color-team-red-text !important;
     font-size: $font-size-body;
     padding: 16px 32px;
     
     &:hover {
-      background: linear-gradient(160deg, lighten($color-team-red, 5%) 0%, lighten($color-team-red, 15%) 100%);
-      border-color: darken($color-team-red-text, 10%);
-      color: darken($color-team-red-text, 10%);
+      background: linear-gradient(160deg, lighten($color-team-red, 5%) 0%, lighten($color-team-red, 15%) 100%) !important;
+      border-color: darken($color-team-red-text, 10%) !important;
+      color: darken($color-team-red-text, 10%) !important;
     }
   }
   
   &.btn-launch {
-    background: linear-gradient(160deg, $color-team-neutral 0%, lighten($color-team-neutral, 10%) 100%);
-    border-color: $color-team-neutral-text;
-    color: $color-team-neutral-text;
+    background: linear-gradient(160deg, $color-team-neutral 0%, lighten($color-team-neutral, 10%) 100%) !important;
+    border-color: $color-team-neutral-text !important;
+    color: $color-team-neutral-text !important;
     font-size: 1.1rem;
     padding: 18px 36px;
     font-weight: 700;
     
     &:hover {
-      background: linear-gradient(160deg, lighten($color-team-neutral, 5%) 0%, lighten($color-team-neutral, 15%) 100%);
-      border-color: darken($color-team-neutral-text, 10%);
-      color: darken($color-team-neutral-text, 10%);
+      background: linear-gradient(160deg, lighten($color-team-neutral, 5%) 0%, lighten($color-team-neutral, 15%) 100%) !important;
+      border-color: darken($color-team-neutral-text, 10%) !important;
+      color: darken($color-team-neutral-text, 10%) !important;
     }
   }
   
@@ -480,8 +480,8 @@ a, .link-text, .clickable-text {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
-    color: $color-text-muted; // Muted color for disabled buttons
-    background: lighten($color-inset-bg, 5%); // Solid disabled background
+    color: $color-text-muted !important; // Muted color for disabled buttons
+    background: lighten($color-inset-bg, 5%) !important; // Solid disabled background
   }
   
   @media (max-width: 768px) {
@@ -524,37 +524,73 @@ a, .link-text, .clickable-text {
   z-index: 1000;
 }
 
-// Ant Design Card Overrides - ALL OPAQUE BACKGROUNDS
+// Ant Design Card Overrides - ALL OPAQUE BACKGROUNDS WITH PROPER COLORS
 .ant-card {
   @include card-style;
   
   .ant-card-head {
-    border-bottom: 1px solid $color-card-border;
-    background: transparent;
-    border-radius: 1rem 1rem 0 0;
+    border-bottom: 1px solid $color-card-border !important;
+    background: transparent !important;
+    border-radius: 1rem 1rem 0 0 !important;
     
     .ant-card-head-title {
-      font-size: $font-size-section;
-      font-weight: 700;
-      font-family: $font-family-display;
-      color: $color-text-heading; // Primary heading color
-      letter-spacing: $letter-spacing-uppercase;
+      font-size: $font-size-section !important;
+      font-weight: 700 !important;
+      font-family: $font-family-display !important;
+      color: $color-text-heading !important; // Primary heading color
+      letter-spacing: $letter-spacing-uppercase !important;
       
       @media (max-width: 768px) {
-        font-size: $font-size-section-mobile;
+        font-size: $font-size-section-mobile !important;
       }
     }
   }
   
   .ant-card-body {
-    background: transparent;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary; // Body text color
+    background: transparent !important;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important; // Body text color
+    
+    // Fix all text elements inside card bodies
+    p, span, div, label, .ant-typography {
+      color: $color-text-primary !important;
+    }
+    
+    // Fix strong/bold text
+    strong, b {
+      color: $color-text-heading !important;
+      font-weight: 700 !important;
+    }
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
+    }
+  }
+  
+  // Remove any dark borders or outlines
+  &.ant-card-bordered {
+    border: 1px solid $color-card-border !important;
+  }
+  
+  // Fix small cards specifically
+  &.ant-card-small {
+    .ant-card-body {
+      padding: $padding-card-small !important;
+      
+      // Ensure all text in small cards uses proper colors
+      * {
+        color: $color-text-primary !important;
+      }
+      
+      strong, b, .text-strong {
+        color: $color-text-heading !important;
+      }
+      
+      .text-muted, .secondary-text {
+        color: $color-text-muted !important;
+      }
     }
   }
 }
@@ -567,8 +603,8 @@ a, .link-text, .clickable-text {
   
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    border-color: $color-card-border-hover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    border-color: $color-card-border-hover !important;
   }
 }
 
@@ -580,13 +616,13 @@ a, .link-text, .clickable-text {
   
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    border-color: $color-card-border-hover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    border-color: $color-card-border-hover !important;
   }
   
   &.selected {
-    background: linear-gradient(160deg, lighten($color-team-blue, 20%) 0%, lighten($color-team-blue, 25%) 100%);
-    border-color: $color-team-blue-text;
+    background: linear-gradient(160deg, lighten($color-team-blue, 20%) 0%, lighten($color-team-blue, 25%) 100%) !important;
+    border-color: $color-team-blue-text !important;
     transform: translateY(-4px);
     
     &::after {
@@ -594,8 +630,8 @@ a, .link-text, .clickable-text {
       position: absolute;
       top: 16px;
       right: 16px;
-      background: $color-team-blue; // Solid background
-      color: $color-team-blue-text;
+      background: $color-team-blue !important; // Solid background
+      color: $color-team-blue-text !important;
       padding: 6px 12px;
       border-radius: 0.5rem;
       font-size: $font-size-small;
@@ -611,18 +647,18 @@ a, .link-text, .clickable-text {
 .ant-input-number,
 .ant-input-number-input {
   @include token-style;
-  font-family: $font-family-primary;
-  font-size: $font-size-button;
-  font-weight: 400;
-  padding: 12px 16px;
-  color: $color-text-primary; // Body text color
+  font-family: $font-family-primary !important;
+  font-size: $font-size-button !important;
+  font-weight: 400 !important;
+  padding: 12px 16px !important;
+  color: $color-text-primary !important; // Body text color
   
   &::placeholder {
-    color: $color-text-muted; // Muted color for placeholders
+    color: $color-text-muted !important; // Muted color for placeholders
   }
   
   @media (max-width: 768px) {
-    font-size: $font-size-button-mobile;
+    font-size: $font-size-button-mobile !important;
   }
 }
 
@@ -630,17 +666,17 @@ a, .link-text, .clickable-text {
   width: 100%;
   
   .ant-input-number-handler-wrap {
-    background: $color-token-bg; // Solid background
-    border-left: 1px solid $color-token-border;
-    border-radius: 0 0.75rem 0.75rem 0;
+    background: $color-token-bg !important; // Solid background
+    border-left: 1px solid $color-token-border !important;
+    border-radius: 0 0.75rem 0.75rem 0 !important;
   }
   
   .ant-input-number-handler {
-    border: none;
-    color: $color-text-interactive;
+    border: none !important;
+    color: $color-text-interactive !important;
     
     &:hover {
-      color: darken($color-text-interactive, 10%);
+      color: darken($color-text-interactive, 10%) !important;
     }
   }
 }
@@ -648,28 +684,28 @@ a, .link-text, .clickable-text {
 // Ant Design Slider Overrides
 .ant-slider {
   .ant-slider-rail {
-    background: $color-inset-bg; // Solid background
+    background: $color-inset-bg !important; // Solid background
     height: 6px;
     border-radius: 3px;
   }
   
   .ant-slider-track {
-    background: linear-gradient(90deg, $color-team-blue, $color-team-neutral);
+    background: linear-gradient(90deg, $color-team-blue, $color-team-neutral) !important;
     height: 6px;
     border-radius: 3px;
   }
   
   .ant-slider-handle {
-    border: 3px solid $color-team-blue-text;
-    background: $color-card-bg-start; // Solid white background
+    border: 3px solid $color-team-blue-text !important;
+    background: $color-card-bg-start !important; // Solid white background
     width: 18px;
     height: 18px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     
     &:hover,
     &:focus {
-      border-color: $color-team-neutral-text;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      border-color: $color-team-neutral-text !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
     }
   }
 }
@@ -678,12 +714,12 @@ a, .link-text, .clickable-text {
 .ant-progress-bg {
   transition: all 0.4s ease;
   border-radius: 4px;
-  background: linear-gradient(90deg, $color-team-blue, $color-team-neutral);
+  background: linear-gradient(90deg, $color-team-blue, $color-team-neutral) !important;
 }
 
 .ant-progress-inner {
   border-radius: 4px;
-  background: $color-inset-bg; // Solid background
+  background: $color-inset-bg !important; // Solid background
 }
 
 // Stats container spacing - INSET STYLE
@@ -701,8 +737,8 @@ a, .link-text, .clickable-text {
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    border-color: $color-card-border-hover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    border-color: $color-card-border-hover !important;
   }
 }
 
@@ -739,14 +775,14 @@ a, .link-text, .clickable-text {
 
 // Summary bar and special notifications
 .summary-bar {
-  background: $color-notification-bg; // Solid notification background
-  color: $color-text-emphasis; // Emphasis color for notifications
+  background: $color-notification-bg !important; // Solid notification background
+  color: $color-text-emphasis !important; // Emphasis color for notifications
   padding: $padding-card-small;
   border-radius: 0.5rem;
-  border: 1px solid lighten($color-text-emphasis, 20%);
+  border: 1px solid lighten($color-text-emphasis, 20%) !important;
   
   .notification-text {
-    color: $color-text-emphasis;
+    color: $color-text-emphasis !important;
     font-weight: 700;
   }
 }
@@ -757,13 +793,13 @@ a, .link-text, .clickable-text {
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -774,13 +810,13 @@ a, .link-text, .clickable-text {
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -791,13 +827,13 @@ a, .link-text, .clickable-text {
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -805,18 +841,18 @@ a, .link-text, .clickable-text {
 
 .example-box {
   @include card-style;
-  background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%);
-  border-color: $color-team-neutral-text;
+  background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
+  border-color: $color-team-neutral-text !important;
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -827,13 +863,13 @@ a, .link-text, .clickable-text {
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -844,13 +880,13 @@ a, .link-text, .clickable-text {
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -861,13 +897,13 @@ a, .link-text, .clickable-text {
   
   .ant-card-body {
     padding: $padding-card-large !important;
-    font-size: $font-size-body;
-    font-family: $font-family-primary;
-    line-height: $line-height-body;
-    color: $color-text-primary;
+    font-size: $font-size-body !important;
+    font-family: $font-family-primary !important;
+    line-height: $line-height-body !important;
+    color: $color-text-primary !important;
     
     @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
+      font-size: $font-size-body-mobile !important;
       padding: $spacing-sm !important;
     }
   }
@@ -878,12 +914,12 @@ a, .link-text, .clickable-text {
   cursor: pointer;
   
   .character-name {
-    color: $color-text-heading; // Primary heading color
+    color: $color-text-heading !important; // Primary heading color
     font-weight: 700;
   }
   
   .character-role {
-    color: $color-text-muted; // Muted color for roles
+    color: $color-text-muted !important; // Muted color for roles
     font-size: $font-size-small;
   }
 }
@@ -963,13 +999,13 @@ a, .link-text, .clickable-text {
   align-items: center;
   gap: $spacing-xs;
   padding: 6px 12px;
-  background: lighten($color-team-neutral, 25%); // Solid background
-  border: 1px solid $color-team-neutral-text;
+  background: lighten($color-team-neutral, 25%) !important; // Solid background
+  border: 1px solid $color-team-neutral-text !important;
   border-radius: 20px;
   font-size: $font-size-small;
   font-weight: 400;
   font-family: $font-family-primary;
-  color: $color-text-emphasis; // Emphasis color
+  color: $color-text-emphasis !important; // Emphasis color
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
   
@@ -988,17 +1024,62 @@ a, .link-text, .clickable-text {
 // Global toggle button states
 .global-toggle-btn {
   &.active {
-    color: $color-text-interactive; // Interactive color when active
+    color: $color-text-interactive !important; // Interactive color when active
   }
   
   &.inactive {
-    color: $color-text-muted; // Muted color when inactive
+    color: $color-text-muted !important; // Muted color when inactive
   }
 }
 
 // Text muted class for disabled elements
 .text-muted, [disabled] {
   color: $color-text-muted !important;
+}
+
+// Fix Ant Design Typography components
+.ant-typography {
+  color: $color-text-primary !important;
+  
+  &.ant-typography-title {
+    color: $color-text-heading !important;
+  }
+  
+  &.ant-typography-caption {
+    color: $color-text-muted !important;
+  }
+}
+
+// Fix Ant Design Text components
+.ant-typography-title {
+  color: $color-text-heading !important;
+}
+
+.ant-typography-paragraph {
+  color: $color-text-primary !important;
+}
+
+.ant-typography-text {
+  color: $color-text-primary !important;
+  
+  &.ant-typography-text-secondary {
+    color: $color-text-muted !important;
+  }
+}
+
+// Fix all text inside specific components
+.ant-space-item {
+  * {
+    color: $color-text-primary !important;
+  }
+  
+  strong, b {
+    color: $color-text-heading !important;
+  }
+  
+  .text-muted, .secondary {
+    color: $color-text-muted !important;
+  }
 }
 
 // Responsive design
