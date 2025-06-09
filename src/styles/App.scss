@@ -13,6 +13,7 @@ $color-text-red-faction: #d16a73;    // Red team/faction text (improved contrast
 $color-text-neutral-faction: #5aad8c; // Neutral/green team text
 $color-text-emphasis: #8b7942;       // Notifications, special messages, emphasis
 $color-text-muted: #a89f94;          // Disabled, non-interactive, secondary info
+$color-text-black: #000000;          // Black text for high contrast
 
 // Legacy color variables for components (will be phased out)
 $color-text-secondary: $color-text-emphasis; // Maps to emphasis color
@@ -103,7 +104,7 @@ $font-size-small-mobile: 0.7rem;
   border: 2px solid $color-card-border;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
-  color: $color-text-primary;
+  color: $color-text-black; // Changed from $color-text-primary to black
 }
 
 @mixin token-style {
@@ -111,7 +112,7 @@ $font-size-small-mobile: 0.7rem;
   border: 2px solid $color-token-border;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
   border-radius: 0.75rem;
-  color: $color-text-primary;
+  color: $color-text-black; // Changed from $color-text-primary to black
   transition: all 0.25s ease;
   
   &:hover {
@@ -139,7 +140,7 @@ $font-size-small-mobile: 0.7rem;
 }
 
 .text-primary {
-  color: $color-text-primary !important;
+  color: $color-text-black !important; // Changed to black
 }
 
 .text-interactive {
@@ -171,6 +172,10 @@ $font-size-small-mobile: 0.7rem;
   color: $color-text-muted !important;
 }
 
+.text-black {
+  color: $color-text-black !important;
+}
+
 // Global styles
 * {
   margin: 0;
@@ -180,7 +185,7 @@ $font-size-small-mobile: 0.7rem;
 
 body {
   font-family: 'Lato', sans-serif;
-  color: $color-text-primary;
+  color: $color-text-black; // Changed from $color-text-primary to black
   background-color: #f5f3ef;
   background-image: url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e8e4d9" fill-opacity="0.4"%3E%3Cpath d="M0 0h40v40H0zM40 40h40v40H40z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
   font-size: 15px;
@@ -238,7 +243,7 @@ body {
   font-weight: 800;
   font-family: $font-family-display;
   margin-bottom: $spacing-md;
-  color: $color-text-heading;
+  color: $color-text-black; // Changed from $color-text-heading to black
   text-transform: uppercase;
   letter-spacing: $letter-spacing-game-title;
   line-height: $line-height-title;
@@ -286,7 +291,7 @@ body {
   font-weight: 800;
   font-family: $font-family-display;
   margin-bottom: $spacing-md;
-  color: $color-text-heading;
+  color: $color-text-black; // Changed from $color-text-heading to black
   text-transform: uppercase;
   letter-spacing: $letter-spacing-title;
   line-height: $line-height-title;
@@ -314,7 +319,7 @@ body {
   font-weight: 700;
   font-family: $font-family-display;
   margin-bottom: $spacing-xl;
-  color: $color-text-emphasis;
+  color: $color-text-black; // Changed from $color-text-emphasis to black
   line-height: $line-height-subtitle;
   letter-spacing: $letter-spacing-uppercase;
   max-width: 600px;
@@ -331,7 +336,7 @@ h3, .section-title {
   font-size: $font-size-section;
   font-weight: 700;
   font-family: $font-family-display;
-  color: $color-text-heading;
+  color: $color-text-black; // Changed from $color-text-heading to black
   line-height: $line-height-section;
   letter-spacing: $letter-spacing-uppercase;
   margin-bottom: $spacing-sm;
@@ -347,7 +352,7 @@ p, .body-text {
   font-weight: 400;
   font-family: $font-family-primary;
   line-height: $line-height-body;
-  color: $color-text-primary;
+  color: $color-text-black; // Changed from $color-text-primary to black
   
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
@@ -424,45 +429,45 @@ a, .link-text {
   &.btn-primary {
     background: linear-gradient(160deg, $color-team-blue 0%, lighten($color-team-blue, 10%) 100%);
     border-color: $color-team-blue-text;
-    color: $color-team-blue-text;
+    color: $color-text-black; // Changed from $color-team-blue-text to black
     
     &:hover {
       background: linear-gradient(160deg, lighten($color-team-blue, 5%) 0%, lighten($color-team-blue, 15%) 100%);
       border-color: darken($color-team-blue-text, 10%);
-      color: darken($color-team-blue-text, 10%);
+      color: $color-text-black; // Changed from darken($color-team-blue-text, 10%) to black
     }
   }
   
   &.btn-secondary {
     background: $color-token-bg;
     border-color: $color-token-border;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     &:hover {
       background: #fff;
       border-color: $color-card-border-hover;
-      color: $color-text-primary;
+      color: $color-text-black; // Changed from $color-text-primary to black
     }
   }
   
   &.btn-save {
     background: linear-gradient(160deg, $color-team-red 0%, lighten($color-team-red, 10%) 100%);
     border-color: $color-team-red-text;
-    color: $color-team-red-text;
+    color: $color-text-black; // Changed from $color-team-red-text to black
     font-size: $font-size-body;
     padding: 16px 32px;
     
     &:hover {
       background: linear-gradient(160deg, lighten($color-team-red, 5%) 0%, lighten($color-team-red, 15%) 100%);
       border-color: darken($color-team-red-text, 10%);
-      color: darken($color-team-red-text, 10%);
+      color: $color-text-black; // Changed from darken($color-team-red-text, 10%) to black
     }
   }
   
   &.btn-launch {
     background: linear-gradient(160deg, $color-team-neutral 0%, lighten($color-team-neutral, 10%) 100%);
     border-color: $color-team-neutral-text;
-    color: $color-team-neutral-text;
+    color: $color-text-black; // Changed from $color-team-neutral-text to black
     font-size: 1.1rem;
     padding: 18px 36px;
     font-weight: 700;
@@ -470,7 +475,7 @@ a, .link-text {
     &:hover {
       background: linear-gradient(160deg, lighten($color-team-neutral, 5%) 0%, lighten($color-team-neutral, 15%) 100%);
       border-color: darken($color-team-neutral-text, 10%);
-      color: darken($color-team-neutral-text, 10%);
+      color: $color-text-black; // Changed from darken($color-team-neutral-text, 10%) to black
     }
   }
   
@@ -534,7 +539,7 @@ a, .link-text {
       font-size: $font-size-section;
       font-weight: 700;
       font-family: $font-family-display;
-      color: $color-text-heading;
+      color: $color-text-black; // Changed from $color-text-heading to black
       letter-spacing: $letter-spacing-uppercase;
       
       @media (max-width: 768px) {
@@ -548,7 +553,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -592,7 +597,7 @@ a, .link-text {
       top: 16px;
       right: 16px;
       background: $color-team-blue;
-      color: $color-team-blue-text;
+      color: $color-text-black; // Changed from $color-team-blue-text to black
       padding: 6px 12px;
       border-radius: 0.5rem;
       font-size: $font-size-small;
@@ -612,7 +617,7 @@ a, .link-text {
   font-size: $font-size-button;
   font-weight: 400;
   padding: 12px 16px;
-  color: $color-text-primary;
+  color: $color-text-black; // Changed from $color-text-primary to black
   
   &::placeholder {
     color: $color-text-muted;
@@ -766,7 +771,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -783,7 +788,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -800,7 +805,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -819,7 +824,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -836,7 +841,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -853,7 +858,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -870,7 +875,7 @@ a, .link-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
-    color: $color-text-primary;
+    color: $color-text-black; // Changed from $color-text-primary to black
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -884,7 +889,7 @@ a, .link-text {
   cursor: pointer;
   
   .character-name {
-    color: $color-text-heading;
+    color: $color-text-black; // Changed from $color-text-heading to black
     font-weight: 700;
   }
   
@@ -902,7 +907,7 @@ a, .link-text {
   font-size: $font-size-body;
   font-family: $font-family-primary;
   line-height: $line-height-body;
-  color: $color-text-primary;
+  color: $color-text-black; // Changed from $color-text-primary to black
   
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
@@ -986,7 +991,7 @@ a, .link-text {
 
 // Sidebar headers
 .sidebar-header {
-  color: $color-text-heading !important;
+  color: $color-text-black !important; // Changed from $color-text-heading to black
   font-weight: 700;
   font-family: $font-family-display;
 }
