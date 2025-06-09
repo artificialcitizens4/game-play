@@ -42,8 +42,8 @@ const SelectExperienceScreen = () => {
       
       // Small delay to ensure state is updated
       setTimeout(() => {
-        // Navigate to team setup screen (skipping story creation since we have experience data)
-        dispatch(setCurrentScreen('team-setup'));
+        // Navigate directly to map editor screen (skipping team setup and customization)
+        dispatch(setCurrentScreen('map-editor'));
         setIsProcessing(false);
       }, 500);
       
@@ -253,6 +253,26 @@ const SelectExperienceScreen = () => {
         <Title level={1} className="title">🎮 SELECT YOUR EXPERIENCE</Title>
         <Paragraph className="subtitle">Choose your battlefield and begin the legend</Paragraph>
         
+        {/* Experience Mode Flow Info */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginBottom: '2rem',
+          background: 'rgba(255, 107, 53, 0.1)',
+          border: '1px solid #ff6b35',
+          borderRadius: '8px',
+          padding: '1rem',
+          maxWidth: '600px',
+          margin: '0 auto 2rem auto'
+        }}>
+          <Text style={{ color: '#ff6b35', fontSize: '1rem', fontWeight: 'bold' }}>
+            🎮 EXPERIENCE MODE
+          </Text>
+          <br />
+          <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+            Pre-loaded warriors with unique backstories • Skip directly to battlefield design
+          </Text>
+        </div>
+        
         {/* Stats */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1rem' }}>
@@ -274,7 +294,7 @@ const SelectExperienceScreen = () => {
               indicator={<LoadingOutlined style={{ fontSize: 24, color: '#2ed573' }} spin />} 
             />
             <Text style={{ color: '#2ed573', marginLeft: '1rem' }}>
-              Processing experience data...
+              Loading experience and proceeding to battlefield design...
             </Text>
           </div>
         )}
@@ -393,6 +413,20 @@ const SelectExperienceScreen = () => {
                         </div>
                       )}
 
+                      {/* Experience Mode Flow Indicator */}
+                      <div style={{ 
+                        marginTop: '1rem',
+                        textAlign: 'center',
+                        background: 'rgba(255, 107, 53, 0.05)',
+                        border: '1px solid rgba(255, 107, 53, 0.2)',
+                        borderRadius: '6px',
+                        padding: '0.5rem'
+                      }}>
+                        <Text style={{ color: '#ff6b35', fontSize: '0.8rem' }}>
+                          🚀 Direct to Battlefield Design
+                        </Text>
+                      </div>
+
                       {/* Debug info for development */}
                       {process.env.NODE_ENV === 'development' && (
                         <div style={{ 
@@ -422,7 +456,7 @@ const SelectExperienceScreen = () => {
                             animation: 'pulse 2s infinite'
                           }}
                         >
-                          START THIS EXPERIENCE
+                          START EXPERIENCE
                         </Button>
                       </div>
                     )}
@@ -435,7 +469,7 @@ const SelectExperienceScreen = () => {
                           size="large"
                           disabled
                         >
-                          LOADING EXPERIENCE...
+                          LOADING...
                         </Button>
                       </div>
                     )}

@@ -4,7 +4,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import Button from "./Button";
 import BattlefieldMapEditor from "./BattlefieldMapEditor";
 import { setCurrentScreen, setBattlefieldMap } from "../store/slices/gameSlice";
-import { useAppDispatch } from "../hooks/useRedux";
+import { useAppDispatch, useGameState } from "../hooks/useRedux";
 import PropTypes from "prop-types";
 
 const { Title, Text } = Typography;
@@ -13,6 +13,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
   const [mapData, setMapData] = useState(null);
   const [isMapComplete, setIsMapComplete] = useState(false);
   const dispatch = useAppDispatch();
+  const gameState = useGameState();
 
   const handleMapExport = (exportedMapData) => {
     console.log('Received map data from iframe:', exportedMapData);
@@ -54,6 +55,16 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
     
     message.info("Using default battlefield map");
     dispatch(setCurrentScreen("war-summary"));
+  };
+
+  const goBack = () => {
+    // In experience mode, go back to experience selection
+    // In create mode, go back to build teams screen
+    if (gameState.gameMode === 'experience') {
+      dispatch(setCurrentScreen('select-experience'));
+    } else {
+      dispatch(setCurrentScreen('build-teams'));
+    }
   };
 
   const createDefaultMapData = () => {
@@ -639,7 +650,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
     <div className="screen map-editor-screen">
       <Button
         className="back-btn"
-        onClick={() => dispatch(setCurrentScreen("build-teams"))}
+        onClick={goBack}
         variant="secondary"
         icon={<ArrowLeftOutlined />}
       >
@@ -653,6 +664,28 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         <Text className="subtitle">
           Design your battlefield and customize the terrain for epic warfare
         </Text>
+
+        {/* Show mode indicator */}
+        {gameState.gameMode === 'experience' && (
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '2rem',
+            background: 'rgba(255, 107, 53, 0.1)',
+            border: '1px solid #ff6b35',
+            borderRadius: '8px',
+            padding: '1rem',
+            maxWidth: '600px',
+            margin: '0 auto 2rem auto'
+          }}>
+            <Text style={{ color: '#ff6b35', fontSize: '1rem', fontWeight: 'bold' }}>
+              🎮 EXPERIENCE MODE
+            </Text>
+            <br />
+            <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+              Warriors are pre-loaded with unique backstories • Design your battlefield for the ultimate showdown
+            </Text>
+          </div>
+        )}
 
         <div style={{ margin: "2rem 0" }}>
           <BattlefieldMapEditor
