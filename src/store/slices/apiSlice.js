@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Updated base URL with war_backend endpoint
-const API_BASE_URL = 'https://13.204.53.42.sslip.io/cms_backend"
+const API_BASE_URL = 'https://13.204.53.42.sslip.io/cms_backend';
 
 function createTeams(characters) {
   const teamStructure = {
