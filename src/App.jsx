@@ -15,6 +15,7 @@ import WarSummaryScreen from './components/WarSummaryScreen';
 import ViewCharactersScreen from './components/ViewCharactersScreen';
 import ParticleBackground from './components/ParticleBackground';
 import NotificationContainer from './components/NotificationContainer';
+import AudioManager from './components/AudioManager';
 import './styles/App.scss';
 
 function App() {
@@ -61,6 +62,13 @@ function App() {
       window.removeEventListener('offline', handleOffline);
     };
   }, [dispatch]);
+
+  // Play screen transition sound
+  useEffect(() => {
+    if (window.playWarSound) {
+      window.playWarSound('screenTransition');
+    }
+  }, [gameState.currentScreen]);
 
   const renderCurrentScreen = () => {
     switch (gameState.currentScreen) {
@@ -134,6 +142,7 @@ function App() {
   return (
     <ConfigProvider theme={antdTheme}>
       <div className={`app ${uiState.theme} ${uiState.animations ? 'animations-enabled' : 'animations-disabled'}`}>
+        <AudioManager />
         <ParticleBackground />
         <div className={`screen-container ${uiState.isTransitioning ? 'transitioning' : ''}`}>
           {renderCurrentScreen()}

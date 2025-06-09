@@ -8,6 +8,7 @@ const Button = ({
   disabled = false,
   icon,
   size = 'large',
+  soundEffect = 'buttonClick',
   ...props
 }) => {
   const getButtonType = () => {
@@ -31,12 +32,33 @@ const Button = ({
     return `${baseClass} ${variantClass} ${className}`.trim();
   };
 
+  const handleClick = (e) => {
+    // Play sound effect
+    if (window.playWarSound && soundEffect) {
+      // Different sounds for different button types
+      let sound = 'buttonClick';
+      if (variant === 'launch') {
+        sound = 'warStart';
+      } else if (variant === 'save') {
+        sound = 'saveCharacter';
+      } else if (className.includes('character') || className.includes('experience')) {
+        sound = 'characterSelect';
+      }
+      
+      window.playWarSound(sound);
+    }
+    
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
   return (
     <AntButton 
       type={getButtonType()}
       size={size}
       className={getButtonClass()}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
       icon={icon}
       {...props}

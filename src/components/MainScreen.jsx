@@ -3,6 +3,7 @@ import { Card, Row, Col, Typography, Space } from 'antd';
 import { PlayCircleOutlined, ToolOutlined } from '@ant-design/icons';
 import { setCurrentScreen, setGameMode, resetGame } from '../store/slices/gameSlice';
 import { useAppDispatch } from '../hooks/useRedux';
+import SoundToggle from './SoundToggle';
 
 const { Title, Paragraph } = Typography;
 
@@ -31,6 +32,8 @@ const MainScreen = () => {
 
   return (
     <div className="screen main-screen">
+      <SoundToggle />
+      
       <div className="container">
         <Title level={1} className="title">⚔️ WAR COMMAND ⚔️</Title>
         <Paragraph className="subtitle">Choose your path to victory</Paragraph>
