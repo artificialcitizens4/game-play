@@ -113,7 +113,7 @@ export const initializeGameBattle = createAsyncThunk(
   'api/initializeGameBattle',
   async (gameData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/game/initialize', gameData, {
+      const response = await axios.post('https://13.204.53.42.sslip.io/cms_backend/api/game/initialize', gameData, {
         headers: {
           'Content-Type': 'application/json'
         },
