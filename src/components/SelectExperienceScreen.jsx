@@ -58,7 +58,7 @@ const SelectExperienceScreen = () => {
     
     // Handle different data structures from API
     const title = item.title || item.story || `War Experience ${item.id || 'Unknown'}`;
-    const description = item.baseStory || item.description || item.story || 'An epic battle awaits...';
+    const description = item.storySummary || item.description || item.story || 'An epic battle awaits...';
     const difficulty = item.difficulty || 'Medium';
     
     // Extract team information from personas or use defaults

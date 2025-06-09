@@ -615,7 +615,7 @@ const ViewCharactersScreen = () => {
 
       // Prepare the game initialization payload
       const gameInitPayload = {
-        baseStory: storySummary || gameState.story.background || 'An epic battle between two mighty factions.',
+        storySummary: storySummary || gameState.story.background || 'An epic battle between two mighty factions.',
         personas: formatPersonasForAPI(personas),
         battlemap: minimalBattlemap
       };

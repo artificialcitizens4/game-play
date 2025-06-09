@@ -60,7 +60,7 @@ const TeamSetupScreen = () => {
           <Card className="briefing-card" bordered={false}>
             <div className="briefing-content">
               <div className="briefing-story">
-                <Text strong className="briefing-story-title">📜 War Background</Text>
+                <Text strong className="briefing-story-title">📜 War Story Summary</Text>
                 <Paragraph className="briefing-story-text">
                   {getStoryToDisplay()}
                 </Paragraph>
@@ -107,7 +107,7 @@ const TeamSetupScreen = () => {
                     {gameState.story.background && gameState.story.background.trim() 
                       ? '📝 User Story' 
                       : gameState.storySummary && gameState.storySummary.trim()
-                      ? '🤖 Generated Story'
+                      ? '🤖 Generated Story Summary'
                       : '⚠️ No Story'
                     }
                   </Text>
