@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, Row, Col, Typography, Space, Avatar } from 'antd';
+import { Card, Typography, Avatar } from 'antd';
 import { ArrowLeftOutlined, SaveOutlined, CheckOutlined } from '@ant-design/icons';
 import Button from './Button';
 import StatSlider from './StatSlider';
@@ -79,22 +79,26 @@ const CharacterDetails = ({ onShowScreen, gameData, onSaveCharacter }) => {
           TEAM {teamNumber} - {character.name.toUpperCase()} CUSTOMIZATION
         </Title>
         
-        <Row justify="center">
-          <Col xs={24} lg={16}>
-            <Card className="character-details" bordered={false}>
-              <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                <div style={{ textAlign: 'center' }}>
-                  <Avatar size={100} style={{ backgroundColor: 'transparent', fontSize: '5rem', marginBottom: '1rem' }}>
+        <div className="character-details-container">
+          <Card className="character-details" bordered={false}>
+            <div className="character-details__grid">
+              {/* Identity Column */}
+              <div className="character-details__identity">
+                <div className="character-identity-content">
+                  <Avatar size={100} className="character-identity-avatar">
                     {character.avatar}
                   </Avatar>
-                  <Title level={2} style={{ margin: 0, background: 'linear-gradient(45deg, #2ed573, #ff6b35)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                  <Title level={2} className="character-identity-name">
                     {character.name}
                   </Title>
-                  <Text style={{ color: '#ff6b35', fontSize: '1.2rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px' }}>
+                  <Text className="character-identity-role">
                     {character.role}
                   </Text>
                 </div>
-                
+              </div>
+              
+              {/* Stats and Actions Column */}
+              <div className="character-details__stats-and-actions">
                 <div className="stats-container">
                   <StatSlider
                     label="💪 Fatigue Resistance"
@@ -121,7 +125,7 @@ const CharacterDetails = ({ onShowScreen, gameData, onSaveCharacter }) => {
                   />
                 </div>
                 
-                <div style={{ textAlign: 'center' }}>
+                <div className="character-details-actions">
                   <Button 
                     onClick={handleSave}
                     variant="save"
@@ -132,10 +136,10 @@ const CharacterDetails = ({ onShowScreen, gameData, onSaveCharacter }) => {
                     {isSaving ? 'SAVED!' : 'SAVE CHARACTER'}
                   </Button>
                 </div>
-              </Space>
-            </Card>
-          </Col>
-        </Row>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   );
