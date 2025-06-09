@@ -642,8 +642,8 @@ const ViewCharactersScreen = () => {
         const mapId = battlemap?.mapId;
         
         if (mapId) {
-          // Success! Redirect to the battle viewer with the new GitLab Pages URL
-          const battleViewerUrl = `https://frontend-civil-war-1c564e.gitlab.io/?mapId=${mapId}`;
+          // Success! Redirect to the battle viewer with the new Vercel URL
+          const battleViewerUrl = `https://grappus-internal-hackathon-2025-art-orcin.vercel.app/?mapId=${mapId}`;
           
           message.success('Battle initialized successfully! Redirecting to battlefield...');
           
