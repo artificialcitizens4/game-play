@@ -34,25 +34,25 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
   const skipMapEditor = () => {
     // Use the provided default map data
     const defaultMapData = {
-      battlefield_type: "plains",
-      map_dimensions: {
-        width: 10,
-        height: 10
+      "battlefield_type": "plains",
+      "map_dimensions": {
+        "width": 10,
+        "height": 10
       },
-      hex_data: [
+      "hex_data": [
         {
           "coord": "0,0",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "1,0",
-          "terrain": "Forest (Light)",
+          "terrain": "Room",
           "elevation": 2
         },
         {
           "coord": "2,0",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -67,7 +67,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "5,0",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -77,12 +77,12 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "7,0",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
           "coord": "8,0",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -97,7 +97,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "1,1",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
@@ -107,7 +107,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "3,1",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -117,12 +117,12 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "5,1",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "6,1",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -137,12 +137,12 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "9,1",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "0,2",
-          "terrain": "Clear",
+          "terrain": "Room",
           "elevation": 1
         },
         {
@@ -152,12 +152,12 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "2,2",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
           "coord": "3,2",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -167,22 +167,22 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "5,2",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "6,2",
-          "terrain": "Forest (Light)",
+          "terrain": "Room",
           "elevation": 2
         },
         {
           "coord": "7,2",
-          "terrain": "Forest (Light)",
+          "terrain": "Room",
           "elevation": 2
         },
         {
           "coord": "8,2",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 2
         },
         {
@@ -202,22 +202,22 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "2,3",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
           "coord": "3,3",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "4,3",
-          "terrain": "Clear",
+          "terrain": "Room",
           "elevation": 1
         },
         {
           "coord": "5,3",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -227,7 +227,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "7,3",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -242,7 +242,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "0,4",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -262,87 +262,87 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "4,4",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
           "coord": "5,4",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
           "coord": "6,4",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "7,4",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
           "coord": "8,4",
-          "terrain": "Clear",
-          "elevation": 1
-        },
-        {
-          "coord": "9,4",
-          "terrain": "Clear",
-          "elevation": 1
-        },
-        {
-          "coord": "0,5",
-          "terrain": "Clear",
-          "elevation": 1
-        },
-        {
-          "coord": "1,5",
-          "terrain": "Clear",
-          "elevation": 1
-        },
-        {
-          "coord": "2,5",
-          "terrain": "Clear",
-          "elevation": 1
-        },
-        {
-          "coord": "3,5",
-          "terrain": "Clear",
-          "elevation": 1
-        },
-        {
-          "coord": "4,5",
-          "terrain": "Forest (Light)",
-          "elevation": 2
-        },
-        {
-          "coord": "5,5",
           "terrain": "Room",
           "elevation": 1
         },
         {
+          "coord": "9,4",
+          "terrain": "Hill (Steep/Ridge)",
+          "elevation": 1
+        },
+        {
+          "coord": "0,5",
+          "terrain": "Street",
+          "elevation": 1
+        },
+        {
+          "coord": "1,5",
+          "terrain": "Street",
+          "elevation": 1
+        },
+        {
+          "coord": "2,5",
+          "terrain": "Street",
+          "elevation": 1
+        },
+        {
+          "coord": "3,5",
+          "terrain": "Street",
+          "elevation": 1
+        },
+        {
+          "coord": "4,5",
+          "terrain": "Street",
+          "elevation": 2
+        },
+        {
+          "coord": "5,5",
+          "terrain": "Street",
+          "elevation": 1
+        },
+        {
           "coord": "6,5",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "7,5",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "8,5",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "9,5",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
           "coord": "0,6",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -352,32 +352,32 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "2,6",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
           "coord": "3,6",
-          "terrain": "Forest (Light)",
+          "terrain": "Room",
           "elevation": 2
         },
         {
           "coord": "4,6",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "5,6",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "6,6",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
           "coord": "7,6",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -407,7 +407,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "3,7",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -417,7 +417,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "5,7",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -427,12 +427,12 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "7,7",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
           "coord": "8,7",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
@@ -452,22 +452,22 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "2,8",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
           "coord": "3,8",
-          "terrain": "Clear",
+          "terrain": "Hill (Steep/Ridge)",
           "elevation": 1
         },
         {
           "coord": "4,8",
-          "terrain": "Forest (Light)",
+          "terrain": "Road",
           "elevation": 2
         },
         {
           "coord": "5,8",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
@@ -482,7 +482,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "8,8",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -497,7 +497,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "1,9",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         },
         {
@@ -507,7 +507,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "3,9",
-          "terrain": "Clear",
+          "terrain": "Room",
           "elevation": 1
         },
         {
@@ -517,7 +517,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "5,9",
-          "terrain": "Forest (Light)",
+          "terrain": "Street",
           "elevation": 2
         },
         {
@@ -532,59 +532,59 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         },
         {
           "coord": "8,9",
-          "terrain": "Clear",
+          "terrain": "Road",
           "elevation": 1
         },
         {
           "coord": "9,9",
-          "terrain": "Clear",
+          "terrain": "Street",
           "elevation": 1
         }
       ],
-      strategic_zones: [
+      "strategic_zones": [
         {
-          id: 'zone_1',
-          name: 'Alpha Point',
-          strategic_value: 5,
-          hexes: [{ col: 3, row: 3 }, { col: 4, row: 3 }, { col: 3, row: 4 }],
-          color: '#ff6b35'
+          "id": "zone_1",
+          "name": "Alpha Point",
+          "strategic_value": 5,
+          "hexes": [{ "col": 3, "row": 3 }, { "col": 4, "row": 3 }, { "col": 3, "row": 4 }],
+          "color": "#ff6b35"
         },
         {
-          id: 'zone_2',
-          name: 'Bravo Ridge',
-          strategic_value: 7,
-          hexes: [{ col: 8, row: 6 }, { col: 9, row: 6 }, { col: 8, row: 7 }],
-          color: '#2ed573'
+          "id": "zone_2",
+          "name": "Bravo Ridge",
+          "strategic_value": 7,
+          "hexes": [{ "col": 8, "row": 6 }, { "col": 9, "row": 6 }, { "col": 8, "row": 7 }],
+          "color": "#2ed573"
         },
         {
-          id: 'zone_3',
-          name: 'Charlie Hill',
-          strategic_value: 6,
-          hexes: [{ col: 5, row: 2 }, { col: 6, row: 2 }, { col: 5, row: 3 }],
-          color: '#ffa502'
+          "id": "zone_3",
+          "name": "Charlie Hill",
+          "strategic_value": 6,
+          "hexes": [{ "col": 5, "row": 2 }, { "col": 6, "row": 2 }, { "col": 5, "row": 3 }],
+          "color": "#ffa502"
         }
       ],
-      objects: [
+      "objects": [
         {
-          id: 'obj_1',
-          name: 'Command Post',
-          type: 'military',
-          emoji: '⚔️',
-          coordinates: { hex: { col: 5, row: 5 } }
+          "id": "obj_1",
+          "name": "Command Post",
+          "type": "military",
+          "emoji": "⚔️",
+          "coordinates": { "hex": { "col": 5, "row": 5 } }
         },
         {
-          id: 'obj_2',
-          name: 'Supply Depot',
-          type: 'building',
-          emoji: '🏠',
-          coordinates: { hex: { col: 2, row: 7 } }
+          "id": "obj_2",
+          "name": "Supply Depot",
+          "type": "building",
+          "emoji": "🏠",
+          "coordinates": { "hex": { "col": 2, "row": 7 } }
         },
         {
-          id: 'obj_3',
-          name: 'Ancient Monument',
-          type: 'landmark',
-          emoji: '🏛️',
-          coordinates: { hex: { col: 9, row: 3 } }
+          "id": "obj_3",
+          "name": "Ancient Monument",
+          "type": "landmark",
+          "emoji": "🏛️",
+          "coordinates": { "hex": { "col": 9, "row": 3 } }
         }
       ]
     };
