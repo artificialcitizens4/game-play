@@ -58,13 +58,12 @@ const StatSlider = ({ label, value, onChange }) => {
           height: '6px'
         }}
         handleStyle={{
-          borderColor: colorData,
-          backgroundColor: '#ffffff',
-          boxShadow: `0 0 15px ${colorData}80`,
-          width: '18px',
-          height: '18px',
-          marginTop: '-6px',
-          border: `3px solid ${colorData}`
+          display: 'none', // Hide the handle completely
+          opacity: 0,
+          width: 0,
+          height: 0,
+          border: 'none',
+          boxShadow: 'none'
         }}
         railStyle={{
           backgroundColor: 'rgba(255,255,255,0.1)',
