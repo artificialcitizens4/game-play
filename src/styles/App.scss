@@ -3,8 +3,19 @@
 
 // Toon Board Game Color Palette
 $color-background: #f5f3ef;
-$color-text-primary: #6d635b;
-$color-text-secondary: #8b7942;
+
+// Text Color System - Hierarchical and Purpose-Driven
+$color-text-heading: #5c554e;        // Primary headings - strongest visual weight
+$color-text-primary: #6d635b;        // Body text, labels, standard descriptions
+$color-text-interactive: #5a82ad;    // Links, clickable text, interactive elements
+$color-text-blue-faction: #5a82ad;   // Blue team/faction text
+$color-text-red-faction: #d16a73;    // Red team/faction text (improved contrast)
+$color-text-neutral-faction: #5aad8c; // Neutral/green team text
+$color-text-emphasis: #8b7942;       // Notifications, special messages, emphasis
+$color-text-muted: #a89f94;          // Disabled, non-interactive, secondary info
+
+// Legacy color variables for components (will be phased out)
+$color-text-secondary: $color-text-emphasis; // Maps to emphasis color
 
 $color-card-bg-start: #ffffff;
 $color-card-bg-end: #fefcf7;
@@ -22,9 +33,9 @@ $color-team-blue: #a7c7e7;
 $color-team-red: #ffb3ba;
 $color-team-neutral: #a7e7c7;
 
-$color-team-blue-text: #5a82ad;
-$color-team-red-text: #d97c84;
-$color-team-neutral-text: #5aad8c;
+$color-team-blue-text: $color-text-blue-faction;
+$color-team-red-text: $color-text-red-faction;
+$color-team-neutral-text: $color-text-neutral-faction;
 
 $color-toggle-active: #4ade80;
 $color-toggle-active-border: #22c55e;
@@ -122,6 +133,44 @@ $font-size-small-mobile: 0.7rem;
   border-radius: 0.75rem;
 }
 
+// Text Color Utility Classes
+.text-heading {
+  color: $color-text-heading !important;
+}
+
+.text-primary {
+  color: $color-text-primary !important;
+}
+
+.text-interactive {
+  color: $color-text-interactive !important;
+  cursor: pointer;
+  
+  &:hover {
+    color: darken($color-text-interactive, 10%) !important;
+  }
+}
+
+.text-blue-faction {
+  color: $color-text-blue-faction !important;
+}
+
+.text-red-faction {
+  color: $color-text-red-faction !important;
+}
+
+.text-neutral-faction {
+  color: $color-text-neutral-faction !important;
+}
+
+.text-emphasis {
+  color: $color-text-emphasis !important;
+}
+
+.text-muted {
+  color: $color-text-muted !important;
+}
+
 // Global styles
 * {
   margin: 0;
@@ -131,7 +180,7 @@ $font-size-small-mobile: 0.7rem;
 
 body {
   font-family: 'Lato', sans-serif;
-  color: #6d635b;
+  color: $color-text-primary;
   background-color: #f5f3ef;
   background-image: url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e8e4d9" fill-opacity="0.4"%3E%3Cpath d="M0 0h40v40H0zM40 40h40v40H40z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
   font-size: 15px;
@@ -189,7 +238,7 @@ body {
   font-weight: 800;
   font-family: $font-family-display;
   margin-bottom: $spacing-md;
-  color: $color-text-primary;
+  color: $color-text-heading;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-game-title;
   line-height: $line-height-title;
@@ -237,7 +286,7 @@ body {
   font-weight: 800;
   font-family: $font-family-display;
   margin-bottom: $spacing-md;
-  color: $color-text-primary;
+  color: $color-text-heading;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-title;
   line-height: $line-height-title;
@@ -265,7 +314,7 @@ body {
   font-weight: 700;
   font-family: $font-family-display;
   margin-bottom: $spacing-xl;
-  color: $color-text-secondary;
+  color: $color-text-emphasis;
   line-height: $line-height-subtitle;
   letter-spacing: $letter-spacing-uppercase;
   max-width: 600px;
@@ -282,7 +331,7 @@ h3, .section-title {
   font-size: $font-size-section;
   font-weight: 700;
   font-family: $font-family-display;
-  color: $color-text-primary;
+  color: $color-text-heading;
   line-height: $line-height-section;
   letter-spacing: $letter-spacing-uppercase;
   margin-bottom: $spacing-sm;
@@ -312,9 +361,22 @@ p, .body-text {
   font-family: $font-family-primary;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
+  color: $color-text-muted;
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
+  }
+}
+
+// Links and interactive text
+a, .link-text {
+  color: $color-text-interactive;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  
+  &:hover {
+    color: darken($color-text-interactive, 10%);
   }
 }
 
@@ -331,6 +393,11 @@ p, .body-text {
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
+  color: $color-text-interactive;
+  
+  &:hover {
+    color: darken($color-text-interactive, 10%);
+  }
   
   @media (max-width: 768px) {
     top: 16px;
@@ -411,6 +478,7 @@ p, .body-text {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+    color: $color-text-muted;
   }
   
   @media (max-width: 768px) {
@@ -432,6 +500,11 @@ p, .body-text {
   font-family: $font-family-primary;
   letter-spacing: $letter-spacing-uppercase;
   text-transform: uppercase;
+  color: $color-text-interactive;
+  
+  &:hover {
+    color: darken($color-text-interactive, 10%);
+  }
   
   @media (max-width: 768px) {
     top: 16px;
@@ -461,7 +534,7 @@ p, .body-text {
       font-size: $font-size-section;
       font-weight: 700;
       font-family: $font-family-display;
-      color: $color-text-primary;
+      color: $color-text-heading;
       letter-spacing: $letter-spacing-uppercase;
       
       @media (max-width: 768px) {
@@ -475,6 +548,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -538,9 +612,10 @@ p, .body-text {
   font-size: $font-size-button;
   font-weight: 400;
   padding: 12px 16px;
+  color: $color-text-primary;
   
   &::placeholder {
-    color: rgba($color-text-secondary, 0.7);
+    color: $color-text-muted;
   }
   
   @media (max-width: 768px) {
@@ -559,10 +634,10 @@ p, .body-text {
   
   .ant-input-number-handler {
     border: none;
-    color: $color-text-primary;
+    color: $color-text-interactive;
     
     &:hover {
-      color: $color-text-secondary;
+      color: darken($color-text-interactive, 10%);
     }
   }
 }
@@ -628,6 +703,60 @@ p, .body-text {
   }
 }
 
+// Team-specific styling
+.blue-team {
+  .ant-card-head-title,
+  h3,
+  .section-title {
+    color: $color-text-blue-faction !important;
+  }
+  
+  .team-name,
+  .faction-text {
+    color: $color-text-blue-faction !important;
+  }
+}
+
+.red-team {
+  .ant-card-head-title,
+  h3,
+  .section-title {
+    color: $color-text-red-faction !important;
+  }
+  
+  .team-name,
+  .faction-text {
+    color: $color-text-red-faction !important;
+  }
+}
+
+.neutral-team {
+  .ant-card-head-title,
+  h3,
+  .section-title {
+    color: $color-text-neutral-faction !important;
+  }
+  
+  .team-name,
+  .faction-text {
+    color: $color-text-neutral-faction !important;
+  }
+}
+
+// Summary bar and special notifications
+.summary-bar {
+  background: #fffacd; // Light yellow background for notifications
+  color: $color-text-emphasis;
+  padding: $padding-card-small;
+  border-radius: 0.5rem;
+  border: 1px solid lighten($color-text-emphasis, 20%);
+  
+  .notification-text {
+    color: $color-text-emphasis;
+    font-weight: 700;
+  }
+}
+
 // Component spacing - Major containers
 .character-profile {
   @include card-style;
@@ -637,6 +766,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -653,6 +783,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -669,6 +800,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -687,6 +819,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -703,6 +836,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -719,6 +853,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -735,6 +870,7 @@ p, .body-text {
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
+    color: $color-text-primary;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -746,6 +882,16 @@ p, .body-text {
 .character-item {
   @include token-style;
   cursor: pointer;
+  
+  .character-name {
+    color: $color-text-heading;
+    font-weight: 700;
+  }
+  
+  .character-role {
+    color: $color-text-muted;
+    font-size: $font-size-small;
+  }
 }
 
 // Observer panel spacing
@@ -756,6 +902,7 @@ p, .body-text {
   font-size: $font-size-body;
   font-family: $font-family-primary;
   line-height: $line-height-body;
+  color: $color-text-primary;
   
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
@@ -778,7 +925,7 @@ p, .body-text {
     font-size: 2rem;
     font-weight: 800;
     font-family: $font-family-display;
-    color: $color-team-blue-text;
+    color: $color-text-blue-faction;
     margin-bottom: $spacing-xs;
     line-height: 1.2;
   }
@@ -787,7 +934,7 @@ p, .body-text {
     font-size: $font-size-small;
     font-weight: 400;
     font-family: $font-family-primary;
-    color: $color-text-secondary;
+    color: $color-text-muted;
     text-transform: uppercase;
     letter-spacing: $letter-spacing-uppercase;
     
@@ -828,7 +975,7 @@ p, .body-text {
   font-size: $font-size-small;
   font-weight: 400;
   font-family: $font-family-primary;
-  color: $color-team-neutral-text;
+  color: $color-text-emphasis;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
   
@@ -837,7 +984,23 @@ p, .body-text {
   }
 }
 
-// Particles - Removed for toon board game theme
+// Sidebar headers
+.sidebar-header {
+  color: $color-text-heading !important;
+  font-weight: 700;
+  font-family: $font-family-display;
+}
+
+// Global toggle button states
+.global-toggle-btn {
+  &.active {
+    color: $color-text-interactive;
+  }
+  
+  &.inactive {
+    color: $color-text-muted;
+  }
+}
 
 // Responsive design
 @media (max-width: 768px) {
