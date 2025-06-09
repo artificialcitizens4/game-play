@@ -7,10 +7,8 @@ const AudioManager = () => {
   const currentScreen = useCurrentScreen();
   const dispatch = useAppDispatch();
   
-  const backgroundMusicRef = useRef(null);
   const soundEffectsRef = useRef({});
   const [isInitialized, setIsInitialized] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(null);
 
   // Audio context for better control
   const audioContextRef = useRef(null);
@@ -39,113 +37,6 @@ const AudioManager = () => {
       }
     };
   }, []);
-
-  // Create audio elements with Web Audio API integration
-  const createAudioElement = (src, loop = false, volume = 0.5) => {
-    const audio = new Audio();
-    audio.preload = 'auto';
-    audio.loop = loop;
-    audio.volume = volume;
-    
-    // Create a more realistic military-style audio using oscillators and noise
-    if (audioContextRef.current && gainNodeRef.current) {
-      const source = audioContextRef.current.createMediaElementSource(audio);
-      const filter = audioContextRef.current.createBiquadFilter();
-      
-      // Add some military radio-style filtering
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(8000, audioContextRef.current.currentTime);
-      
-      source.connect(filter);
-      filter.connect(gainNodeRef.current);
-    }
-    
-    return audio;
-  };
-
-  // Generate synthetic military-style background music
-  const createSyntheticBackgroundMusic = () => {
-    if (!audioContextRef.current) return null;
-
-    const context = audioContextRef.current;
-    let isPlaying = false;
-    
-    const playDrumPattern = () => {
-      if (!isPlaying) return;
-      
-      // Create kick drum
-      const kickOsc = context.createOscillator();
-      const kickGain = context.createGain();
-      const kickFilter = context.createBiquadFilter();
-      
-      kickOsc.type = 'sine';
-      kickOsc.frequency.setValueAtTime(60, context.currentTime);
-      kickOsc.frequency.exponentialRampToValueAtTime(0.01, context.currentTime + 0.5);
-      
-      kickFilter.type = 'lowpass';
-      kickFilter.frequency.setValueAtTime(100, context.currentTime);
-      
-      kickGain.gain.setValueAtTime(0.8, context.currentTime);
-      kickGain.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.5);
-      
-      kickOsc.connect(kickFilter);
-      kickFilter.connect(kickGain);
-      kickGain.connect(gainNodeRef.current);
-      
-      kickOsc.start(context.currentTime);
-      kickOsc.stop(context.currentTime + 0.5);
-      
-      // Schedule next beat
-      setTimeout(() => playDrumPattern(), 800);
-    };
-
-    const playAtmosphericPad = () => {
-      if (!isPlaying) return;
-      
-      // Create atmospheric pad
-      const osc1 = context.createOscillator();
-      const osc2 = context.createOscillator();
-      const gain = context.createGain();
-      const filter = context.createBiquadFilter();
-      
-      osc1.type = 'sawtooth';
-      osc2.type = 'square';
-      osc1.frequency.setValueAtTime(110, context.currentTime);
-      osc2.frequency.setValueAtTime(220, context.currentTime);
-      
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(800, context.currentTime);
-      filter.Q.setValueAtTime(5, context.currentTime);
-      
-      gain.gain.setValueAtTime(0, context.currentTime);
-      gain.gain.linearRampToValueAtTime(0.1, context.currentTime + 2);
-      gain.gain.linearRampToValueAtTime(0, context.currentTime + 8);
-      
-      osc1.connect(filter);
-      osc2.connect(filter);
-      filter.connect(gain);
-      gain.connect(gainNodeRef.current);
-      
-      osc1.start(context.currentTime);
-      osc2.start(context.currentTime);
-      osc1.stop(context.currentTime + 8);
-      osc2.stop(context.currentTime + 8);
-      
-      // Schedule next pad
-      setTimeout(() => playAtmosphericPad(), 6000);
-    };
-
-    return {
-      start: () => {
-        isPlaying = true;
-        playDrumPattern();
-        playAtmosphericPad();
-      },
-      stop: () => {
-        isPlaying = false;
-      }
-    };
-  };
 
   // Create synthetic sound effects
   const createSyntheticSoundEffect = (type) => {
@@ -285,29 +176,7 @@ const AudioManager = () => {
       saveCharacter: createSyntheticSoundEffect('save-character')
     };
 
-    // Create background music
-    backgroundMusicRef.current = createSyntheticBackgroundMusic();
-
   }, [isInitialized]);
-
-  // Handle background music based on current screen
-  useEffect(() => {
-    if (!backgroundMusicRef.current || !uiState.soundEnabled) return;
-
-    const musicScreens = ['main', 'select-experience', 'story', 'team-setup', 'build-teams', 'view-characters', 'war-summary'];
-    
-    if (musicScreens.includes(currentScreen)) {
-      if (currentTrack !== 'background') {
-        backgroundMusicRef.current.start();
-        setCurrentTrack('background');
-      }
-    } else {
-      if (currentTrack === 'background') {
-        backgroundMusicRef.current.stop();
-        setCurrentTrack(null);
-      }
-    }
-  }, [currentScreen, uiState.soundEnabled, currentTrack]);
 
   // Global sound effect functions
   window.playWarSound = (soundType) => {

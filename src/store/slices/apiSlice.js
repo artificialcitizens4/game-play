@@ -4,6 +4,9 @@ import axios from 'axios';
 // Updated base URL with war_backend endpoint
 const API_BASE_URL = 'https://13.204.53.42.sslip.io/cms_backend';
 
+// Set axios timeout to 5 minutes (300,000 milliseconds)
+const API_TIMEOUT = 300000;
+
 function createTeams(characters) {
   const teamStructure = {
     team_one: {
@@ -69,7 +72,7 @@ export const submitStoryToAPI = createAsyncThunk(
         headers: {
           'Content-Type': 'application/json'
         },
-        timeout: 100000
+        timeout: API_TIMEOUT
       });
 
       let formattedResponse = {};
@@ -117,7 +120,7 @@ export const initializeGameBattle = createAsyncThunk(
         headers: {
           'Content-Type': 'application/json'
         },
-        timeout: 100000
+        timeout: API_TIMEOUT
       });
       
       return response.data;
@@ -147,7 +150,7 @@ export const fetchExperienceData = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/gamestory`, {
-        timeout: 100000
+        timeout: API_TIMEOUT
       });
       
       console.log('Experience data API response:', response.data);
@@ -241,7 +244,7 @@ export const fetchGameExperiences = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/gamestory`, {
-        timeout: 100000
+        timeout: API_TIMEOUT
       });
       
       return response.data;
@@ -263,7 +266,7 @@ export const submitWarResults = createAsyncThunk(
         headers: {
           'Content-Type': 'application/json'
         },
-        timeout: 100000
+        timeout: API_TIMEOUT
       });
       
       return response.data;
@@ -283,7 +286,7 @@ export const fetchGameDataById = createAsyncThunk(
   async (gameId, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/gamestory`, {
-        timeout: 100000
+        timeout: API_TIMEOUT
       });
       
       // Dispatch action to store the API response in game state
