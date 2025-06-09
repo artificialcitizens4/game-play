@@ -90,6 +90,529 @@ const ViewCharactersScreen = () => {
     return formattedPersonas;
   };
 
+  const createMinimalBattlemap = (battlefieldMap) => {
+    // If no battlefield map is available, create a minimal default
+    if (!battlefieldMap) {
+      return {
+        map_dimensions: {
+          width: 10,
+          height: 10
+        },
+        hex_data: [
+          {
+            coord: "0,0",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "1,0",
+            terrain: "Room",
+            elevation: 2
+          },
+          {
+            coord: "2,0",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "3,0",
+            terrain: "Clear",
+            elevation: 2
+          },
+          {
+            coord: "4,0",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "5,0",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,0",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "7,0",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "8,0",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "9,0",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "0,1",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "1,1",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "2,1",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "3,1",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "4,1",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "5,1",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,1",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "7,1",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "8,1",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "9,1",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "0,2",
+            terrain: "Room",
+            elevation: 1
+          },
+          {
+            coord: "1,2",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "2,2",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "3,2",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "4,2",
+            terrain: "Clear",
+            elevation: 2
+          },
+          {
+            coord: "5,2",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,2",
+            terrain: "Room",
+            elevation: 2
+          },
+          {
+            coord: "7,2",
+            terrain: "Room",
+            elevation: 2
+          },
+          {
+            coord: "8,2",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "9,2",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "0,3",
+            terrain: "Clear",
+            elevation: 2
+          },
+          {
+            coord: "1,3",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "2,3",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "3,3",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "4,3",
+            terrain: "Room",
+            elevation: 1
+          },
+          {
+            coord: "5,3",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,3",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "7,3",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "8,3",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "9,3",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "0,4",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "1,4",
+            terrain: "Clear",
+            elevation: 2
+          },
+          {
+            coord: "2,4",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "3,4",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "4,4",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "5,4",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "6,4",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "7,4",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "8,4",
+            terrain: "Room",
+            elevation: 1
+          },
+          {
+            coord: "9,4",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "0,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "1,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "2,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "3,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "4,5",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "5,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "7,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "8,5",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "9,5",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "0,6",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "1,6",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "2,6",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "3,6",
+            terrain: "Room",
+            elevation: 2
+          },
+          {
+            coord: "4,6",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "5,6",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,6",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "7,6",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "8,6",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "9,6",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "0,7",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "1,7",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "2,7",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "3,7",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "4,7",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "5,7",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "6,7",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "7,7",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "8,7",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "9,7",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "0,8",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "1,8",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "2,8",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "3,8",
+            terrain: "Hill (Steep/Ridge)",
+            elevation: 1
+          },
+          {
+            coord: "4,8",
+            terrain: "Road",
+            elevation: 2
+          },
+          {
+            coord: "5,8",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "6,8",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "7,8",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "8,8",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "9,8",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "0,9",
+            terrain: "Forest (Light)",
+            elevation: 2
+          },
+          {
+            coord: "1,9",
+            terrain: "Street",
+            elevation: 1
+          },
+          {
+            coord: "2,9",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "3,9",
+            terrain: "Room",
+            elevation: 1
+          },
+          {
+            coord: "4,9",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "5,9",
+            terrain: "Street",
+            elevation: 2
+          },
+          {
+            coord: "6,9",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "7,9",
+            terrain: "Clear",
+            elevation: 1
+          },
+          {
+            coord: "8,9",
+            terrain: "Road",
+            elevation: 1
+          },
+          {
+            coord: "9,9",
+            terrain: "Street",
+            elevation: 1
+          }
+        ]
+      };
+    }
+
+    // Extract only hex_data and map_dimensions from the existing battlefield map
+    return {
+      map_dimensions: battlefieldMap.map_dimensions || {
+        width: 10,
+        height: 10
+      },
+      hex_data: battlefieldMap.hex_data || []
+    };
+  };
+
   const handleStartWar = async () => {
     try {
       // Get the actual battlefield map from Redux state
@@ -97,31 +620,19 @@ const ViewCharactersScreen = () => {
       
       console.log('Current battlefield map from Redux:', battlefieldMap);
       
-      // Use the actual map data if available, otherwise create a minimal default
-      const mapToSend = battlefieldMap || {
-        battlefield_type: "urban",
-        map_dimensions: {
-          width: 10,
-          height: 10
-        },
-        hex_data: [
-          {
-            coord: "5,5",
-            terrain: "Clear",
-            elevation: 1
-          }
-        ]
-      };
+      // Create minimal battlemap with only hex_data and map_dimensions
+      const minimalBattlemap = createMinimalBattlemap(battlefieldMap);
+
+      console.log('Minimal battlemap being sent to API:', minimalBattlemap);
 
       // Prepare the game initialization payload
       const gameInitPayload = {
         baseStory: baseStory || gameState.story.background || 'An epic battle between two mighty factions.',
         personas: formatPersonasForAPI(personas),
-        battlemap: mapToSend
+        battlemap: minimalBattlemap
       };
 
       console.log('Initializing game with payload:', gameInitPayload);
-      console.log('Battlefield map being sent:', mapToSend);
 
       // Call the game initialization API
       const result = await dispatch(initializeGameBattle(gameInitPayload));
@@ -578,8 +1089,11 @@ const ViewCharactersScreen = () => {
                 <Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                   Type: {gameState.battlefieldMap.battlefield_type} | 
                   Size: {gameState.battlefieldMap.map_dimensions?.width}x{gameState.battlefieldMap.map_dimensions?.height} | 
-                  Hexes: {gameState.battlefieldMap.hex_data?.length || 0} | 
-                  Zones: {gameState.battlefieldMap.strategic_zones?.length || 0}
+                  Hexes: {gameState.battlefieldMap.hex_data?.length || 0}
+                </Text>
+                <br />
+                <Text style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  Sending only hex_data and map_dimensions to API
                 </Text>
               </div>
             )}
