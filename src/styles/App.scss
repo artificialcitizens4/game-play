@@ -1,0 +1,582 @@
+// Variables
+$primary-green: #2ed573;
+$secondary-orange: #ff6b35;
+$accent-red: #ff4757;
+$accent-yellow: #ffa502;
+$background-dark: #0a0a0a;
+$background-blue: #1a1a2e;
+$background-navy: #16213e;
+$text-primary: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.8);
+
+// Mixins
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $background-dark 0%, $background-blue 50%, $background-navy 100%);
+}
+
+@mixin card-hover {
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba($primary-green, 0.3);
+    border-color: $secondary-orange;
+  }
+}
+
+@mixin button-base {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+  }
+  
+  &:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  @include gradient-bg;
+  color: $text-primary;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  position: relative;
+}
+
+// Screen container and transitions
+.screen-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.screen {
+  min-height: 100vh;
+  padding: 20px;
+  animation: fadeInScreen 0.5s ease-in-out;
+}
+
+@keyframes fadeInScreen {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+// Typography
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  animation: pulse-title 2s infinite;
+  background: linear-gradient(45deg, $primary-green, $secondary-orange);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  opacity: 0.8;
+  animation: fadeInUp 1s ease 0.5s both;
+  
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+// Ant Design Button Overrides
+.ant-btn {
+  @include button-base;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  margin: 10px;
+  height: auto;
+  
+  &.btn-primary {
+    background: linear-gradient(45deg, $primary-green, darken($primary-green, 10%));
+    border-color: $primary-green;
+    color: #000;
+    
+    &:hover {
+      background: linear-gradient(45deg, lighten($primary-green, 5%), $primary-green);
+      border-color: $secondary-orange;
+      color: #000;
+      box-shadow: 0 10px 20px rgba($primary-green, 0.3);
+    }
+  }
+  
+  &.btn-secondary {
+    background: linear-gradient(45deg, $secondary-orange, $accent-red);
+    border-color: $secondary-orange;
+    color: white;
+    
+    &:hover {
+      background: linear-gradient(45deg, lighten($secondary-orange, 5%), lighten($accent-red, 5%));
+      border-color: $accent-red;
+      color: white;
+      box-shadow: 0 10px 20px rgba($secondary-orange, 0.3);
+    }
+  }
+  
+  &.btn-save {
+    background: linear-gradient(45deg, $secondary-orange, $accent-red);
+    border-color: $secondary-orange;
+    color: white;
+    font-size: 1.3rem;
+    padding: 18px 35px;
+    box-shadow: 0 0 30px rgba($secondary-orange, 0.4);
+    
+    &:hover {
+      background: linear-gradient(45deg, lighten($secondary-orange, 5%), lighten($accent-red, 5%));
+      border-color: $accent-red;
+      color: white;
+      box-shadow: 0 0 40px rgba($secondary-orange, 0.6);
+    }
+  }
+  
+  &.btn-launch {
+    background: linear-gradient(45deg, $primary-green, darken($primary-green, 10%));
+    border-color: $primary-green;
+    color: #000;
+    font-size: 1.5rem;
+    padding: 20px 40px;
+    
+    &:hover {
+      background: linear-gradient(45deg, lighten($primary-green, 5%), $primary-green);
+      border-color: $secondary-orange;
+      color: #000;
+      box-shadow: 0 15px 30px rgba($primary-green, 0.4);
+    }
+  }
+}
+
+.back-btn {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  z-index: 1000;
+  background: rgba($background-dark, 0.9);
+  border: 2px solid $primary-green;
+  color: $primary-green;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba($primary-green, 0.2);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba($primary-green, 0.1);
+    border-color: $secondary-orange;
+    color: $secondary-orange;
+    transform: translateX(-5px);
+    box-shadow: 0 12px 35px rgba($secondary-orange, 0.3);
+  }
+  
+  &::before {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    top: 15px;
+    left: 15px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+.skip-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+// Ant Design Card Overrides
+.ant-card {
+  background: rgba($primary-green, 0.05);
+  border: 2px solid $primary-green;
+  border-radius: 15px;
+  
+  .ant-card-head {
+    border-bottom: 1px solid rgba($primary-green, 0.3);
+    background: transparent;
+  }
+  
+  .ant-card-body {
+    background: transparent;
+  }
+}
+
+// Mode selection
+.mode-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba($primary-green, 0.2), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+  }
+  
+  &:hover::before {
+    animation: shine 0.8s ease;
+  }
+  
+  @include card-hover;
+}
+
+// Experience selection
+.experience-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba($primary-green, 0.2), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+  }
+  
+  &:hover::before {
+    animation: shine 0.8s ease;
+  }
+  
+  &.selected {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba($secondary-orange, 0.4);
+    
+    &::after {
+      content: '✓ SELECTED';
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(45deg, $secondary-orange, $accent-red);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+  }
+  
+  @include card-hover;
+}
+
+// Ant Design Input Overrides
+.ant-input,
+.ant-input-number,
+.ant-input-number-input {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid $primary-green;
+  border-radius: 8px;
+  color: $primary-green;
+  font-family: inherit;
+  font-size: 1rem;
+  
+  &:focus,
+  &:hover {
+    border-color: $secondary-orange;
+    box-shadow: 0 0 10px rgba($secondary-orange, 0.3);
+  }
+  
+  &::placeholder {
+    color: rgba($primary-green, 0.6);
+  }
+}
+
+.ant-input-number {
+  width: 100%;
+  
+  .ant-input-number-handler-wrap {
+    background: rgba(0, 0, 0, 0.7);
+    border-left: 1px solid $primary-green;
+  }
+  
+  .ant-input-number-handler {
+    border: none;
+    color: $primary-green;
+    
+    &:hover {
+      color: $secondary-orange;
+    }
+  }
+}
+
+// Ant Design Slider Overrides
+.ant-slider {
+  .ant-slider-rail {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .ant-slider-track {
+    background: $primary-green;
+  }
+  
+  .ant-slider-handle {
+    border: 3px solid #000;
+    background: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    
+    &:hover,
+    &:focus {
+      border-color: #000;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+  }
+}
+
+// Ant Design Progress Overrides
+.ant-progress-bg {
+  transition: all 0.5s ease;
+}
+
+// Stats
+.stats-container {
+  margin: 2rem 0;
+}
+
+.stat-container {
+  margin: 2rem 0;
+  background: rgba($primary-green, 0.05);
+  border: 1px solid rgba($primary-green, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  animation: slideInRight 0.5s ease;
+  animation-fill-mode: both;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  
+  &:hover {
+    background: rgba($primary-green, 0.1);
+    border-color: rgba($secondary-orange, 0.5);
+    transform: translateX(10px);
+  }
+}
+
+// Particles
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  background: $primary-green;
+  border-radius: 50%;
+  animation: particle-float 8s infinite linear;
+}
+
+// Animations
+@keyframes pulse-title {
+  0%, 100% { 
+    text-shadow: 0 0 20px rgba($primary-green, 0.5); 
+  }
+  50% { 
+    text-shadow: 0 0 30px rgba($secondary-orange, 0.5); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba($secondary-orange, 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba($secondary-orange, 0.6);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInCard {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeInLine {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .ant-card {
+    margin: 1rem 0;
+  }
+  
+  .ant-btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+  }
+}
