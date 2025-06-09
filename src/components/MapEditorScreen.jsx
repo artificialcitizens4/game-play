@@ -15,6 +15,7 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
   const dispatch = useAppDispatch();
 
   const handleMapExport = (exportedMapData) => {
+    console.log(exportedMapData)
     setMapData(exportedMapData);
     setIsMapComplete(true);
     onSaveBattlefieldMap(exportedMapData);
