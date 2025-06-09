@@ -108,26 +108,18 @@ export const submitStoryToAPI = createAsyncThunk(
   }
 );
 
-// New async thunk for fetching experience mode data with pagination
+// New async thunk for fetching experience mode data (simplified without pagination)
 export const fetchExperienceData = createAsyncThunk(
   'api/fetchExperienceData',
-  async ({ page = 1, limit = 20, reset = false }, { rejectWithValue, getState }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/gamestory`, {
-        params: {
-          page,
-          limit,
-          type: 'experience' // Add type parameter to distinguish experience mode requests
-        },
         timeout: 100000
       });
       
       return {
         data: response.data,
-        page,
-        limit,
-        reset,
-        hasMore: response.data?.length === limit // Assume there's more data if we got a full page
+        hasMore: false // No pagination, so no more data to load
       };
     } catch (error) {
       let errorMessage = 'Failed to fetch experience data';
@@ -223,13 +215,12 @@ const initialState = {
     data: null
   },
   
-  // Experience data state with pagination
+  // Experience data state (simplified without pagination)
   experienceData: {
     loading: false,
     data: [],
     error: null,
-    currentPage: 1,
-    hasMore: true,
+    hasMore: false,
     totalLoaded: 0,
     lastFetched: null
   },
@@ -283,8 +274,7 @@ const apiSlice = createSlice({
         loading: false,
         data: [],
         error: null,
-        currentPage: 1,
-        hasMore: true,
+        hasMore: false,
         totalLoaded: 0,
         lastFetched: null
       };
@@ -363,7 +353,7 @@ const apiSlice = createSlice({
         });
       });
     
-    // Experience data fetching with pagination
+    // Experience data fetching (simplified)
     builder
       .addCase(fetchExperienceData.pending, (state) => {
         state.experienceData.loading = true;
@@ -371,25 +361,17 @@ const apiSlice = createSlice({
         state.lastApiCall = new Date().toISOString();
       })
       .addCase(fetchExperienceData.fulfilled, (state, action) => {
-        const { data, page, reset, hasMore } = action.payload;
+        const { data, hasMore } = action.payload;
         
         state.experienceData.loading = false;
         state.experienceData.error = null;
-        state.experienceData.currentPage = page;
         state.experienceData.hasMore = hasMore;
         state.experienceData.lastFetched = new Date().toISOString();
         state.retryCount = 0;
         
-        if (reset || page === 1) {
-          // Reset data for first page or explicit reset
-          state.experienceData.data = Array.isArray(data) ? data : [data];
-          state.experienceData.totalLoaded = Array.isArray(data) ? data.length : 1;
-        } else {
-          // Append data for subsequent pages
-          const newData = Array.isArray(data) ? data : [data];
-          state.experienceData.data = [...state.experienceData.data, ...newData];
-          state.experienceData.totalLoaded += newData.length;
-        }
+        // Set all data at once (no pagination)
+        state.experienceData.data = Array.isArray(data) ? data : [data];
+        state.experienceData.totalLoaded = Array.isArray(data) ? data.length : 1;
       })
       .addCase(fetchExperienceData.rejected, (state, action) => {
         state.experienceData.loading = false;

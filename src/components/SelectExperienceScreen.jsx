@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, Row, Col, Typography, Space, Spin, Alert, Empty } from 'antd';
 import { ArrowLeftOutlined, PlayCircleOutlined, LoadingOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -13,36 +13,12 @@ const SelectExperienceScreen = () => {
   const dispatch = useAppDispatch();
   const experienceData = useExperienceData();
   const [selectedExperience, setSelectedExperience] = useState(null);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const observerRef = useRef();
-  const lastExperienceElementRef = useRef();
 
-  // Clear experience data when component mounts
+  // Clear experience data and fetch all data when component mounts
   useEffect(() => {
     dispatch(clearExperienceData());
-    // Fetch first page
-    dispatch(fetchExperienceData({ page: 1, limit: 20, reset: true }));
+    dispatch(fetchExperienceData());
   }, [dispatch]);
-
-  // Infinite scroll implementation
-  const lastExperienceElementRefCallback = useCallback(node => {
-    if (experienceData.loading) return;
-    if (observerRef.current) observerRef.current.disconnect();
-    
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && experienceData.hasMore && !isLoadingMore) {
-        setIsLoadingMore(true);
-        dispatch(fetchExperienceData({ 
-          page: experienceData.currentPage + 1, 
-          limit: 20 
-        })).finally(() => {
-          setIsLoadingMore(false);
-        });
-      }
-    });
-    
-    if (node) observerRef.current.observe(node);
-  }, [experienceData.loading, experienceData.hasMore, experienceData.currentPage, dispatch, isLoadingMore]);
 
   const goBack = () => {
     dispatch(setCurrentScreen('main'));
@@ -205,7 +181,7 @@ const SelectExperienceScreen = () => {
 
   const handleRetry = () => {
     dispatch(clearExperienceData());
-    dispatch(fetchExperienceData({ page: 1, limit: 20, reset: true }));
+    dispatch(fetchExperienceData());
   };
 
   // Show loading state for initial load
@@ -339,20 +315,17 @@ const SelectExperienceScreen = () => {
         {/* Stats */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1rem' }}>
-            📊 Loaded {experienceData.totalLoaded} experiences
-            {experienceData.hasMore && ' • Scroll for more'}
+            📊 {experienceData.totalLoaded} experiences available
           </Text>
         </div>
         
         <Row gutter={[24, 24]} style={{ marginTop: '3rem' }}>
           {experienceData.data.map((item, index) => {
             const experience = formatExperienceData(item);
-            const isLast = index === experienceData.data.length - 1;
             
             return (
               <Col xs={24} lg={12} key={experience.id || index}>
                 <Card 
-                  ref={isLast ? lastExperienceElementRefCallback : null}
                   className={`experience-card ${selectedExperience === experience.id ? 'selected' : ''}`}
                   hoverable
                   onClick={() => handleSelectExperience(experience)}
@@ -465,28 +438,6 @@ const SelectExperienceScreen = () => {
             );
           })}
         </Row>
-        
-        {/* Loading more indicator */}
-        {(isLoadingMore || experienceData.loading) && experienceData.data.length > 0 && (
-          <div style={{ textAlign: 'center', margin: '3rem 0' }}>
-            <Spin 
-              indicator={<LoadingOutlined style={{ fontSize: 24, color: '#2ed573' }} spin />} 
-              size="large" 
-            />
-            <div style={{ marginTop: '1rem' }}>
-              <Text style={{ color: '#2ed573' }}>Loading more experiences...</Text>
-            </div>
-          </div>
-        )}
-        
-        {/* End of data indicator */}
-        {!experienceData.hasMore && experienceData.data.length > 0 && (
-          <div style={{ textAlign: 'center', margin: '3rem 0' }}>
-            <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem' }}>
-              🏁 You've reached the end of available experiences
-            </Text>
-          </div>
-        )}
       </div>
     </div>
   );
