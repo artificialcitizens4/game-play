@@ -1,21 +1,20 @@
 // Import Google Fonts - Inter for body text, Oxanium for titles
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oxanium:wght@400;600;700&display=swap');
 
-// Ancient Mystical Observer Variables - Cosmic Technology Aesthetic
-$void-purple: #120A1C;        // Deep, rich purple for main background - depths of space
-$obsidian: #241E2B;           // Slightly lighter, textured dark for panels and containers
-$starlight: #F5F0FF;          // Very soft, slightly lavender-tinted white for all text
-$ghostly-purple: #827A9B;     // Secondary text and dividers
-$amethyst-glow: #D079FF;      // Vibrant, glowing purple for primary interactions
-$liquid-gold: #FFD700;        // Rare accent for critical actions only
+// Futuristic Observer Variables
+$deep-slate-blue: #2F4F70;
+$gunmetal-gray: #2A2E36;
+$soft-white: #F4F4F4;
+$charcoal-gray: #555A62;
+$teal: #3B8C91;
+$electric-blue: #45B1E3;
 
-// Updated color assignments for mystical theme
-$background-primary: $void-purple;
-$background-secondary: $obsidian;
-$text-primary: $starlight;
-$text-secondary: $ghostly-purple;
-$accent-primary: $amethyst-glow;
-$accent-secondary: $liquid-gold;
+$background-primary: $deep-slate-blue;
+$background-secondary: $gunmetal-gray;
+$text-primary: $soft-white;
+$text-secondary: $charcoal-gray;
+$accent-primary: $teal;
+$accent-secondary: $electric-blue;
 
 // Base Unit System - 8px grid
 $base-unit: 8px;
@@ -38,18 +37,13 @@ $button-margin: $spacing-sm + 4px;   // 12px for improved spacing
 $button-padding-vertical: 12px;
 $button-padding-horizontal: $spacing-md; // 24px
 
-// Mystical Border Radius - Soft & Flowing
-$border-radius-card: 16px;      // Cards & Panels - significant rounding for organic feel
-$border-radius-button: 8px;     // Buttons & Inputs - softer rounding
-$border-radius-small: 6px;      // Small elements
-
 // Updated Typography Scale with Font Families
 $font-family-primary: 'Inter', 'Roboto', sans-serif;     // Body text
 $font-family-display: 'Oxanium', sans-serif;             // Titles and headers
 
 // Typography Scale
 $font-size-title: 3rem;        // h1 - Main titles | font-weight: 700 | font-family: 'Oxanium'
-$font-size-subtitle: 1.75rem;  // h2 - Subtitles | font-weight: 600 | font-family: 'Oxanium'
+$font-size-subtitle: 1.75rem;  // h2 - Subtitles | font-weight: 600 | font-family: 'Oxanium' (updated from 1.5rem)
 $font-size-section: 1.25rem;   // h3 - Section titles/card headers | font-weight: 600 | font-family: 'Oxanium'
 $font-size-body: 1rem;         // p - Standard body text | font-weight: 400 | font-family: 'Inter'
 $font-size-button: 0.9rem;     // Buttons and inputs | font-weight: 500 | font-family: 'Inter'
@@ -57,65 +51,56 @@ $font-size-small: 0.8rem;      // Labels and small text | font-weight: 400 | fon
 
 // Typography line heights
 $line-height-title: 1.2;
-$line-height-subtitle: 1.4;
+$line-height-subtitle: 1.4;    // Updated for better readability at 1.75rem
 $line-height-section: 1.3;
 $line-height-body: 1.6;
 
-// Typography letter spacing
+// Typography letter spacing - Updated for stylized look
 $letter-spacing-title: 3px;
-$letter-spacing-uppercase: 1.5px;
+$letter-spacing-uppercase: 1.5px;  // Updated from 1px for more stylized look
 $letter-spacing-normal: 0;
 
 // Mobile typography scale
 $font-size-title-mobile: 2rem;
-$font-size-subtitle-mobile: 1.35rem;
+$font-size-subtitle-mobile: 1.35rem;  // Updated from 1.2rem
 $font-size-section-mobile: 1.1rem;
-$font-size-body-mobile: 1rem;
+$font-size-body-mobile: 1rem;         // Keep at 1rem for mobile readability
 $font-size-button-mobile: 0.8rem;
 $font-size-small-mobile: 0.7rem;
 
-// Mystical Mixins
-@mixin cosmic-gradient($color1, $color2) {
+// Mixins
+@mixin futuristic-gradient($color1, $color2) {
   background: linear-gradient(135deg, $color1 0%, $color2 100%);
 }
 
-@mixin ethereal-glow($color: $amethyst-glow, $intensity: 0.4) {
-  box-shadow: 0 0 20px rgba($color, $intensity), 
-              0 0 40px rgba($color, $intensity * 0.6),
-              0 0 60px rgba($color, $intensity * 0.3);
+@mixin observer-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              0 4px 16px rgba(0, 0, 0, 0.2),
+              0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@mixin mystical-shadow($color: $amethyst-glow) {
-  box-shadow: 0 8px 32px rgba($color, 0.25), 
-              0 4px 16px rgba($color, 0.15),
-              0 2px 8px rgba($color, 0.1);
+@mixin subtle-glow($color) {
+  box-shadow: 0 0 20px rgba($color, 0.3);
 }
 
-@mixin ancient-hover {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); // Slower, more graceful
+@mixin clean-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover {
     transform: translateY(-2px);
-    @include ethereal-glow($amethyst-glow, 0.5);
+    @include subtle-glow($accent-primary);
   }
-}
-
-@mixin mystical-glass {
-  background: rgba($obsidian, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba($amethyst-glow, 0.3);
-  border-radius: $border-radius-card;
 }
 
 @mixin button-base {
   border: 1px solid transparent;
-  border-radius: $border-radius-button;
+  border-radius: 8px;
   cursor: pointer;
   font-family: $font-family-primary;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); // Slower, more graceful
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -127,8 +112,8 @@ $font-size-small-mobile: 0.7rem;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba($amethyst-glow, 0.2), transparent);
-    transition: left 0.6s ease; // Slower shimmer effect
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
   }
   
   &:hover::before {
@@ -136,8 +121,8 @@ $font-size-small-mobile: 0.7rem;
   }
   
   &:hover {
-    transform: translateY(-2px);
-    @include ethereal-glow($amethyst-glow, 0.4);
+    transform: translateY(-1px);
+    @include subtle-glow($accent-secondary);
   }
   
   &:active {
@@ -159,7 +144,7 @@ $font-size-small-mobile: 0.7rem;
 }
 
 body {
-  font-family: $font-family-primary;
+  font-family: $font-family-primary; // Inter is now primary
   background: $background-primary;
   color: $text-primary;
   overflow-x: hidden;
@@ -168,12 +153,11 @@ body {
   font-size: $font-size-body;
   line-height: $line-height-body;
   
-  // Mystical cosmic background pattern
+  // Subtle space-like background pattern
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba($amethyst-glow, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba($liquid-gold, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba($obsidian, 0.6) 0%, transparent 50%),
-    radial-gradient(circle at 60% 60%, rgba($amethyst-glow, 0.05) 0%, transparent 70%);
+    radial-gradient(circle at 20% 80%, rgba(69, 177, 227, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 140, 145, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(42, 46, 54, 0.3) 0%, transparent 50%);
 }
 
 .app {
@@ -189,22 +173,22 @@ body {
 
 .screen {
   min-height: 100vh;
-  padding: $padding-screen;
-  animation: mysticFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: $padding-screen; // 32px consistent with design system
+  animation: observerFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   
   @media (max-width: 768px) {
-    padding: $padding-screen-mobile;
+    padding: $padding-screen-mobile; // 16px on mobile
   }
 }
 
-@keyframes mysticFadeIn {
+@keyframes observerFadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -215,7 +199,7 @@ body {
   text-align: center;
   
   @media (max-width: 768px) {
-    padding: 0 $padding-container-mobile;
+    padding: 0 $padding-container-mobile; // 16px side padding on mobile
   }
 }
 
@@ -223,14 +207,13 @@ body {
 .title {
   font-size: $font-size-title;
   font-weight: 700;
-  font-family: $font-family-display;
-  margin-bottom: $spacing-md;
+  font-family: $font-family-display; // Oxanium for titles
+  margin-bottom: $spacing-md; // 24px
   color: $text-primary;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-title;
   line-height: $line-height-title;
   position: relative;
-  text-shadow: 0 0 20px rgba($amethyst-glow, 0.3);
   
   &::after {
     content: '';
@@ -238,11 +221,9 @@ body {
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(90deg, $amethyst-glow, $liquid-gold);
-    border-radius: 2px;
-    @include ethereal-glow($amethyst-glow, 0.6);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
   }
   
   @media (max-width: 768px) {
@@ -251,20 +232,19 @@ body {
 }
 
 .subtitle {
-  font-size: $font-size-subtitle;
+  font-size: $font-size-subtitle; // Updated from 1.1rem to 1.75rem
   font-weight: 600;
-  font-family: $font-family-display;
-  margin-bottom: $spacing-xl;
+  font-family: $font-family-display; // Oxanium for subtitles
+  margin-bottom: $spacing-xl; // 48px
   color: $text-secondary;
-  line-height: $line-height-subtitle;
-  letter-spacing: $letter-spacing-uppercase;
+  line-height: $line-height-subtitle; // Updated to 1.4 for better readability
+  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 0 0 10px rgba($ghostly-purple, 0.5);
   
   @media (max-width: 768px) {
-    font-size: $font-size-subtitle-mobile;
+    font-size: $font-size-subtitle-mobile; // 1.35rem
   }
 }
 
@@ -272,12 +252,11 @@ body {
 h3, .section-title {
   font-size: $font-size-section;
   font-weight: 600;
-  font-family: $font-family-display;
+  font-family: $font-family-display; // Oxanium for section titles
   color: $text-primary;
   line-height: $line-height-section;
   letter-spacing: $letter-spacing-uppercase;
   margin-bottom: $spacing-sm;
-  text-shadow: 0 0 8px rgba($amethyst-glow, 0.4);
   
   @media (max-width: 768px) {
     font-size: $font-size-section-mobile;
@@ -288,7 +267,7 @@ h3, .section-title {
 p, .body-text {
   font-size: $font-size-body;
   font-weight: 400;
-  font-family: $font-family-primary;
+  font-family: $font-family-primary; // Inter for body text
   line-height: $line-height-body;
   color: $text-primary;
   
@@ -301,9 +280,9 @@ p, .body-text {
 .small-text, .metric-label, .simulation-status {
   font-size: $font-size-small;
   font-weight: 400;
-  font-family: $font-family-primary;
+  font-family: $font-family-primary; // Inter for small text
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
+  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
@@ -312,14 +291,17 @@ p, .body-text {
 
 // Sound Toggle
 .sound-toggle {
-  @include mystical-glass;
-  color: $amethyst-glow !important;
-  @include ancient-hover;
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid $accent-primary !important;
+  color: $accent-primary !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px) !important;
+  @include clean-hover;
   
   &:hover {
-    background: rgba($amethyst-glow, 0.1) !important;
-    color: $liquid-gold !important;
-    border-color: $liquid-gold !important;
+    background: rgba($accent-primary, 0.1) !important;
+    color: $accent-secondary !important;
+    border-color: $accent-secondary !important;
   }
   
   @media (max-width: 768px) {
@@ -333,78 +315,71 @@ p, .body-text {
 // Button typography and spacing
 .ant-btn {
   @include button-base;
-  padding: $button-padding-vertical $button-padding-horizontal;
-  font-size: $font-size-button;
+  padding: $button-padding-vertical $button-padding-horizontal; // 12px 24px
+  font-size: $font-size-button; // 0.9rem
   font-weight: 500;
-  font-family: $font-family-primary;
-  margin: $button-margin;
+  font-family: $font-family-primary; // Inter for buttons
+  margin: $button-margin; // Updated to 12px for improved spacing
   height: auto;
   min-height: 44px;
   
   &.btn-primary {
-    background: linear-gradient(135deg, $amethyst-glow, darken($amethyst-glow, 10%));
-    border-color: $amethyst-glow;
-    color: $void-purple;
-    font-weight: 600;
+    background: $accent-secondary;
+    border-color: $accent-secondary;
+    color: $text-primary;
     
     &:hover {
-      background: linear-gradient(135deg, lighten($amethyst-glow, 10%), $amethyst-glow);
-      border-color: $liquid-gold;
-      color: $void-purple;
-      @include ethereal-glow($amethyst-glow, 0.6);
+      background: $accent-primary;
+      border-color: $accent-primary;
+      color: $text-primary;
     }
   }
   
   &.btn-secondary {
     background: transparent;
-    border: 2px solid rgba($amethyst-glow, 0.6);
-    color: $amethyst-glow;
+    border-color: $accent-secondary;
+    color: $accent-secondary;
     
     &:hover {
-      background: rgba($amethyst-glow, 0.1);
-      border-color: $amethyst-glow;
-      color: $starlight;
-      @include ethereal-glow($amethyst-glow, 0.4);
+      background: $accent-secondary;
+      border-color: $accent-secondary;
+      color: $text-primary;
     }
   }
   
   &.btn-save {
-    background: linear-gradient(135deg, $amethyst-glow, $liquid-gold);
-    border-color: transparent;
-    color: $void-purple;
-    font-size: $font-size-body;
+    background: $accent-primary;
+    border-color: $accent-primary;
+    color: $text-primary;
+    font-size: $font-size-body; // Updated to 1rem
     padding: 16px 32px;
-    font-weight: 600;
-    @include ethereal-glow($amethyst-glow, 0.5);
     
     &:hover {
-      background: linear-gradient(135deg, lighten($amethyst-glow, 15%), lighten($liquid-gold, 10%));
-      color: $void-purple;
-      @include ethereal-glow($liquid-gold, 0.7);
+      background: lighten($accent-primary, 10%);
+      border-color: lighten($accent-primary, 10%);
+      color: $text-primary;
     }
   }
   
   &.btn-launch {
-    background: linear-gradient(135deg, $liquid-gold, darken($liquid-gold, 15%));
+    background: linear-gradient(135deg, $accent-secondary, $accent-primary);
     border-color: transparent;
-    color: $void-purple;
-    font-size: 1.1rem;
-    padding: 20px 40px;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba($void-purple, 0.8);
-    @include ethereal-glow($liquid-gold, 0.8);
+    color: $text-primary;
+    font-size: 1.1rem; // Acceptable variant within scale
+    padding: 18px 36px;
+    font-weight: 600;
     
     &:hover {
-      background: linear-gradient(135deg, lighten($liquid-gold, 10%), $liquid-gold);
-      transform: translateY(-3px) scale(1.02);
-      @include ethereal-glow($liquid-gold, 1.0);
+      background: linear-gradient(135deg, lighten($accent-secondary, 10%), lighten($accent-primary, 10%));
+      transform: translateY(-2px);
+      @include subtle-glow($accent-secondary);
     }
   }
   
   @media (max-width: 768px) {
     font-size: $font-size-button-mobile;
     padding: 10px 20px;
-    margin: $spacing-xs;
+    margin: $spacing-xs; // 8px margin on mobile
   }
 }
 
@@ -413,24 +388,25 @@ p, .body-text {
   top: 32px;
   left: 32px;
   z-index: 1000;
-  @include mystical-glass;
-  color: $amethyst-glow;
+  background: rgba($background-secondary, 0.9);
+  border: 1px solid $accent-primary;
+  color: $accent-primary;
   padding: 12px 20px;
   font-size: $font-size-button;
   font-weight: 500;
   font-family: $font-family-primary;
-  border-radius: $border-radius-button;
-  @include mystical-shadow($amethyst-glow);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  @include observer-shadow;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: $letter-spacing-uppercase;
   text-transform: uppercase;
   
   &:hover {
-    background: rgba($amethyst-glow, 0.15);
-    border-color: $liquid-gold;
-    color: $liquid-gold;
-    transform: translateX(-6px);
-    @include ethereal-glow($liquid-gold, 0.6);
+    background: rgba($accent-primary, 0.1);
+    border-color: $accent-secondary;
+    color: $accent-secondary;
+    transform: translateX(-4px);
   }
   
   &::before {
@@ -452,23 +428,25 @@ p, .body-text {
   z-index: 1000;
 }
 
-// Ant Design Card Overrides - Mystical Glass Effect
+// Ant Design Card Overrides
 .ant-card {
-  @include mystical-glass;
-  @include mystical-shadow($amethyst-glow);
+  background: rgba($background-secondary, 0.6);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  @include observer-shadow;
   
   .ant-card-head {
-    border-bottom: 1px solid rgba($amethyst-glow, 0.3);
+    border-bottom: 1px solid rgba($accent-primary, 0.2);
     background: transparent;
-    border-radius: $border-radius-card $border-radius-card 0 0;
+    border-radius: 16px 16px 0 0;
     
     .ant-card-head-title {
       font-size: $font-size-section;
       font-weight: 600;
-      font-family: $font-family-display;
+      font-family: $font-family-display; // Oxanium for card headers
       color: $text-primary;
       letter-spacing: $letter-spacing-uppercase;
-      text-shadow: 0 0 8px rgba($amethyst-glow, 0.4);
       
       @media (max-width: 768px) {
         font-size: $font-size-section-mobile;
@@ -479,7 +457,7 @@ p, .body-text {
   .ant-card-body {
     background: transparent;
     font-size: $font-size-body;
-    font-family: $font-family-primary;
+    font-family: $font-family-primary; // Inter for card body content
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
@@ -488,12 +466,13 @@ p, .body-text {
   }
 }
 
-// Mode selection - Enhanced mystical effects
+// Mode selection
 .mode-card {
-  @include ancient-hover;
+  @include clean-hover;
   position: relative;
   overflow: hidden;
-  @include mystical-glass;
+  background: rgba($background-secondary, 0.8);
+  backdrop-filter: blur(15px);
   
   &::before {
     content: '';
@@ -502,7 +481,7 @@ p, .body-text {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba($amethyst-glow, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba($accent-secondary, 0.1), transparent);
     transition: left 0.8s ease;
   }
   
@@ -511,18 +490,18 @@ p, .body-text {
   }
   
   &:hover {
-    border-color: $liquid-gold;
-    @include ethereal-glow($amethyst-glow, 0.6);
-    transform: translateY(-4px) scale(1.02);
+    border-color: $accent-secondary;
+    @include subtle-glow($accent-secondary);
   }
 }
 
-// Experience selection - Enhanced mystical effects
+// Experience selection
 .experience-card {
-  @include ancient-hover;
+  @include clean-hover;
   position: relative;
   overflow: hidden;
-  @include mystical-glass;
+  background: rgba($background-secondary, 0.8);
+  backdrop-filter: blur(15px);
   
   &::before {
     content: '';
@@ -531,7 +510,7 @@ p, .body-text {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba($amethyst-glow, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba($accent-primary, 0.1), transparent);
     transition: left 0.8s ease;
   }
   
@@ -540,55 +519,56 @@ p, .body-text {
   }
   
   &.selected {
-    transform: translateY(-6px);
-    @include ethereal-glow($liquid-gold, 0.8);
-    border-color: $liquid-gold;
-    background: rgba($liquid-gold, 0.08);
+    transform: translateY(-4px);
+    @include subtle-glow($accent-primary);
+    border-color: $accent-primary;
+    background: rgba($accent-primary, 0.1);
     
     &::after {
-      content: '✦ CHOSEN ✦';
+      content: 'SELECTED';
       position: absolute;
       top: 16px;
       right: 16px;
-      background: linear-gradient(135deg, $liquid-gold, darken($liquid-gold, 10%));
-      color: $void-purple;
-      padding: 8px 16px;
-      border-radius: $border-radius-small;
+      background: $accent-primary;
+      color: $text-primary;
+      padding: 6px 12px;
+      border-radius: 4px;
       font-size: $font-size-small;
-      font-weight: 700;
+      font-weight: 600;
       font-family: $font-family-primary;
       letter-spacing: $letter-spacing-uppercase;
-      @include ethereal-glow($liquid-gold, 0.6);
     }
   }
   
   &:hover {
-    border-color: $amethyst-glow;
-    @include ethereal-glow($amethyst-glow, 0.5);
+    border-color: $accent-secondary;
+    @include subtle-glow($accent-secondary);
   }
 }
 
-// Ant Design Input Overrides - Mystical styling
+// Ant Design Input Overrides
 .ant-input,
 .ant-input-number,
 .ant-input-number-input {
-  @include mystical-glass;
+  background: rgba($background-secondary, 0.8);
+  border: 1px solid rgba($accent-primary, 0.5);
+  border-radius: 8px;
   color: $text-primary;
   font-family: $font-family-primary;
   font-size: $font-size-button;
   font-weight: 500;
   padding: 12px 16px;
-  border-radius: $border-radius-button;
+  backdrop-filter: blur(10px);
   
   &:focus,
   &:hover {
-    border-color: $amethyst-glow;
-    @include ethereal-glow($amethyst-glow, 0.3);
-    background: rgba($obsidian, 0.9);
+    border-color: $accent-secondary;
+    @include subtle-glow($accent-secondary);
+    background: rgba($background-secondary, 0.9);
   }
   
   &::placeholder {
-    color: rgba($ghostly-purple, 0.7);
+    color: rgba($text-secondary, 0.7);
   }
   
   @media (max-width: 768px) {
@@ -600,76 +580,76 @@ p, .body-text {
   width: 100%;
   
   .ant-input-number-handler-wrap {
-    background: rgba($obsidian, 0.8);
-    border-left: 1px solid rgba($amethyst-glow, 0.5);
-    border-radius: 0 $border-radius-button $border-radius-button 0;
+    background: rgba($background-secondary, 0.8);
+    border-left: 1px solid rgba($accent-primary, 0.5);
+    border-radius: 0 8px 8px 0;
   }
   
   .ant-input-number-handler {
     border: none;
-    color: $amethyst-glow;
+    color: $accent-primary;
     
     &:hover {
-      color: $liquid-gold;
+      color: $accent-secondary;
     }
   }
 }
 
-// Ant Design Slider Overrides - Mystical styling
+// Ant Design Slider Overrides
 .ant-slider {
   .ant-slider-rail {
-    background: rgba($ghostly-purple, 0.3);
+    background: rgba($text-secondary, 0.3);
     height: 6px;
     border-radius: 3px;
   }
   
   .ant-slider-track {
-    background: linear-gradient(90deg, $amethyst-glow, $liquid-gold);
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
     height: 6px;
     border-radius: 3px;
-    @include ethereal-glow($amethyst-glow, 0.4);
   }
   
   .ant-slider-handle {
-    border: 3px solid $amethyst-glow;
-    background: $starlight;
-    width: 20px;
-    height: 20px;
-    @include ethereal-glow($amethyst-glow, 0.6);
+    border: 3px solid $accent-secondary;
+    background: $text-primary;
+    width: 18px;
+    height: 18px;
+    @include subtle-glow($accent-secondary);
     
     &:hover,
     &:focus {
-      border-color: $liquid-gold;
-      @include ethereal-glow($liquid-gold, 0.8);
+      border-color: $accent-primary;
+      @include subtle-glow($accent-primary);
     }
   }
 }
 
-// Ant Design Progress Overrides - Mystical styling
+// Ant Design Progress Overrides
 .ant-progress-bg {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 4px;
-  background: linear-gradient(90deg, $amethyst-glow, $liquid-gold);
-  @include ethereal-glow($amethyst-glow, 0.3);
+  background: linear-gradient(90deg, $accent-primary, $accent-secondary);
 }
 
 .ant-progress-inner {
   border-radius: 4px;
-  background: rgba($ghostly-purple, 0.2);
+  background: rgba($text-secondary, 0.2);
 }
 
 // Stats container spacing
 .stats-container {
-  margin: $spacing-lg 0;
+  margin: $spacing-lg 0; // 32px 0 - confirmed good for major section breaks
 }
 
 .stat-container {
-  margin: $spacing-md 0;
-  @include mystical-glass;
-  border-radius: $border-radius-card;
-  padding: $padding-card-large;
-  @include ancient-hover;
-  animation: mysticSlideIn 0.6s ease;
+  margin: $spacing-md 0; // 24px 0
+  background: rgba($background-secondary, 0.6);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 12px;
+  padding: $padding-card-large; // 24px consistent padding for major containers
+  backdrop-filter: blur(10px);
+  @include clean-hover;
+  animation: observerSlideIn 0.5s ease;
   animation-fill-mode: both;
   
   &:nth-child(1) { animation-delay: 0.1s; }
@@ -678,14 +658,14 @@ p, .body-text {
   &:nth-child(4) { animation-delay: 0.4s; }
   
   &:hover {
-    background: rgba($obsidian, 0.9);
-    border-color: $liquid-gold;
-    transform: translateX(12px) translateY(-4px);
-    @include ethereal-glow($amethyst-glow, 0.6);
+    background: rgba($background-secondary, 0.8);
+    border-color: $accent-secondary;
+    transform: translateX(8px) translateY(-2px);
+    @include subtle-glow($accent-secondary);
   }
 }
 
-// Particles - Mystical and ethereal
+// Particles - Minimal and abstract
 .particles {
   position: fixed;
   top: 0;
@@ -698,159 +678,170 @@ p, .body-text {
 
 .particle {
   position: absolute;
-  background: $amethyst-glow;
+  background: $accent-primary;
   border-radius: 50%;
-  animation: mysticFloat 25s infinite linear;
-  opacity: 0.4;
-  @include ethereal-glow($amethyst-glow, 0.3);
+  animation: observerFloat 20s infinite linear;
+  opacity: 0.3;
 }
 
-// Component spacing - Major containers with mystical glass effect
+// Component spacing - Major containers with consistent 24px padding
 .character-profile {
-  @include mystical-glass !important;
-  border-radius: $border-radius-card !important;
-  @include ancient-hover;
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include clean-hover;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .team-config-box {
-  @include mystical-glass !important;
-  border-radius: $border-radius-card !important;
-  @include mystical-shadow($amethyst-glow);
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .story-form {
-  @include mystical-glass !important;
-  border-radius: $border-radius-card !important;
-  @include mystical-shadow($amethyst-glow);
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .example-box {
-  background: rgba($liquid-gold, 0.08) !important;
-  border: 1px solid rgba($liquid-gold, 0.4) !important;
-  border-radius: $border-radius-card !important;
-  backdrop-filter: blur(12px) !important;
-  @include ethereal-glow($liquid-gold, 0.2);
+  background: rgba($accent-primary, 0.1) !important;
+  border: 1px solid rgba($accent-primary, 0.4) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .war-story-container {
-  @include mystical-glass !important;
-  border-radius: $border-radius-card !important;
-  @include mystical-shadow($amethyst-glow);
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .characters-sidebar {
-  @include mystical-glass !important;
-  border-radius: $border-radius-card !important;
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .character-customization {
-  @include mystical-glass !important;
-  border-radius: $border-radius-card !important;
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
   
   .ant-card-body {
-    padding: $padding-card-large !important;
+    padding: $padding-card-large !important; // 24px consistent padding
     font-size: $font-size-body;
     font-family: $font-family-primary;
     line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
 .character-item {
-  border-radius: $border-radius-button !important;
-  @include ancient-hover;
-  background: rgba($obsidian, 0.6) !important;
-  border: 1px solid rgba($amethyst-glow, 0.2) !important;
+  border-radius: 8px !important;
+  @include clean-hover;
+  background: rgba($background-secondary, 0.4) !important;
   
   &.active {
-    background: rgba($amethyst-glow, 0.15) !important;
-    border: 1px solid $amethyst-glow !important;
-    @include ethereal-glow($amethyst-glow, 0.4);
+    background: rgba($accent-primary, 0.2) !important;
+    border: 1px solid $accent-primary !important;
+    @include subtle-glow($accent-primary);
   }
 }
 
 // Observer panel spacing
 .observer-panel {
-  @include mystical-glass;
-  border-radius: $border-radius-card;
-  padding: $padding-card-large;
-  @include mystical-shadow($amethyst-glow);
+  background: rgba($background-secondary, 0.9);
+  border: 1px solid rgba($accent-primary, 0.4);
+  border-radius: 8px;
+  padding: $padding-card-large; // 24px consistent padding for major containers
+  backdrop-filter: blur(15px);
+  @include observer-shadow;
   position: relative;
   font-size: $font-size-body;
   font-family: $font-family-primary;
@@ -862,48 +853,47 @@ p, .body-text {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, $amethyst-glow, $liquid-gold);
-    border-radius: $border-radius-card $border-radius-card 0 0;
-    @include ethereal-glow($amethyst-glow, 0.6);
+    height: 2px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
   }
   
   @media (max-width: 768px) {
     font-size: $font-size-body-mobile;
-    padding: $spacing-sm;
+    padding: $spacing-sm; // 16px padding on mobile
   }
 }
 
 .data-grid {
   display: grid;
-  gap: $spacing-sm;
+  gap: $spacing-sm; // 16px consistent grid gap
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 // Metric card spacing
 .metric-card {
-  @include mystical-glass;
-  border-radius: $border-radius-button;
-  padding: $padding-card-small;
-  @include ancient-hover;
+  background: rgba($background-secondary, 0.8);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 8px;
+  padding: $padding-card-small; // 16px for smaller cards
+  backdrop-filter: blur(10px);
+  @include clean-hover;
   
   .metric-value {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
-    font-family: $font-family-display;
-    color: $amethyst-glow;
-    margin-bottom: $spacing-xs;
+    font-family: $font-family-display; // Oxanium for metric values
+    color: $accent-secondary;
+    margin-bottom: $spacing-xs; // 8px
     line-height: 1.2;
-    text-shadow: 0 0 15px rgba($amethyst-glow, 0.6);
   }
   
   .metric-label {
     font-size: $font-size-small;
     font-weight: 400;
-    font-family: $font-family-primary;
-    color: $ghostly-purple;
+    font-family: $font-family-primary; // Inter for labels
+    color: $text-secondary;
     text-transform: uppercase;
-    letter-spacing: $letter-spacing-uppercase;
+    letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
     
     @media (max-width: 768px) {
       font-size: $font-size-small-mobile;
@@ -913,72 +903,70 @@ p, .body-text {
 
 // Abstract war visualization elements
 .war-indicator {
-  width: 6px;
-  height: 6px;
-  background: $amethyst-glow;
+  width: 4px;
+  height: 4px;
+  background: $accent-secondary;
   border-radius: 50%;
-  animation: mysticPulse 3s ease-in-out infinite;
-  @include ethereal-glow($amethyst-glow, 0.8);
+  animation: warPulse 2s ease-in-out infinite;
 }
 
-@keyframes mysticPulse {
+@keyframes warPulse {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.3;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.8);
+    transform: scale(1.5);
   }
 }
 
 .simulation-status {
   display: inline-flex;
   align-items: center;
-  gap: $spacing-xs;
-  padding: 8px 16px;
-  background: rgba($amethyst-glow, 0.1);
-  border: 1px solid rgba($amethyst-glow, 0.4);
-  border-radius: 24px;
+  gap: $spacing-xs; // 8px
+  padding: 6px 12px;
+  background: rgba($accent-primary, 0.1);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 20px;
   font-size: $font-size-small;
   font-weight: 400;
-  font-family: $font-family-primary;
-  color: $amethyst-glow;
+  font-family: $font-family-primary; // Inter for status text
+  color: $accent-primary;
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
-  @include ethereal-glow($amethyst-glow, 0.3);
+  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
   }
 }
 
-// Mystical Animations
-@keyframes mysticFloat {
+// Animations
+@keyframes observerFloat {
   0% {
     transform: translateY(100vh) translateX(0) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.4;
+    opacity: 0.3;
   }
   90% {
-    opacity: 0.4;
+    opacity: 0.3;
   }
   100% {
-    transform: translateY(-100px) translateX(100px) rotate(360deg);
+    transform: translateY(-100px) translateX(50px) rotate(180deg);
     opacity: 0;
   }
 }
 
-@keyframes mysticSlideIn {
+@keyframes observerSlideIn {
   from {
     opacity: 0;
-    transform: translateX(40px) scale(0.95);
+    transform: translateX(30px);
   }
   to {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(0);
   }
 }
 
@@ -995,18 +983,18 @@ p, .body-text {
 // Responsive design
 @media (max-width: 768px) {
   .container {
-    padding: 0 $padding-container-mobile;
+    padding: 0 $padding-container-mobile; // 16px side padding confirmed
   }
   
   .screen {
-    padding: $padding-screen-mobile;
+    padding: $padding-screen-mobile; // 16px confirmed
   }
   
   .ant-card {
-    margin: $spacing-sm 0;
+    margin: $spacing-sm 0; // 16px vertical margin
     
     .ant-card-body {
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
   
@@ -1019,27 +1007,25 @@ p, .body-text {
   .characters-sidebar,
   .character-customization {
     .ant-card-body {
-      padding: $spacing-sm !important;
+      padding: $spacing-sm !important; // 16px padding on mobile
     }
   }
 }
 
-// Custom scrollbar - Mystical styling
+// Custom scrollbar
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: $void-purple;
+  background: $background-secondary;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, $amethyst-glow, $liquid-gold);
-  border-radius: 5px;
-  @include ethereal-glow($amethyst-glow, 0.4);
+  background: linear-gradient(180deg, $accent-primary, $accent-secondary);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, lighten($amethyst-glow, 10%), lighten($liquid-gold, 10%));
-  @include ethereal-glow($liquid-gold, 0.6);
+  background: linear-gradient(180deg, lighten($accent-primary, 10%), lighten($accent-secondary, 10%));
 }
