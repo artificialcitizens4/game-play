@@ -50,13 +50,29 @@ const StatSlider = ({ label, value, onChange }) => {
         max={100}
         value={displayValue}
         onChange={handleChange}
-        trackStyle={{ backgroundColor: colorData }}
-        handleStyle={{ 
+        style={{
+          marginBottom: '0.5rem'
+        }}
+        trackStyle={{
+          backgroundColor: colorData,
+          height: '6px'
+        }}
+        handleStyle={{
           borderColor: colorData,
           backgroundColor: '#ffffff',
-          boxShadow: `0 0 15px ${colorData}80`
+          boxShadow: `0 0 15px ${colorData}80`,
+          width: '18px',
+          height: '18px',
+          marginTop: '-6px',
+          border: `3px solid ${colorData}`
         }}
-        railStyle={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+        railStyle={{
+          backgroundColor: 'rgba(255,255,255,0.1)',
+          height: '6px'
+        }}
+        tooltip={{
+          open: false
+        }}
       />
     </div>
   );
