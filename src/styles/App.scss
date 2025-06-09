@@ -1,3 +1,6 @@
+// Import Google Fonts - Inter for body text, Oxanium for titles
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oxanium:wght@400;600;700&display=swap');
+
 // Futuristic Observer Variables
 $deep-slate-blue: #2F4F70;
 $gunmetal-gray: #2A2E36;
@@ -34,30 +37,34 @@ $button-margin: $spacing-sm + 4px;   // 12px for improved spacing
 $button-padding-vertical: 12px;
 $button-padding-horizontal: $spacing-md; // 24px
 
+// Updated Typography Scale with Font Families
+$font-family-primary: 'Inter', 'Roboto', sans-serif;     // Body text
+$font-family-display: 'Oxanium', sans-serif;             // Titles and headers
+
 // Typography Scale
-$font-size-title: 3rem;        // h1 - Main titles
-$font-size-subtitle: 1.5rem;   // h2 - Subtitles (updated from 1.1rem)
-$font-size-section: 1.25rem;   // h3 - Section titles/card headers
-$font-size-body: 1rem;         // p - Standard body text
-$font-size-button: 0.9rem;     // Buttons and inputs
-$font-size-small: 0.8rem;      // Labels and small text
+$font-size-title: 3rem;        // h1 - Main titles | font-weight: 700 | font-family: 'Oxanium'
+$font-size-subtitle: 1.75rem;  // h2 - Subtitles | font-weight: 600 | font-family: 'Oxanium' (updated from 1.5rem)
+$font-size-section: 1.25rem;   // h3 - Section titles/card headers | font-weight: 600 | font-family: 'Oxanium'
+$font-size-body: 1rem;         // p - Standard body text | font-weight: 400 | font-family: 'Inter'
+$font-size-button: 0.9rem;     // Buttons and inputs | font-weight: 500 | font-family: 'Inter'
+$font-size-small: 0.8rem;      // Labels and small text | font-weight: 400 | font-family: 'Inter'
 
 // Typography line heights
 $line-height-title: 1.2;
-$line-height-subtitle: 1.5;    // Updated for better readability
+$line-height-subtitle: 1.4;    // Updated for better readability at 1.75rem
 $line-height-section: 1.3;
 $line-height-body: 1.6;
 
-// Typography letter spacing
+// Typography letter spacing - Updated for stylized look
 $letter-spacing-title: 3px;
-$letter-spacing-uppercase: 1px;
+$letter-spacing-uppercase: 1.5px;  // Updated from 1px for more stylized look
 $letter-spacing-normal: 0;
 
 // Mobile typography scale
 $font-size-title-mobile: 2rem;
-$font-size-subtitle-mobile: 1.2rem;
+$font-size-subtitle-mobile: 1.35rem;  // Updated from 1.2rem
 $font-size-section-mobile: 1.1rem;
-$font-size-body-mobile: 0.9rem;
+$font-size-body-mobile: 1rem;         // Keep at 1rem for mobile readability
 $font-size-button-mobile: 0.8rem;
 $font-size-small-mobile: 0.7rem;
 
@@ -89,7 +96,7 @@ $font-size-small-mobile: 0.7rem;
   border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
-  font-family: 'Inter', 'Roboto', sans-serif;
+  font-family: $font-family-primary;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-uppercase;
@@ -137,7 +144,7 @@ $font-size-small-mobile: 0.7rem;
 }
 
 body {
-  font-family: 'Inter', 'Roboto', sans-serif;
+  font-family: $font-family-primary; // Inter is now primary
   background: $background-primary;
   color: $text-primary;
   overflow-x: hidden;
@@ -200,9 +207,9 @@ body {
 .title {
   font-size: $font-size-title;
   font-weight: 700;
-  margin-bottom: $spacing-md; // 24px - confirmed good
+  font-family: $font-family-display; // Oxanium for titles
+  margin-bottom: $spacing-md; // 24px
   color: $text-primary;
-  font-family: 'Inter', 'Roboto', sans-serif;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-title;
   line-height: $line-height-title;
@@ -225,17 +232,19 @@ body {
 }
 
 .subtitle {
-  font-size: $font-size-subtitle; // Updated from 1.1rem to 1.5rem
-  margin-bottom: $spacing-xl; // 48px - confirmed good
+  font-size: $font-size-subtitle; // Updated from 1.1rem to 1.75rem
+  font-weight: 600;
+  font-family: $font-family-display; // Oxanium for subtitles
+  margin-bottom: $spacing-xl; // 48px
   color: $text-secondary;
-  font-weight: 400;
-  line-height: $line-height-subtitle; // Updated to 1.5 for better readability
+  line-height: $line-height-subtitle; // Updated to 1.4 for better readability
+  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   
   @media (max-width: 768px) {
-    font-size: $font-size-subtitle-mobile;
+    font-size: $font-size-subtitle-mobile; // 1.35rem
   }
 }
 
@@ -243,8 +252,10 @@ body {
 h3, .section-title {
   font-size: $font-size-section;
   font-weight: 600;
+  font-family: $font-family-display; // Oxanium for section titles
   color: $text-primary;
   line-height: $line-height-section;
+  letter-spacing: $letter-spacing-uppercase;
   margin-bottom: $spacing-sm;
   
   @media (max-width: 768px) {
@@ -255,6 +266,8 @@ h3, .section-title {
 // Body text standardization
 p, .body-text {
   font-size: $font-size-body;
+  font-weight: 400;
+  font-family: $font-family-primary; // Inter for body text
   line-height: $line-height-body;
   color: $text-primary;
   
@@ -266,8 +279,10 @@ p, .body-text {
 // Small text and labels
 .small-text, .metric-label, .simulation-status {
   font-size: $font-size-small;
+  font-weight: 400;
+  font-family: $font-family-primary; // Inter for small text
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
+  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
   
   @media (max-width: 768px) {
     font-size: $font-size-small-mobile;
@@ -302,6 +317,8 @@ p, .body-text {
   @include button-base;
   padding: $button-padding-vertical $button-padding-horizontal; // 12px 24px
   font-size: $font-size-button; // 0.9rem
+  font-weight: 500;
+  font-family: $font-family-primary; // Inter for buttons
   margin: $button-margin; // Updated to 12px for improved spacing
   height: auto;
   min-height: 44px;
@@ -348,7 +365,7 @@ p, .body-text {
     background: linear-gradient(135deg, $accent-secondary, $accent-primary);
     border-color: transparent;
     color: $text-primary;
-    font-size: 1.1rem; // Updated to fit scale better
+    font-size: 1.1rem; // Acceptable variant within scale
     padding: 18px 36px;
     font-weight: 600;
     
@@ -361,6 +378,8 @@ p, .body-text {
   
   @media (max-width: 768px) {
     font-size: $font-size-button-mobile;
+    padding: 10px 20px;
+    margin: $spacing-xs; // 8px margin on mobile
   }
 }
 
@@ -375,6 +394,7 @@ p, .body-text {
   padding: 12px 20px;
   font-size: $font-size-button;
   font-weight: 500;
+  font-family: $font-family-primary;
   border-radius: 8px;
   backdrop-filter: blur(10px);
   @include observer-shadow;
@@ -424,7 +444,9 @@ p, .body-text {
     .ant-card-head-title {
       font-size: $font-size-section;
       font-weight: 600;
+      font-family: $font-family-display; // Oxanium for card headers
       color: $text-primary;
+      letter-spacing: $letter-spacing-uppercase;
       
       @media (max-width: 768px) {
         font-size: $font-size-section-mobile;
@@ -435,6 +457,8 @@ p, .body-text {
   .ant-card-body {
     background: transparent;
     font-size: $font-size-body;
+    font-family: $font-family-primary; // Inter for card body content
+    line-height: $line-height-body;
     
     @media (max-width: 768px) {
       font-size: $font-size-body-mobile;
@@ -511,6 +535,7 @@ p, .body-text {
       border-radius: 4px;
       font-size: $font-size-small;
       font-weight: 600;
+      font-family: $font-family-primary;
       letter-spacing: $letter-spacing-uppercase;
     }
   }
@@ -529,8 +554,9 @@ p, .body-text {
   border: 1px solid rgba($accent-primary, 0.5);
   border-radius: 8px;
   color: $text-primary;
-  font-family: inherit;
+  font-family: $font-family-primary;
   font-size: $font-size-button;
+  font-weight: 500;
   padding: 12px 16px;
   backdrop-filter: blur(10px);
   
@@ -658,6 +684,263 @@ p, .body-text {
   opacity: 0.3;
 }
 
+// Component spacing - Major containers with consistent 24px padding
+.character-profile {
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include clean-hover;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.team-config-box {
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.story-form {
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.example-box {
+  background: rgba($accent-primary, 0.1) !important;
+  border: 1px solid rgba($accent-primary, 0.4) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.war-story-container {
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  @include observer-shadow;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.characters-sidebar {
+  background: rgba($background-secondary, 0.8) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.character-customization {
+  background: rgba($background-secondary, 0.6) !important;
+  border: 1px solid rgba($accent-primary, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  
+  .ant-card-body {
+    padding: $padding-card-large !important; // 24px consistent padding
+    font-size: $font-size-body;
+    font-family: $font-family-primary;
+    line-height: $line-height-body;
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-body-mobile;
+      padding: $spacing-sm !important; // 16px padding on mobile
+    }
+  }
+}
+
+.character-item {
+  border-radius: 8px !important;
+  @include clean-hover;
+  background: rgba($background-secondary, 0.4) !important;
+  
+  &.active {
+    background: rgba($accent-primary, 0.2) !important;
+    border: 1px solid $accent-primary !important;
+    @include subtle-glow($accent-primary);
+  }
+}
+
+// Observer panel spacing
+.observer-panel {
+  background: rgba($background-secondary, 0.9);
+  border: 1px solid rgba($accent-primary, 0.4);
+  border-radius: 8px;
+  padding: $padding-card-large; // 24px consistent padding for major containers
+  backdrop-filter: blur(15px);
+  @include observer-shadow;
+  position: relative;
+  font-size: $font-size-body;
+  font-family: $font-family-primary;
+  line-height: $line-height-body;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-body-mobile;
+    padding: $spacing-sm; // 16px padding on mobile
+  }
+}
+
+.data-grid {
+  display: grid;
+  gap: $spacing-sm; // 16px consistent grid gap
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+// Metric card spacing
+.metric-card {
+  background: rgba($background-secondary, 0.8);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 8px;
+  padding: $padding-card-small; // 16px for smaller cards
+  backdrop-filter: blur(10px);
+  @include clean-hover;
+  
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: $font-family-display; // Oxanium for metric values
+    color: $accent-secondary;
+    margin-bottom: $spacing-xs; // 8px
+    line-height: 1.2;
+  }
+  
+  .metric-label {
+    font-size: $font-size-small;
+    font-weight: 400;
+    font-family: $font-family-primary; // Inter for labels
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
+    
+    @media (max-width: 768px) {
+      font-size: $font-size-small-mobile;
+    }
+  }
+}
+
+// Abstract war visualization elements
+.war-indicator {
+  width: 4px;
+  height: 4px;
+  background: $accent-secondary;
+  border-radius: 50%;
+  animation: warPulse 2s ease-in-out infinite;
+}
+
+@keyframes warPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.simulation-status {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs; // 8px
+  padding: 6px 12px;
+  background: rgba($accent-primary, 0.1);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 20px;
+  font-size: $font-size-small;
+  font-weight: 400;
+  font-family: $font-family-primary; // Inter for status text
+  color: $accent-primary;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-uppercase; // 1.5px for stylized look
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-small-mobile;
+  }
+}
+
 // Animations
 @keyframes observerFloat {
   0% {
@@ -697,234 +980,6 @@ p, .body-text {
   51%, 100% { opacity: 0; }
 }
 
-// Component spacing - Major containers with consistent 24px padding
-.character-profile {
-  background: rgba($background-secondary, 0.8) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include clean-hover;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.team-config-box {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include observer-shadow;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.story-form {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include observer-shadow;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.example-box {
-  background: rgba($accent-primary, 0.1) !important;
-  border: 1px solid rgba($accent-primary, 0.4) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.war-story-container {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  @include observer-shadow;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.characters-sidebar {
-  background: rgba($background-secondary, 0.8) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.character-customization {
-  background: rgba($background-secondary, 0.6) !important;
-  border: 1px solid rgba($accent-primary, 0.3) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(10px) !important;
-  
-  .ant-card-body {
-    padding: $padding-card-large !important; // 24px consistent padding
-    font-size: $font-size-body;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-body-mobile;
-    }
-  }
-}
-
-.character-item {
-  border-radius: 8px !important;
-  @include clean-hover;
-  background: rgba($background-secondary, 0.4) !important;
-  
-  &.active {
-    background: rgba($accent-primary, 0.2) !important;
-    border: 1px solid $accent-primary !important;
-    @include subtle-glow($accent-primary);
-  }
-}
-
-// Observer panel spacing
-.observer-panel {
-  background: rgba($background-secondary, 0.9);
-  border: 1px solid rgba($accent-primary, 0.4);
-  border-radius: 8px;
-  padding: $padding-card-large; // 24px consistent padding for major containers
-  backdrop-filter: blur(15px);
-  @include observer-shadow;
-  position: relative;
-  font-size: $font-size-body;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
-  }
-  
-  @media (max-width: 768px) {
-    font-size: $font-size-body-mobile;
-  }
-}
-
-.data-grid {
-  display: grid;
-  gap: $spacing-sm; // 16px consistent grid gap
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-// Metric card spacing
-.metric-card {
-  background: rgba($background-secondary, 0.8);
-  border: 1px solid rgba($accent-primary, 0.3);
-  border-radius: 8px;
-  padding: $padding-card-small; // 16px for smaller cards
-  backdrop-filter: blur(10px);
-  @include clean-hover;
-  
-  .metric-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: $accent-secondary;
-    margin-bottom: $spacing-xs; // 8px
-    line-height: 1.2;
-  }
-  
-  .metric-label {
-    font-size: $font-size-small;
-    color: $text-secondary;
-    text-transform: uppercase;
-    letter-spacing: $letter-spacing-uppercase;
-    
-    @media (max-width: 768px) {
-      font-size: $font-size-small-mobile;
-    }
-  }
-}
-
-// Abstract war visualization elements
-.war-indicator {
-  width: 4px;
-  height: 4px;
-  background: $accent-secondary;
-  border-radius: 50%;
-  animation: warPulse 2s ease-in-out infinite;
-}
-
-@keyframes warPulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
-  }
-}
-
-.simulation-status {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs; // 8px
-  padding: 6px 12px;
-  background: rgba($accent-primary, 0.1);
-  border: 1px solid rgba($accent-primary, 0.3);
-  border-radius: 20px;
-  font-size: $font-size-small;
-  color: $accent-primary;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
-  
-  @media (max-width: 768px) {
-    font-size: $font-size-small-mobile;
-  }
-}
-
 // Responsive design
 @media (max-width: 768px) {
   .container {
@@ -941,11 +996,6 @@ p, .body-text {
     .ant-card-body {
       padding: $spacing-sm !important; // 16px padding on mobile
     }
-  }
-  
-  .ant-btn {
-    padding: 10px 20px;
-    margin: $spacing-xs; // 8px margin on mobile
   }
   
   .stat-container,
