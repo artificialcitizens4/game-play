@@ -73,9 +73,7 @@ function App() {
       case 'team-setup':
         return <TeamSetupScreen />;
       case 'build-teams':
-        return <BuildTeamsScreen 
-         gameData = {gameData}
-        />;
+        return <BuildTeamsScreen />;
       case 'character-details':
         return <CharacterDetails />;
       case 'map-editor':

@@ -31,7 +31,9 @@ const initialState = {
   factions: {},
   baseStory: '',
   gameId: null,
-  createdAt: null
+  createdAt: null,
+  // Track persona modifications
+  personaModifications: {}
 };
 
 const gameSlice = createSlice({
@@ -83,6 +85,43 @@ const gameSlice = createSlice({
       state.gameSettings = { ...state.gameSettings, ...action.payload };
     },
     
+    // New action to update persona traits
+    updatePersonaTraits: (state, action) => {
+      const { personaName, traits } = action.payload;
+      
+      // Find and update the persona in the personas array
+      const personaIndex = state.personas.findIndex(p => p.name === personaName);
+      if (personaIndex !== -1) {
+        state.personas[personaIndex].traits = { 
+          ...state.personas[personaIndex].traits, 
+          ...traits 
+        };
+      }
+      
+      // Track modifications for potential API sync later
+      state.personaModifications[personaName] = {
+        ...state.personaModifications[personaName],
+        traits: { 
+          ...(state.personaModifications[personaName]?.traits || {}), 
+          ...traits 
+        },
+        lastModified: new Date().toISOString()
+      };
+    },
+    
+    // Action to save persona changes (for UI feedback)
+    savePersonaChanges: (state, action) => {
+      const { personaName } = action.payload;
+      if (state.personaModifications[personaName]) {
+        state.personaModifications[personaName].saved = true;
+      }
+    },
+    
+    // Action to reset persona modifications
+    resetPersonaModifications: (state) => {
+      state.personaModifications = {};
+    },
+    
     // New action to store API response data
     setApiGameData: (state, action) => {
       const apiData = action.payload;
@@ -92,6 +131,9 @@ const gameSlice = createSlice({
       state.factions = apiData.factions || {};
       state.baseStory = apiData.baseStory || '';
       state.createdAt = apiData.createdAt;
+      
+      // Reset persona modifications when new data is loaded
+      state.personaModifications = {};
       
       // Update story with API data
       if (apiData.story) {
@@ -196,6 +238,9 @@ export const {
   setGameMode,
   setWarData,
   updateGameSettings,
+  updatePersonaTraits,
+  savePersonaChanges,
+  resetPersonaModifications,
   setApiGameData,
   convertPersonasToCharacters,
   resetGame,
