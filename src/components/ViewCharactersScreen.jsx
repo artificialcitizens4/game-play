@@ -122,14 +122,18 @@ const ViewCharactersScreen = () => {
           }}
           bordered={false}
         >
-          <Row gutter={[32, 16]} align="middle">
-            <Col xs={24} md={8}>
+          <Row gutter={[32, 24]} align="middle">
+            <Col xs={24} md={12}>
               <div style={{ textAlign: 'center' }}>
-                <Space size="large">
+                <Title level={4} style={{ margin: '0 0 1rem 0', color: '#ff6b35' }}>
+                  🎯 SELECT TEAM
+                </Title>
+                <Space size="large" wrap>
                   <Button 
                     onClick={() => switchTeam(1)}
                     variant={selectedTeam === 1 ? 'primary' : 'secondary'}
                     size="large"
+                    style={{ minWidth: '200px' }}
                   >
                     ⚔️ {gameState.story.team1Name || 'TEAM ALPHA'}
                   </Button>
@@ -137,6 +141,7 @@ const ViewCharactersScreen = () => {
                     onClick={() => switchTeam(2)}
                     variant={selectedTeam === 2 ? 'primary' : 'secondary'}
                     size="large"
+                    style={{ minWidth: '200px' }}
                   >
                     🛡️ {gameState.story.team2Name || 'TEAM BETA'}
                   </Button>
@@ -144,12 +149,12 @@ const ViewCharactersScreen = () => {
               </div>
             </Col>
             
-            <Col xs={24} md={8}>
+            <Col xs={24} md={12}>
               <div style={{ textAlign: 'center' }}>
-                <Title level={4} style={{ margin: 0, color: '#ff6b35' }}>
+                <Title level={4} style={{ margin: '0 0 1rem 0', color: '#ff6b35' }}>
                   ⚖️ BATTLE READINESS
                 </Title>
-                <Row gutter={16} style={{ marginTop: '1rem' }}>
+                <Row gutter={16}>
                   <Col span={12}>
                     <div style={{ textAlign: 'center' }}>
                       <Text style={{ color: '#2ed573', fontSize: '2rem', fontWeight: 'bold' }}>
@@ -175,28 +180,33 @@ const ViewCharactersScreen = () => {
                 </Row>
               </div>
             </Col>
-            
-            <Col xs={24} md={8}>
-              <div style={{ textAlign: 'center' }}>
-                {gameState.battlefieldMap && (
-                  <div style={{ 
-                    background: 'rgba(46, 213, 115, 0.1)',
-                    border: '1px solid #2ed573',
-                    borderRadius: '8px',
-                    padding: '1rem'
-                  }}>
-                    <Text style={{ color: '#2ed573', fontSize: '0.9rem' }}>
-                      🗺️ Custom Battlefield Ready
-                    </Text>
-                    <br />
-                    <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.8rem' }}>
-                      {gameState.battlefieldMap.battlefield_type} ({gameState.battlefieldMap.map_dimensions?.width}x{gameState.battlefieldMap.map_dimensions?.height})
-                    </Text>
-                  </div>
-                )}
-              </div>
-            </Col>
           </Row>
+
+          {/* Battlefield Info */}
+          {gameState.battlefieldMap && (
+            <div style={{ 
+              textAlign: 'center',
+              marginTop: '1.5rem',
+              paddingTop: '1.5rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+            }}>
+              <div style={{ 
+                background: 'rgba(46, 213, 115, 0.1)',
+                border: '1px solid #2ed573',
+                borderRadius: '8px',
+                padding: '1rem',
+                display: 'inline-block'
+              }}>
+                <Text style={{ color: '#2ed573', fontSize: '0.9rem' }}>
+                  🗺️ Custom Battlefield Ready
+                </Text>
+                <br />
+                <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.8rem' }}>
+                  {gameState.battlefieldMap.battlefield_type} ({gameState.battlefieldMap.map_dimensions?.width}x{gameState.battlefieldMap.map_dimensions?.height})
+                </Text>
+              </div>
+            </div>
+          )}
         </Card>
 
         {/* Current Team Display */}
@@ -204,7 +214,8 @@ const ViewCharactersScreen = () => {
           transition: 'all 0.3s ease',
           opacity: animationPhase === 'visible' ? 1 : 0,
           transform: animationPhase === 'entering' ? 'translateX(-30px)' : 
-                   animationPhase === 'exiting' ? 'translateX(30px)' : 'translateX(0)'
+                   animationPhase === 'exiting' ? 'translateX(30px)' : 'translateX(0)',
+          marginBottom: '3rem'
         }}>
           <Card 
             style={{ 
@@ -355,8 +366,14 @@ const ViewCharactersScreen = () => {
           </Row>
         </div>
 
-        {/* Start War Button */}
-        <div style={{ marginTop: '3rem', textAlign: 'center' }}>
+        {/* Start War Button - Fixed positioning */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginTop: '4rem',
+          marginBottom: '2rem',
+          paddingTop: '2rem',
+          borderTop: '2px solid rgba(46, 213, 115, 0.3)'
+        }}>
           <Space direction="vertical" size="large">
             <Button 
               onClick={handleStartWar}
@@ -366,7 +383,8 @@ const ViewCharactersScreen = () => {
               style={{
                 fontSize: '1.5rem',
                 padding: '20px 40px',
-                height: 'auto'
+                height: 'auto',
+                minWidth: '300px'
               }}
             >
               🔥 START THE WAR! 🔥
