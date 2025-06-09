@@ -92,26 +92,36 @@ const ViewCharactersScreen = () => {
 
   const handleStartWar = async () => {
     try {
+      // Get the actual battlefield map from Redux state
+      const battlefieldMap = gameState.battlefieldMap;
+      
+      console.log('Current battlefield map from Redux:', battlefieldMap);
+      
+      // Use the actual map data if available, otherwise create a minimal default
+      const mapToSend = battlefieldMap || {
+        battlefield_type: "urban",
+        map_dimensions: {
+          width: 10,
+          height: 10
+        },
+        hex_data: [
+          {
+            coord: "5,5",
+            terrain: "Clear",
+            elevation: 1
+          }
+        ]
+      };
+
       // Prepare the game initialization payload
       const gameInitPayload = {
         baseStory: baseStory || gameState.story.background || 'An epic battle between two mighty factions.',
         personas: formatPersonasForAPI(personas),
-        battlemap: gameState.battlefieldMap || {
-          map_dimensions: {
-            width: 10,
-            height: 10
-          },
-          hex_data: [
-            {
-              coord: "5,5",
-              terrain: "Clear",
-              elevation: 1
-            }
-          ]
-        }
+        battlemap: mapToSend
       };
 
       console.log('Initializing game with payload:', gameInitPayload);
+      console.log('Battlefield map being sent:', mapToSend);
 
       // Call the game initialization API
       const result = await dispatch(initializeGameBattle(gameInitPayload));
@@ -278,6 +288,10 @@ const ViewCharactersScreen = () => {
                 <br />
                 <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.8rem' }}>
                   {gameState.battlefieldMap.battlefield_type} ({gameState.battlefieldMap.map_dimensions?.width}x{gameState.battlefieldMap.map_dimensions?.height})
+                </Text>
+                <br />
+                <Text style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.7rem' }}>
+                  {gameState.battlefieldMap.hex_data?.length || 0} terrain hexes configured
                 </Text>
               </div>
             </div>
@@ -542,6 +556,30 @@ const ViewCharactersScreen = () => {
               }}>
                 <Text style={{ color: '#ff6b35', fontSize: '0.9rem' }}>
                   ⚠️ {gameBattleInit.error.message}
+                </Text>
+              </div>
+            )}
+
+            {/* Debug info for map data */}
+            {gameState.battlefieldMap && (
+              <div style={{ 
+                background: 'rgba(46, 213, 115, 0.05)',
+                border: '1px solid rgba(46, 213, 115, 0.3)',
+                borderRadius: '8px',
+                padding: '1rem',
+                maxWidth: '600px',
+                margin: '0 auto',
+                fontSize: '0.8rem'
+              }}>
+                <Text style={{ color: '#2ed573', fontWeight: 'bold' }}>
+                  🗺️ Map Data Ready:
+                </Text>
+                <br />
+                <Text style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                  Type: {gameState.battlefieldMap.battlefield_type} | 
+                  Size: {gameState.battlefieldMap.map_dimensions?.width}x{gameState.battlefieldMap.map_dimensions?.height} | 
+                  Hexes: {gameState.battlefieldMap.hex_data?.length || 0} | 
+                  Zones: {gameState.battlefieldMap.strategic_zones?.length || 0}
                 </Text>
               </div>
             )}

@@ -3,7 +3,7 @@ import { Typography, message } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import Button from "./Button";
 import BattlefieldMapEditor from "./BattlefieldMapEditor";
-import { setCurrentScreen } from "../store/slices/gameSlice";
+import { setCurrentScreen, setBattlefieldMap } from "../store/slices/gameSlice";
 import { useAppDispatch } from "../hooks/useRedux";
 import PropTypes from "prop-types";
 
@@ -15,10 +15,21 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
   const dispatch = useAppDispatch();
 
   const handleMapExport = (exportedMapData) => {
-    console.log(exportedMapData)
+    console.log('Received map data from iframe:', exportedMapData);
+    
+    // Validate the map data structure
+    if (!exportedMapData || !exportedMapData.map_dimensions) {
+      console.warn('Invalid map data received, using default structure');
+      exportedMapData = createDefaultMapData();
+    }
+    
     setMapData(exportedMapData);
     setIsMapComplete(true);
+    
+    // Store the map data in Redux state
+    dispatch(setBattlefieldMap(exportedMapData));
     onSaveBattlefieldMap(exportedMapData);
+    
     message.success("Battlefield map saved successfully!");
 
     // Auto-proceed to next screen after a short delay
@@ -33,8 +44,21 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
 
   const skipMapEditor = () => {
     // Use the provided default map data
-    const defaultMapData = {
-      "battlefield_type": "plains",
+    const defaultMapData = createDefaultMapData();
+    
+    console.log('Using default map data:', defaultMapData);
+    
+    // Store the default map data in Redux state
+    dispatch(setBattlefieldMap(defaultMapData));
+    onSaveBattlefieldMap(defaultMapData);
+    
+    message.info("Using default battlefield map");
+    dispatch(setCurrentScreen("war-summary"));
+  };
+
+  const createDefaultMapData = () => {
+    return {
+      "battlefield_type": "urban",
       "map_dimensions": {
         "width": 10,
         "height": 10
@@ -588,103 +612,16 @@ const MapEditorScreen = ({ gameData, onSaveBattlefieldMap = () => {} }) => {
         }
       ]
     };
-
-    onSaveBattlefieldMap(defaultMapData);
-    message.info("Using default battlefield map");
-    dispatch(setCurrentScreen("war-summary"));
-  };
-
-  const generateDefaultHexData = () => {
-    // This function is now replaced by the provided hex_data above
-    const hexData = [];
-    for (let row = 0; row < 10; row++) {
-      for (let col = 0; col < 10; col++) {
-        const terrain =
-          Math.random() > 0.7
-            ? "Forest (Light)"
-            : Math.random() > 0.8
-            ? "Hill (Steep/Ridge)"
-            : "Clear";
-        hexData.push({
-          coord: `${col},${row}`,
-          terrain: terrain,
-          elevation: Math.floor(Math.random() * 3) + 1,
-        });
-      }
-    }
-    return hexData;
-  };
-
-  const generateDefaultZones = () => {
-    return [
-      {
-        id: "zone_1",
-        name: "Alpha Point",
-        strategic_value: 5,
-        hexes: [
-          { col: 3, row: 3 },
-          { col: 4, row: 3 },
-          { col: 3, row: 4 },
-        ],
-        color: "#ff6b35",
-      },
-      {
-        id: "zone_2",
-        name: "Bravo Ridge",
-        strategic_value: 7,
-        hexes: [
-          { col: 8, row: 6 },
-          { col: 9, row: 6 },
-          { col: 8, row: 7 },
-        ],
-        color: "#2ed573",
-      },
-      {
-        id: "zone_3",
-        name: "Charlie Hill",
-        strategic_value: 6,
-        hexes: [
-          { col: 5, row: 2 },
-          { col: 6, row: 2 },
-          { col: 5, row: 3 },
-        ],
-        color: "#ffa502",
-      },
-    ];
-  };
-
-  const generateDefaultObjects = () => {
-    return [
-      {
-        id: "obj_1",
-        name: "Command Post",
-        type: "military",
-        emoji: "⚔️",
-        coordinates: { hex: { col: 5, row: 5 } },
-      },
-      {
-        id: "obj_2",
-        name: "Supply Depot",
-        type: "building",
-        emoji: "🏠",
-        coordinates: { hex: { col: 2, row: 7 } },
-      },
-      {
-        id: "obj_3",
-        name: "Ancient Monument",
-        type: "landmark",
-        emoji: "🏛️",
-        coordinates: { hex: { col: 9, row: 3 } },
-      },
-    ];
   };
 
   // Listen for completion events from the iframe
   useEffect(() => {
     const handleMessage = (event) => {
-      if (event.origin !== "https://imaginative-figolla-9cbf50.netlify.app") {
+      if (event.origin !== "https://map-q.vercel.app") {
         return;
       }
+
+      console.log('Received message from iframe:', event.data);
 
       if (event.data && event.data.type === "MAP_GENERATION_COMPLETE") {
         handleMapExport(event.data.mapData);
