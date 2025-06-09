@@ -41,43 +41,6 @@ const SelectExperienceScreen = () => {
     dispatch(setCurrentScreen('team-setup'));
   };
 
-  const getTeamName = (experience, index) => {
-    if (experience.personas && experience.personas.length > 0) {
-      const factions = [...new Set(experience.personas.map(p => p.faction))];
-      return factions[index] || `Team ${index + 1}`;
-    }
-    return `Team ${index + 1}`;
-  };
-
-  const getTeamSize = (experience, index) => {
-    if (experience.personas && experience.personas.length > 0) {
-      const factions = [...new Set(experience.personas.map(p => p.faction))];
-      const teamPersonas = experience.personas.filter(p => p.faction === factions[index]);
-      return teamPersonas.length || 4;
-    }
-    return 4;
-  };
-
-  const getCharactersDescription = (experience) => {
-    if (experience.personas && experience.personas.length > 0) {
-      const commanders = experience.personas.filter(p => p.type === 'Commander');
-      if (commanders.length >= 2) {
-        return `${commanders[0].name} leads ${commanders[0].faction} with ${commanders[0].npcType.toLowerCase()} expertise, while ${commanders[1].name} commands ${commanders[1].faction} with ${commanders[1].npcType.toLowerCase()} tactics.`;
-      }
-    }
-    return 'Elite warriors from both sides step forward as champions, each bringing unique skills and unwavering determination to the battlefield.';
-  };
-
-  const getDifficultyColor = (difficulty) => {
-    switch (difficulty?.toLowerCase()) {
-      case 'easy': return '#2ed573';
-      case 'medium': return '#ffa502';
-      case 'hard': return '#ff6b35';
-      case 'extreme': return '#ff4757';
-      default: return '#2ed573';
-    }
-  };
-
   const formatExperienceData = (item) => {
     console.log('Formatting experience item:', item);
     
@@ -90,7 +53,7 @@ const SelectExperienceScreen = () => {
     let team1Info = { name: 'Team Alpha', size: 4 };
     let team2Info = { name: 'Team Beta', size: 4 };
     
-    if (item.personas && item.personas.length > 0) {
+    if (item.personas && Array.isArray(item.personas) && item.personas.length > 0) {
       const factions = [...new Set(item.personas.map(p => p.faction))];
       console.log('Found factions:', factions);
       
@@ -117,7 +80,8 @@ const SelectExperienceScreen = () => {
       difficulty,
       team1: team1Info,
       team2: team2Info,
-      theme: getThemeEmoji(title)
+      theme: getThemeEmoji(title),
+      personaCount: item.personas ? item.personas.length : 0
     };
   };
 
@@ -129,6 +93,16 @@ const SelectExperienceScreen = () => {
     if (titleLower.includes('corporate') || titleLower.includes('cyber')) return '🏢';
     if (titleLower.includes('war') || titleLower.includes('battle')) return '⚔️';
     return '🎮';
+  };
+
+  const getDifficultyColor = (difficulty) => {
+    switch (difficulty?.toLowerCase()) {
+      case 'easy': return '#2ed573';
+      case 'medium': return '#ffa502';
+      case 'hard': return '#ff6b35';
+      case 'extreme': return '#ff4757';
+      default: return '#2ed573';
+    }
   };
 
   const handleRetry = () => {
@@ -370,7 +344,7 @@ const SelectExperienceScreen = () => {
                       </div>
 
                       {/* Show personas count if available */}
-                      {experience.personas && experience.personas.length > 0 && (
+                      {experience.personaCount > 0 && (
                         <div style={{ 
                           marginTop: '1rem',
                           textAlign: 'center',
@@ -380,7 +354,23 @@ const SelectExperienceScreen = () => {
                           padding: '0.5rem'
                         }}>
                           <Text style={{ color: '#2ed573', fontSize: '0.8rem' }}>
-                            👥 {experience.personas.length} unique warriors ready for battle
+                            👥 {experience.personaCount} unique warriors ready for battle
+                          </Text>
+                        </div>
+                      )}
+
+                      {/* Debug info for development */}
+                      {process.env.NODE_ENV === 'development' && (
+                        <div style={{ 
+                          marginTop: '1rem',
+                          textAlign: 'center',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          borderRadius: '6px',
+                          padding: '0.5rem'
+                        }}>
+                          <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.7rem' }}>
+                            Debug: ID={experience.id}, Personas={experience.personas?.length || 0}
                           </Text>
                         </div>
                       )}

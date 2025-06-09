@@ -131,9 +131,40 @@ const gameSlice = createSlice({
       
       state.apiGameData = apiData;
       state.gameId = apiData.id;
-      state.personas = apiData.personas || [];
-      state.baseStory = apiData.baseStory || '';
+      state.baseStory = apiData.baseStory || apiData.story || '';
       state.createdAt = apiData.createdAt;
+      
+      // Handle personas array - ensure we have the correct structure
+      if (apiData.personas && Array.isArray(apiData.personas)) {
+        console.log('Processing personas from API:', apiData.personas);
+        
+        // Map personas to ensure consistent structure
+        state.personas = apiData.personas.map(persona => ({
+          agentId: persona.agentId,
+          name: persona.name,
+          faction: persona.faction,
+          type: persona.type,
+          npcType: persona.npcType,
+          age: persona.age,
+          background: persona.background,
+          motivation: persona.motivation,
+          personality: persona.personality || {},
+          skills: persona.skills || {},
+          // Editable combat stats
+          morale: persona.morale || 50,
+          strength: persona.strength || 50,
+          fatigue: persona.fatigue || 20,
+          health: persona.health || 50,
+          // Additional fields
+          affiliation: persona.affiliation,
+          terrainStronghold: persona.terrainStronghold
+        }));
+        
+        console.log('Processed personas:', state.personas);
+      } else {
+        console.warn('No personas found in API data or invalid format');
+        state.personas = [];
+      }
       
       // Reset persona modifications when new data is loaded
       state.personaModifications = {};
@@ -141,11 +172,13 @@ const gameSlice = createSlice({
       // Update story with API data
       if (apiData.baseStory) {
         state.story.background = apiData.baseStory;
+      } else if (apiData.story) {
+        state.story.background = apiData.story;
       }
       
       // Extract faction names for teams from personas
-      if (apiData.personas && apiData.personas.length > 0) {
-        const uniqueFactions = [...new Set(apiData.personas.map(p => p.faction))];
+      if (state.personas.length > 0) {
+        const uniqueFactions = [...new Set(state.personas.map(p => p.faction))];
         console.log('Unique factions found:', uniqueFactions);
         
         if (uniqueFactions.length >= 2) {
@@ -153,14 +186,17 @@ const gameSlice = createSlice({
           state.story.team2Name = uniqueFactions[1];
           
           // Set team sizes based on personas count
-          const team1Personas = apiData.personas.filter(p => p.faction === uniqueFactions[0]);
-          const team2Personas = apiData.personas.filter(p => p.faction === uniqueFactions[1]);
+          const team1Personas = state.personas.filter(p => p.faction === uniqueFactions[0]);
+          const team2Personas = state.personas.filter(p => p.faction === uniqueFactions[1]);
           
           state.story.team1Size = team1Personas.length;
           state.story.team2Size = team2Personas.length;
+          
+          console.log(`Team 1 (${uniqueFactions[0]}): ${team1Personas.length} personas`);
+          console.log(`Team 2 (${uniqueFactions[1]}): ${team2Personas.length} personas`);
         } else if (uniqueFactions.length === 1) {
           // If only one faction, split into two teams
-          const allPersonas = apiData.personas;
+          const allPersonas = state.personas;
           const midPoint = Math.ceil(allPersonas.length / 2);
           
           state.story.team1Name = uniqueFactions[0] + ' Alpha';
@@ -169,17 +205,34 @@ const gameSlice = createSlice({
           state.story.team2Size = allPersonas.length - midPoint;
           
           // Update personas to have the new faction names
-          state.personas = apiData.personas.map((persona, index) => ({
+          state.personas = state.personas.map((persona, index) => ({
             ...persona,
             faction: index < midPoint ? state.story.team1Name : state.story.team2Name
           }));
+          
+          console.log(`Split single faction into two teams: ${state.story.team1Name} (${midPoint}) vs ${state.story.team2Name} (${allPersonas.length - midPoint})`);
+        } else {
+          // Fallback to default team names
+          state.story.team1Name = 'Team Alpha';
+          state.story.team2Name = 'Team Beta';
+          state.story.team1Size = Math.ceil(state.personas.length / 2);
+          state.story.team2Size = Math.floor(state.personas.length / 2);
         }
+      } else {
+        // No personas, use default values
+        state.story.team1Name = 'Team Alpha';
+        state.story.team2Name = 'Team Beta';
+        state.story.team1Size = 4;
+        state.story.team2Size = 4;
       }
     },
     
     // Updated action to convert personas to characters with new structure
     convertPersonasToCharacters: (state) => {
-      if (!state.personas.length) return;
+      if (!state.personas.length) {
+        console.log('No personas to convert to characters');
+        return;
+      }
       
       console.log('Converting personas to characters:', state.personas);
       

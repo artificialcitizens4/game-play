@@ -165,9 +165,51 @@ export const fetchExperienceData = createAsyncThunk(
           experienceData = [response.data];
         } else {
           console.warn('Unexpected API response structure:', response.data);
+          // Try to use the response as a single experience
           experienceData = [response.data];
         }
       }
+      
+      // Ensure each experience has the required structure
+      experienceData = experienceData.map((item, index) => {
+        // Ensure personas is an array
+        if (!Array.isArray(item.personas)) {
+          console.warn(`Experience ${index} has invalid personas:`, item.personas);
+          item.personas = [];
+        }
+        
+        // Ensure each persona has required fields
+        if (item.personas) {
+          item.personas = item.personas.map(persona => ({
+            agentId: persona.agentId || `agent_${Math.random().toString(36).substr(2, 9)}`,
+            name: persona.name || 'Unknown Warrior',
+            faction: persona.faction || 'Unknown Faction',
+            type: persona.type || 'Infantry',
+            npcType: persona.npcType || 'Warrior',
+            age: persona.age || 25,
+            background: persona.background || 'A skilled warrior ready for battle.',
+            motivation: persona.motivation || 'To fight for their cause.',
+            personality: persona.personality || {},
+            skills: persona.skills || {},
+            morale: persona.morale || 50,
+            strength: persona.strength || 50,
+            fatigue: persona.fatigue || 20,
+            health: persona.health || 50,
+            affiliation: persona.affiliation || '',
+            terrainStronghold: persona.terrainStronghold || ''
+          }));
+        }
+        
+        return {
+          id: item.id || `exp_${index}`,
+          title: item.title || item.story || `Experience ${index + 1}`,
+          baseStory: item.baseStory || item.story || 'An epic battle awaits...',
+          story: item.story || item.baseStory || 'An epic battle awaits...',
+          personas: item.personas,
+          difficulty: item.difficulty || 'Medium',
+          createdAt: item.createdAt || new Date().toISOString()
+        };
+      });
       
       console.log('Processed experience data:', experienceData);
       
