@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Updated base URL with HTTPS SSL endpoint
-const API_BASE_URL = 'https://13.204.53.42.sslip.io/cms_backend';
+// Updated base URL with war_backend endpoint
+const API_BASE_URL = 'https://13.204.53.42.sslip.io/war_backend';
 
 function createTeams(characters) {
   const teamStructure = {
@@ -113,7 +113,7 @@ export const initializeGameBattle = createAsyncThunk(
   'api/initializeGameBattle',
   async (gameData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('https://13.204.53.42.sslip.io/cms_backend/api/game/initialize', gameData, {
+      const response = await axios.post('https://13.204.53.42.sslip.io/war_backend/api/game/initialize', gameData, {
         headers: {
           'Content-Type': 'application/json'
         },
