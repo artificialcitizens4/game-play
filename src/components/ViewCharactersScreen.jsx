@@ -642,8 +642,8 @@ const ViewCharactersScreen = () => {
         const mapId = battlemap?.mapId;
         
         if (mapId) {
-          // Success! Redirect to the battle viewer
-          const battleViewerUrl = `https://wondrous-haupia-545f08.netlify.app/?mapId=${mapId}`;
+          // Success! Redirect to the battle viewer with the new GitLab Pages URL
+          const battleViewerUrl = `https://frontend-civil-war-1c564e.gitlab.io/?mapId=${mapId}`;
           
           message.success('Battle initialized successfully! Redirecting to battlefield...');
           
