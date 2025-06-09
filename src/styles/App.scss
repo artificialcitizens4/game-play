@@ -233,6 +233,60 @@ body {
   }
 }
 
+// StartGameScreen specific styles
+.start-game-screen .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: $spacing-xl;
+}
+
+.status-ready {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: $font-family-display;
+  color: $color-text-neutral-faction;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-title;
+  line-height: $line-height-section;
+  margin: $spacing-xl 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin: $spacing-lg 0;
+  }
+}
+
+.button--pulse-animation {
+  animation: pulse-launch 2s ease-in-out infinite;
+  font-size: 1.5rem !important;
+  padding: 24px 48px !important;
+  margin: $spacing-lg 0 !important;
+}
+
+@keyframes pulse-launch {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(167, 231, 199, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(167, 231, 199, 0.5);
+  }
+}
+
+.back-to-main-button {
+  margin-top: $spacing-xxl !important;
+  opacity: 0.8;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
 // Game Title - 4x larger than regular title
 .game-title {
   font-size: $font-size-game-title;
@@ -727,6 +781,9 @@ a, .link-text, .clickable-text {
   @include inset-style;
   margin: $spacing-lg 0;
   padding: $padding-card-large;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
 .stat-container {
@@ -740,6 +797,76 @@ a, .link-text, .clickable-text {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     border-color: $color-card-border-hover !important;
   }
+}
+
+// Character Details specific styles
+.character-details-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.character-details {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.character-details__grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: center;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.character-details__identity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-identity-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.character-identity-avatar {
+  background-color: transparent !important;
+  font-size: 5rem !important;
+  margin-bottom: 1rem;
+}
+
+.character-identity-name {
+  margin: 0 !important;
+  background: linear-gradient(45deg, #2ed573, #ff6b35) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.character-identity-role {
+  color: #ff6b35 !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+}
+
+.character-details__stats-and-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.character-details-actions {
+  text-align: center;
 }
 
 // Team-specific styling with faction colors
@@ -1082,88 +1209,743 @@ a, .link-text, .clickable-text {
   }
 }
 
-// ===== STORY SCREEN STYLES =====
+// TeamSetupScreen specific styles
+.briefing-panel {
+  margin: $spacing-xl 0;
+}
+
+.briefing-card {
+  @include card-style;
+}
+
+.briefing-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.briefing-story {
+  text-align: left;
+}
+
+.briefing-story-title {
+  font-size: $font-size-section !important;
+  font-weight: 700 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-red-faction !important;
+  display: block !important;
+  margin-bottom: $spacing-sm !important;
+}
+
+.briefing-story-text {
+  color: $color-text-primary !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+
+.briefing-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  justify-content: center;
+}
+
+.briefing-tag {
+  @include token-style;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  
+  &--experience {
+    background: linear-gradient(160deg, lighten($color-team-red, 20%) 0%, lighten($color-team-red, 25%) 100%) !important;
+    border-color: $color-team-red-text !important;
+  }
+  
+  &--create {
+    background: linear-gradient(160deg, lighten($color-team-neutral, 20%) 0%, lighten($color-team-neutral, 25%) 100%) !important;
+    border-color: $color-team-neutral-text !important;
+  }
+  
+  &--info {
+    background: linear-gradient(160deg, lighten($color-team-blue, 20%) 0%, lighten($color-team-blue, 25%) 100%) !important;
+    border-color: $color-team-blue-text !important;
+  }
+  
+  &--success {
+    background: linear-gradient(160deg, lighten($color-team-neutral, 20%) 0%, lighten($color-team-neutral, 25%) 100%) !important;
+    border-color: $color-team-neutral-text !important;
+  }
+  
+  &--neutral {
+    background: $color-inset-bg !important;
+    border-color: $color-inset-border !important;
+  }
+}
+
+.briefing-tag-text {
+  font-size: $font-size-small !important;
+  font-weight: 700 !important;
+  color: $color-text-primary !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-uppercase !important;
+}
+
+.teams-display-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: $spacing-lg;
+  align-items: center;
+  margin: $spacing-xl 0;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+  }
+}
+
+.team-card {
+  @include token-style;
+  height: 100%;
+  
+  &--team1 {
+    background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
+    border-color: $color-team-blue-text !important;
+  }
+  
+  &--team2 {
+    background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
+    border-color: $color-team-red-text !important;
+  }
+}
+
+.team-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  height: 100%;
+}
+
+.team-card-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  justify-content: center;
+}
+
+.team-card-icon {
+  font-size: 2rem !important;
+}
+
+.team-card-title {
+  font-size: $font-size-section !important;
+  font-weight: 700 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-heading !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-uppercase !important;
+}
+
+.team-card-body {
+  text-align: center;
+  flex: 1;
+}
+
+.team-card-name {
+  font-size: $font-size-body !important;
+  font-weight: 700 !important;
+  color: $color-text-heading !important;
+  display: block !important;
+  margin-bottom: $spacing-xs !important;
+}
+
+.team-card-description {
+  color: $color-text-primary !important;
+  font-size: $font-size-small !important;
+}
+
+.team-card-stats {
+  text-align: center;
+}
+
+.team-size-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm;
+  background: $color-card-bg-start !important;
+  border: 2px solid $color-card-border !important;
+  border-radius: 12px;
+  margin: 0 auto;
+  width: fit-content;
+  min-width: 120px;
+}
+
+.team-size-number {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-blue-faction !important;
+  line-height: 1 !important;
+}
+
+.team-size-label {
+  color: $color-text-muted !important;
+  font-size: $font-size-small !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-uppercase !important;
+}
+
+.teams-display__vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    order: -1;
+  }
+}
+
+.vs-text {
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-red-faction !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-title !important;
+}
+
+.battle-analysis {
+  margin: $spacing-xl 0;
+}
+
+.battle-analysis-card {
+  @include card-style;
+  background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
+  border-color: $color-team-neutral-text !important;
+}
+
+.battle-analysis-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.battle-analysis-title {
+  font-size: $font-size-section !important;
+  font-weight: 700 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-heading !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-uppercase !important;
+}
+
+.battle-analysis-stats {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.battle-analysis-matchup {
+  font-size: $font-size-body !important;
+  color: $color-text-primary !important;
+}
+
+.vs-small {
+  color: $color-text-red-faction !important;
+  font-weight: bold !important;
+  margin: 0 $spacing-xs !important;
+}
+
+.balance-assessment {
+  font-size: $font-size-small !important;
+  font-style: italic !important;
+  
+  &--uneven {
+    color: $color-text-red-faction !important;
+  }
+  
+  &--balanced {
+    color: $color-text-neutral-faction !important;
+  }
+}
+
+.mode-info {
+  color: $color-text-emphasis !important;
+  font-size: $font-size-small !important;
+  font-style: italic !important;
+}
+
+.next-button-block {
+  margin-top: $spacing-xxl;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.proceed-button {
+  margin: 0 auto !important;
+}
+
+.next-button-help {
+  text-align: center;
+}
+
+.next-button-help-text {
+  color: $color-text-muted !important;
+  font-size: $font-size-small !important;
+}
+
+// BuildTeamsScreen specific styles
+.mode-indicator {
+  text-align: center;
+  margin: $spacing-lg 0;
+}
+
+.mode-indicator-badge {
+  @include token-style;
+  display: inline-block;
+  padding: $spacing-sm $spacing-md;
+  border-radius: 8px;
+  
+  &--experience {
+    background: linear-gradient(160deg, lighten($color-team-red, 20%) 0%, lighten($color-team-red, 25%) 100%) !important;
+    border-color: $color-team-red-text !important;
+  }
+  
+  &--create {
+    background: linear-gradient(160deg, lighten($color-team-neutral, 20%) 0%, lighten($color-team-neutral, 25%) 100%) !important;
+    border-color: $color-team-neutral-text !important;
+  }
+}
+
+.mode-indicator-text {
+  color: $color-text-primary !important;
+  font-weight: 700 !important;
+  font-size: $font-size-small !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-uppercase !important;
+}
+
+.build-teams-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: $spacing-xl;
+  margin: $spacing-xl 0;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+.roster-panel {
+  height: fit-content;
+}
+
+.roster-card {
+  @include card-style;
+}
+
+.roster-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.team-selection {
+  text-align: center;
+}
+
+.team-selection-title {
+  font-size: $font-size-section !important;
+  font-weight: 700 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-heading !important;
+  display: block !important;
+  margin-bottom: $spacing-sm !important;
+}
+
+.team-selection-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.team-selection-button {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.character-roster {
+  flex: 1;
+}
+
+.roster-title {
+  font-size: $font-size-body !important;
+  font-weight: 700 !important;
+  color: $color-text-red-faction !important;
+  display: block !important;
+  margin-bottom: $spacing-md !important;
+  text-align: center !important;
+}
+
+.character-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.character-roster-item {
+  @include token-style;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  cursor: pointer;
+  position: relative;
+  
+  &--active {
+    background: linear-gradient(160deg, lighten($color-team-red, 20%) 0%, lighten($color-team-red, 25%) 100%) !important;
+    border-color: $color-team-red-text !important;
+  }
+}
+
+.character-roster-avatar {
+  flex-shrink: 0;
+}
+
+.character-avatar {
+  background-color: transparent !important;
+  font-size: 2rem !important;
+}
+
+.character-roster-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.character-roster-name {
+  color: $color-text-heading !important;
+  font-size: $font-size-body !important;
+  line-height: 1.2 !important;
+}
+
+.character-roster-type {
+  color: $color-text-muted !important;
+  font-size: $font-size-small !important;
+}
+
+.character-roster-stats {
+  margin-top: 4px;
+}
+
+.character-roster-stat {
+  color: $color-text-primary !important;
+  font-size: $font-size-small !important;
+}
+
+.character-roster-indicator {
+  flex-shrink: 0;
+}
+
+.unsaved-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: $color-text-red-faction;
+  animation: pulse 2s infinite;
+}
+
+.character-sheet {
+  height: fit-content;
+}
+
+.character-sheet-card {
+  @include card-style;
+}
+
+.character-sheet-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  min-height: 600px;
+}
+
+.character-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.character-header-avatar {
+  flex-shrink: 0;
+}
+
+.character-header-avatar-img {
+  background-color: transparent !important;
+  font-size: 4rem !important;
+}
+
+.character-header-info {
+  flex: 1;
+  text-align: left;
+  
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+}
+
+.character-header-name {
+  margin: 0 !important;
+  background: linear-gradient(45deg, #2ed573, #ff6b35) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.character-header-type {
+  color: $color-text-red-faction !important;
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.character-header-meta {
+  margin-top: $spacing-xs;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.character-header-faction {
+  color: $color-text-muted !important;
+  font-size: $font-size-small !important;
+}
+
+.character-header-id {
+  color: $color-text-muted !important;
+  font-size: $font-size-small !important;
+}
+
+.character-section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.character-stats-section {
+  flex: 1;
+}
+
+.section-divider {
+  height: 2px;
+  background: linear-gradient(90deg, $color-team-blue, $color-team-red);
+  border-radius: 1px;
+  margin: $spacing-sm 0;
+}
+
+.section-heading {
+  font-size: $font-size-section !important;
+  font-weight: 700 !important;
+  font-family: $font-family-display !important;
+  color: $color-text-red-faction !important;
+  text-align: center !important;
+  margin: 0 0 $spacing-md 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: $letter-spacing-uppercase !important;
+}
+
+.section-text {
+  color: $color-text-primary !important;
+  font-style: italic !important;
+  line-height: 1.6 !important;
+}
+
+.character-background {
+  margin-bottom: $spacing-md;
+}
+
+.character-motivation {
+  margin-bottom: $spacing-md;
+}
+
+.personality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-sm;
+}
+
+.personality-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-xs;
+  background: $color-inset-bg !important;
+  border-radius: 4px;
+}
+
+.personality-label {
+  color: $color-text-primary !important;
+  font-size: $font-size-small !important;
+}
+
+.personality-value {
+  color: $color-text-heading !important;
+  font-weight: bold !important;
+  font-size: $font-size-small !important;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: $spacing-sm;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-xs;
+  background: $color-inset-bg !important;
+  border-radius: 4px;
+}
+
+.skill-label {
+  color: $color-text-primary !important;
+  font-size: $font-size-small !important;
+}
+
+.skill-value {
+  color: $color-text-heading !important;
+  font-weight: bold !important;
+  font-size: $font-size-small !important;
+}
+
+.additional-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-xs;
+  background: $color-inset-bg !important;
+  border-radius: 4px;
+}
+
+.info-label {
+  color: $color-text-primary !important;
+  font-size: $font-size-small !important;
+}
+
+.info-value {
+  color: $color-text-heading !important;
+  font-weight: bold !important;
+  font-size: $font-size-small !important;
+}
+
+.character-sheet-actions {
+  text-align: center;
+  margin-top: auto;
+}
+
+.proceed-section {
+  margin-top: $spacing-xxl;
+  text-align: center;
+}
+
+// StoryScreen specific styles
 .story-screen__grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  align-items: flex-start;
-  margin-top: 2rem;
-
-  @media (max-width: 992px) {
+  gap: $spacing-xl;
+  margin: $spacing-xl 0;
+  
+  @media (max-width: 1024px) {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: $spacing-lg;
   }
 }
 
 .story-screen__main-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: $spacing-lg;
 }
 
-.story-screen__sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-// Story Form Styles
 .story-form__content {
-  width: 100%;
+  width: 100% !important;
 }
 
 .story-input-section {
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
 }
 
 .story-input-label {
-  font-size: $font-size-section;
+  font-size: $font-size-section !important;
   color: $color-text-red-faction !important;
-  display: block;
-  margin-bottom: 0.5rem;
-  font-family: $font-family-display;
-  letter-spacing: $letter-spacing-uppercase;
+  display: block !important;
+  margin-bottom: $spacing-xs !important;
 }
 
 .story-textarea {
   @include token-style;
-  min-height: 120px !important;
-  resize: vertical;
+  font-family: $font-family-primary !important;
+  font-size: $font-size-body !important;
+  color: $color-text-primary !important;
+  
+  &::placeholder {
+    color: $color-text-muted !important;
+  }
 }
 
 .character-count {
   text-align: right;
-  margin-top: 0.5rem;
+  margin-top: $spacing-xs;
 }
 
 .character-count-text {
   color: $color-text-muted !important;
-  font-size: $font-size-small;
+  font-size: $font-size-small !important;
 }
 
-// Army Configuration Styles
 .army-config-section {
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
 }
 
 .army-config-title {
-  font-size: $font-size-section;
+  font-size: $font-size-section !important;
   color: $color-text-red-faction !important;
-  display: block;
-  margin-bottom: 1rem;
-  font-family: $font-family-display;
-  letter-spacing: $letter-spacing-uppercase;
+  display: block !important;
+  margin-bottom: $spacing-sm !important;
 }
 
 .army-config-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-
+  gap: $spacing-md;
+  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 1rem;
   }
 }
 
@@ -1184,13 +1966,13 @@ a, .link-text, .clickable-text {
 .team-size-content {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: $spacing-sm;
+  width: 100%;
 }
 
 .team-size-label {
   color: $color-text-heading !important;
-  font-size: $font-size-body;
-  font-family: $font-family-display;
+  font-size: $font-size-body !important;
 }
 
 .team-size-input {
@@ -1199,73 +1981,72 @@ a, .link-text, .clickable-text {
 
 .team-size-description {
   color: $color-text-muted !important;
-  font-size: $font-size-small;
-  line-height: 1.4;
+  font-size: $font-size-small !important;
 }
 
-// Form Actions Styles
 .form-actions {
   text-align: center;
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
 }
 
 .next-button {
-  margin-bottom: 1rem;
+  margin: 0 auto !important;
 }
 
 .form-help-text {
-  margin-top: 1rem;
+  text-align: center;
 }
 
 .form-help-message {
   color: $color-text-muted !important;
-  font-size: $font-size-small;
+  font-size: $font-size-small !important;
 }
 
 .team-summary {
-  margin-top: 1rem;
+  text-align: center;
 }
 
 .team-summary-text {
   color: $color-text-primary !important;
-  font-size: $font-size-small;
+  font-size: $font-size-small !important;
 }
 
-// Example Box Styles
+.story-screen__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
 .example-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: $spacing-md;
 }
 
 .example-title {
   color: $color-text-red-faction !important;
-  font-size: $font-size-section;
-  font-family: $font-family-display;
-  margin-bottom: 0.5rem;
+  font-size: $font-size-body !important;
 }
 
 .example-items {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: $spacing-sm;
 }
 
 .example-item {
   margin: 0 !important;
   color: $color-text-primary !important;
-  line-height: 1.5;
-  
-  strong {
-    color: $color-text-heading !important;
-  }
+  font-size: $font-size-small !important;
+  line-height: 1.6 !important;
 }
 
-// Status Messages Styles
 .status-messages {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: $spacing-sm;
 }
 
 .status-card {
@@ -1290,832 +2071,52 @@ a, .link-text, .clickable-text {
 .status-content {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: $spacing-sm;
 }
 
 .status-spinner {
+  font-size: 16px !important;
   color: $color-team-blue-text !important;
-  font-size: 1rem;
 }
 
 .status-text {
   color: $color-text-primary !important;
-  font-size: $font-size-small;
-  line-height: 1.4;
+  font-size: $font-size-small !important;
 }
 
-// ===== TEAM SETUP SCREEN STYLES =====
-.briefing-panel {
-  margin: 2rem 0;
-}
-
-.briefing-card {
-  @include card-style;
-}
-
-.briefing-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.briefing-story {
-  text-align: left;
-}
-
-.briefing-story-title {
-  font-size: $font-size-section;
-  color: $color-text-red-faction !important;
-  display: block;
-  margin-bottom: 1rem;
-  font-family: $font-family-display;
-  letter-spacing: $letter-spacing-uppercase;
-}
-
-.briefing-story-text {
-  color: $color-text-primary !important;
-  line-height: 1.6;
-  margin: 0 !important;
-}
-
-.briefing-panel__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-  padding-top: 1rem;
-  border-top: 1px solid $color-card-border;
-}
-
-.briefing-tag {
-  @include token-style;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  display: inline-block;
-  
-  &--experience {
-    background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
-    border-color: $color-team-red-text !important;
-  }
-  
-  &--create {
-    background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
-    border-color: $color-team-blue-text !important;
-  }
-  
-  &--info {
-    background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
-    border-color: $color-team-neutral-text !important;
-  }
-  
-  &--success {
-    background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
-    border-color: $color-team-neutral-text !important;
-  }
-  
-  &--neutral {
-    background: $color-token-bg !important;
-    border-color: $color-token-border !important;
-  }
-}
-
-.briefing-tag-text {
-  color: $color-text-primary !important;
-  font-size: $font-size-small;
-  font-weight: 600;
-}
-
-// Teams Display Grid
-.teams-display-grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 2rem;
-  align-items: center;
-  margin: 3rem 0;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-}
-
-.teams-display__vs {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  @media (max-width: 768px) {
-    order: -1;
-  }
-}
-
-.vs-text {
-  font-size: 2rem;
-  font-weight: 800;
-  font-family: $font-family-display;
-  color: $color-text-red-faction !important;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-// Team Cards
-.team-card {
-  @include card-style;
-  height: 100%;
-  
-  &--team1 {
-    background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
-    border-color: $color-team-blue-text !important;
-  }
-  
-  &--team2 {
-    background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
-    border-color: $color-team-red-text !important;
-  }
-}
-
-.team-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  height: 100%;
-  text-align: center;
-}
-
-.team-card-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.team-card-icon {
-  font-size: 2.5rem;
-  line-height: 1;
-}
-
-.team-card-title {
-  font-size: $font-size-section;
-  font-weight: 700;
-  font-family: $font-family-display;
-  color: $color-text-heading !important;
-  letter-spacing: $letter-spacing-uppercase;
-  text-transform: uppercase;
-}
-
-.team-card-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.team-card-name {
-  font-size: $font-size-subtitle;
-  font-weight: 700;
-  font-family: $font-family-display;
-  color: $color-text-heading !important;
-  line-height: 1.2;
-}
-
-.team-card-description {
-  color: $color-text-primary !important;
-  font-size: $font-size-body;
-  line-height: 1.4;
-}
-
-.team-card-stats {
-  margin-top: auto;
-}
-
-.team-size-display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 1rem;
-  background: $color-card-bg-start !important;
-  border: 1px solid $color-card-border;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.team-size-number {
-  font-size: 2.5rem;
-  font-weight: 800;
-  font-family: $font-family-display;
-  color: $color-text-blue-faction !important;
-  line-height: 1;
-}
-
-.team-size-label {
-  color: $color-text-muted !important;
-  font-size: $font-size-small;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
-}
-
-// Battle Analysis
-.battle-analysis {
-  margin: 2rem 0;
-}
-
-.battle-analysis-card {
-  @include token-style;
-  background: linear-gradient(160deg, lighten($color-team-neutral, 25%) 0%, lighten($color-team-neutral, 30%) 100%) !important;
-  border-color: $color-team-neutral-text !important;
-}
-
-.battle-analysis-content {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.battle-analysis-title {
-  font-size: $font-size-section;
-  font-weight: 700;
-  font-family: $font-family-display;
-  color: $color-text-heading !important;
-  letter-spacing: $letter-spacing-uppercase;
-}
-
-.battle-analysis-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.battle-analysis-matchup {
-  color: $color-text-primary !important;
-  font-size: $font-size-body;
-  font-weight: 600;
-  
-  .vs-small {
-    color: $color-text-red-faction !important;
-    font-weight: 800;
-    margin: 0 0.5rem;
-  }
-}
-
-.balance-assessment {
-  font-size: $font-size-small;
-  font-style: italic;
-  
-  &--balanced {
-    color: $color-text-neutral-faction !important;
-  }
-  
-  &--uneven {
-    color: $color-text-emphasis !important;
-  }
-}
-
-.mode-info {
-  color: $color-text-red-faction !important;
-  font-size: $font-size-small;
-  font-style: italic;
-}
-
-// Next Button Block
-.next-button-block {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.proceed-button {
-  margin-bottom: 1rem;
-}
-
-.next-button-help {
-  margin-top: 1rem;
-}
-
-.next-button-help-text {
-  color: $color-text-muted !important;
-  font-size: $font-size-small;
-}
-
-// ===== BUILD TEAMS SCREEN STYLES =====
-.mode-indicator {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.mode-indicator-badge {
-  display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 1rem;
-  
-  &--experience {
-    background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
-    border: 1px solid $color-team-red-text;
-  }
-  
-  &--create {
-    background: linear-gradient(160deg, lighten($color-team-blue, 25%) 0%, lighten($color-team-blue, 30%) 100%) !important;
-    border: 1px solid $color-team-blue-text;
-  }
-}
-
-.mode-indicator-text {
-  color: $color-text-primary !important;
-  font-size: $font-size-body;
-  font-weight: 600;
-  text-align: center;
-}
-
-.build-teams-layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  margin-top: 2rem;
-
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-}
-
-// Roster Panel Styles
-.roster-panel {
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-}
-
-.roster-card {
-  @include card-style;
-  height: 100%;
-}
-
-.roster-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  height: 100%;
-}
-
-.team-selection {
-  border-bottom: 1px solid $color-card-border;
-  padding-bottom: 1.5rem;
-}
-
-.team-selection-title {
-  font-size: $font-size-section;
-  font-weight: 700;
-  font-family: $font-family-display;
-  color: $color-text-heading !important;
-  display: block;
-  margin-bottom: 1rem;
-  text-align: center;
-  letter-spacing: $letter-spacing-uppercase;
-}
-
-.team-selection-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.team-selection-button {
-  width: 100%;
-  text-align: center;
-}
-
-.character-roster {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.roster-title {
-  font-size: $font-size-body;
-  font-weight: 700;
-  color: $color-text-red-faction !important;
-  margin-bottom: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
-}
-
-.character-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  flex: 1;
-}
-
-.character-roster-item {
-  @include token-style;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  
-  &--active {
-    background: linear-gradient(160deg, lighten($color-team-red, 25%) 0%, lighten($color-team-red, 30%) 100%) !important;
-    border-color: $color-team-red-text !important;
-    transform: translateY(-2px);
-  }
-  
-  &:hover:not(&--active) {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
-  }
-}
-
-.character-roster-avatar {
-  flex-shrink: 0;
-}
-
-.character-avatar {
-  background: transparent !important;
-  font-size: 1.5rem !important;
-}
-
-.character-roster-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: left;
-}
-
-.character-roster-name {
-  color: $color-text-heading !important;
-  font-size: $font-size-body;
-  line-height: 1.2;
-}
-
-.character-roster-type {
-  color: $color-text-muted !important;
-  font-size: $font-size-small;
-  line-height: 1.2;
-}
-
-.character-roster-stats {
-  margin-top: 0.25rem;
-}
-
-.character-roster-stat {
-  color: $color-text-primary !important;
-  font-size: $font-size-small;
-}
-
-.character-roster-indicator {
-  flex-shrink: 0;
-}
-
-.unsaved-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: $color-text-emphasis;
-  animation: pulse 2s infinite;
-}
-
-// Character Sheet Styles
-.character-sheet {
-  display: flex;
-  flex-direction: column;
-}
-
-.character-sheet-card {
-  @include card-style;
-  height: 100%;
-}
-
-.character-sheet-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  height: 100%;
-}
-
-.character-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid $color-card-border;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
-}
-
-.character-header-avatar {
-  flex-shrink: 0;
-}
-
-.character-header-avatar-img {
-  background: transparent !important;
-  font-size: 3rem !important;
-}
-
-.character-header-info {
-  flex: 1;
-  text-align: left;
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
-}
-
-.character-header-name {
-  background: linear-gradient(45deg, $color-text-blue-faction, $color-text-red-faction) !important;
-  background-clip: text !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  margin: 0 !important;
-  line-height: 1.2;
-}
-
-.character-header-type {
-  color: $color-text-red-faction !important;
-  font-size: $font-size-body;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-uppercase;
-  display: block;
-  margin-top: 0.5rem;
-}
-
-.character-header-meta {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.character-header-faction {
-  color: $color-text-muted !important;
-  font-size: $font-size-small;
-}
-
-.character-header-id {
-  color: $color-text-muted !important;
-  font-size: $font-size-small;
-}
-
-.character-section {
-  margin: 1rem 0;
-}
-
-.section-divider {
-  height: 2px;
-  background: linear-gradient(90deg, $color-team-blue, $color-team-red);
-  border-radius: 1px;
-  margin: 1.5rem 0 1rem 0;
-  opacity: 0.3;
-}
-
-.section-heading {
-  font-size: $font-size-section;
-  font-weight: 700;
-  font-family: $font-family-display;
-  color: $color-text-red-faction !important;
-  margin-bottom: 1rem;
-  letter-spacing: $letter-spacing-uppercase;
-}
-
-.section-text {
-  color: $color-text-primary !important;
-  font-size: $font-size-body;
-  line-height: 1.5;
-  font-style: italic;
-}
-
-.character-background {
-  margin-bottom: 1rem;
-}
-
-.character-motivation {
-  margin-bottom: 1rem;
-}
-
-.character-stats-section {
-  flex: 1;
-}
-
-.personality-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.75rem;
-}
-
-.personality-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  background: $color-token-bg !important;
-  border: 1px solid $color-token-border;
-  border-radius: 0.5rem;
-}
-
-.personality-label {
-  color: $color-text-primary !important;
-  font-size: $font-size-small;
-}
-
-.personality-value {
-  color: $color-text-heading !important;
-  font-weight: 700;
-  font-size: $font-size-small;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.75rem;
-}
-
-.skill-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  background: $color-token-bg !important;
-  border: 1px solid $color-token-border;
-  border-radius: 0.5rem;
-}
-
-.skill-label {
-  color: $color-text-primary !important;
-  font-size: $font-size-small;
-}
-
-.skill-value {
-  color: $color-text-heading !important;
-  font-weight: 700;
-  font-size: $font-size-small;
-}
-
-.additional-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  background: $color-token-bg !important;
-  border: 1px solid $color-token-border;
-  border-radius: 0.5rem;
-}
-
-.info-label {
-  color: $color-text-primary !important;
-  font-size: $font-size-small;
-}
-
-.info-value {
-  color: $color-text-heading !important;
-  font-weight: 700;
-  font-size: $font-size-small;
-}
-
-.character-sheet-actions {
-  margin-top: auto;
-  text-align: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid $color-card-border;
-}
-
-.proceed-section {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-// ===== CHARACTER DETAILS SCREEN STYLES =====
-.character-details-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.character-details {
-  @include card-style;
-  width: 100%;
-  max-width: 1000px;
-}
-
-.character-details__grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    text-align: center;
-  }
-}
-
-.character-details__identity {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.character-identity-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  text-align: center;
-}
-
-.character-identity-avatar {
-  background: transparent !important;
-  font-size: 5rem !important;
-  margin-bottom: 1rem;
-}
-
-.character-identity-name {
-  margin: 0 !important;
-  background: linear-gradient(45deg, $color-text-blue-faction, $color-text-red-faction) !important;
-  background-clip: text !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
-
-.character-identity-role {
-  color: $color-text-red-faction !important;
-  font-size: 1.2rem !important;
-  font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 2px !important;
-}
-
-.character-details__stats-and-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.character-details-actions {
-  text-align: center;
-}
-
-// Stats container for character details - 2x2 grid
-.character-details .stats-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 1.5rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-// ===== MAP EDITOR SCREEN STYLES =====
+// MapEditorScreen specific styles
 .holotable-container {
   @include card-style;
-  margin: 2rem 0;
-  padding: 2rem;
+  margin: $spacing-xl 0;
+  padding: $spacing-lg;
+  border: 3px solid $color-team-blue-text !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
   position: relative;
   
-  // Make it the clear centerpiece
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
-  border: 2px solid $color-team-blue-text !important;
-  
-  @media (max-width: 768px) {
-    padding: 1rem;
-    margin: 1rem 0;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, $color-team-blue, $color-team-neutral, $color-team-red);
+    border-radius: 1rem;
+    z-index: -1;
+    opacity: 0.3;
   }
 }
 
 .control-panel {
   @include inset-style;
-  margin-top: 2rem;
-  padding: 2rem;
-  
-  @media (max-width: 768px) {
-    padding: 1rem;
-    margin-top: 1rem;
-  }
+  margin: $spacing-lg 0;
+  padding: $spacing-lg;
 }
 
 .control-panel-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: $spacing-md;
   align-items: center;
 }
 
@@ -2124,8 +2125,8 @@ a, .link-text, .clickable-text {
 }
 
 .status-message {
-  font-size: $font-size-body;
-  font-weight: 600;
+  font-size: $font-size-body !important;
+  font-weight: 700 !important;
   
   &--success {
     color: $color-text-neutral-faction !important;
@@ -2138,25 +2139,36 @@ a, .link-text, .clickable-text {
 
 .control-panel-actions {
   display: flex;
-  gap: 1rem;
+  gap: $spacing-md;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .control-button {
-  min-width: 200px;
+  margin: 0 !important;
   
   &--continue {
-    // Primary button styling already applied
+    min-width: 200px;
   }
   
   &--default {
-    // Secondary button styling already applied
+    min-width: 180px;
   }
-  
-  @media (max-width: 768px) {
-    min-width: 150px;
-  }
+}
+
+.mode-indicator-badge--experience {
+  background: linear-gradient(160deg, lighten($color-team-red, 20%) 0%, lighten($color-team-red, 25%) 100%) !important;
+  border-color: $color-team-red-text !important;
+}
+
+.mode-indicator-description {
+  color: $color-text-primary !important;
+  font-size: $font-size-small !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  margin-top: $spacing-xs !important;
+  display: block !important;
 }
 
 // Responsive design
