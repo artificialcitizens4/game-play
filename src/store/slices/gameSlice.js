@@ -29,7 +29,7 @@ const initialState = {
   apiGameData: null,
   personas: [],
   factions: {},
-  baseStory: '',
+  storySummary: '', // Changed from baseStory
   gameId: null,
   createdAt: null,
   // Track persona modifications
@@ -131,7 +131,7 @@ const gameSlice = createSlice({
       
       state.apiGameData = apiData;
       state.gameId = apiData.id;
-      state.baseStory = apiData.baseStory || apiData.story || '';
+      state.storySummary = apiData.baseStory || apiData.story || ''; // Changed from baseStory
       state.createdAt = apiData.createdAt;
       
       // Handle personas array - ensure we have the correct structure

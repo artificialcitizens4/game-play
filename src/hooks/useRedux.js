@@ -38,8 +38,8 @@ export const useFactions = () => {
   return useAppSelector(state => state.game.factions);
 };
 
-export const useBaseStory = () => {
-  return useAppSelector(state => state.game.baseStory);
+export const useStorySummary = () => {
+  return useAppSelector(state => state.game.storySummary);
 };
 
 export const useGameId = () => {

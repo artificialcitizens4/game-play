@@ -204,7 +204,7 @@ export const fetchExperienceData = createAsyncThunk(
         return {
           id: item.id || `exp_${index}`,
           title: item.title || item.story || `Experience ${index + 1}`,
-          baseStory: item.baseStory || item.story || 'An epic battle awaits...',
+          storySummary: item.baseStory || item.story || 'An epic battle awaits...', // Changed from baseStory
           story: item.story || item.baseStory || 'An epic battle awaits...',
           personas: item.personas,
           difficulty: item.difficulty || 'Medium',

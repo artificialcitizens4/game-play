@@ -4,7 +4,7 @@ import { ArrowLeftOutlined, RocketOutlined, LoadingOutlined } from '@ant-design/
 import { useDispatch } from 'react-redux';
 import { setCurrentScreen } from '../store/slices/gameSlice';
 import { initializeGameBattle } from '../store/slices/apiSlice';
-import { useGameState, usePersonas, useBaseStory, usePersonasByFaction, useAppDispatch, useGameBattleInit } from '../hooks/useRedux';
+import { useGameState, usePersonas, useStorySummary, usePersonasByFaction, useAppDispatch, useGameBattleInit } from '../hooks/useRedux';
 import Button from './Button';
 
 const { Title, Text } = Typography;
@@ -13,7 +13,7 @@ const ViewCharactersScreen = () => {
   const dispatch = useAppDispatch();
   const gameState = useGameState();
   const personas = usePersonas();
-  const baseStory = useBaseStory();
+  const storySummary = useStorySummary();
   const team1Personas = usePersonasByFaction(gameState.story.team1Name);
   const team2Personas = usePersonasByFaction(gameState.story.team2Name);
   const gameBattleInit = useGameBattleInit();
@@ -615,7 +615,7 @@ const ViewCharactersScreen = () => {
 
       // Prepare the game initialization payload
       const gameInitPayload = {
-        baseStory: baseStory || gameState.story.background || 'An epic battle between two mighty factions.',
+        baseStory: storySummary || gameState.story.background || 'An epic battle between two mighty factions.',
         personas: formatPersonasForAPI(personas),
         battlemap: minimalBattlemap
       };

@@ -3,7 +3,7 @@ import { Card, Typography, Space, Row, Col, Avatar, Progress } from 'antd';
 import { ArrowLeftOutlined, FastForwardOutlined, TeamOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { setCurrentScreen } from '../store/slices/gameSlice';
-import { useGameState, usePersonas, useBaseStory, usePersonasByFaction, useAppDispatch } from '../hooks/useRedux';
+import { useGameState, usePersonas, useStorySummary, usePersonasByFaction, useAppDispatch } from '../hooks/useRedux';
 import Button from './Button';
 
 const { Title, Paragraph, Text } = Typography;
@@ -12,15 +12,15 @@ const WarSummaryScreen = () => {
   const dispatch = useAppDispatch();
   const gameState = useGameState();
   const personas = usePersonas();
-  const baseStory = useBaseStory();
+  const storySummary = useStorySummary();
   const team1Personas = usePersonasByFaction(gameState.story.team1Name);
   const team2Personas = usePersonasByFaction(gameState.story.team2Name);
   
   const [displayedText, setDisplayedText] = useState('');
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
-  // Use base story from API if available, otherwise use the original story
-  const warStory = baseStory || `
+  // Use story summary from API if available, otherwise use the original story
+  const warStory = storySummary || `
 🌍 THE GREAT CONFLICT BEGINS 🌍
 
 ${gameState.story.background || 'In a world torn by conflict, two mighty forces prepare for the ultimate battle that will determine the fate of all.'}
