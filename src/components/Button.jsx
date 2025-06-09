@@ -61,6 +61,10 @@ const Button = ({
       onClick={handleClick}
       disabled={disabled}
       icon={icon}
+      style={{
+        fontFamily: "'Comic Sans MS', cursive, sans-serif",
+        ...props.style
+      }}
       {...props}
     >
       {children}

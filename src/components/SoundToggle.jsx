@@ -29,18 +29,12 @@ const SoundToggle = ({ className = '' }) => {
         top: '30px',
         right: '30px',
         zIndex: 1000,
-        background: 'rgba(10, 10, 10, 0.9)',
-        border: `2px solid ${uiState.soundEnabled ? '#2ed573' : '#ff6b35'}`,
-        color: uiState.soundEnabled ? '#2ed573' : '#ff6b35',
-        borderRadius: '12px',
-        backdropFilter: 'blur(10px)',
-        boxShadow: `0 8px 25px ${uiState.soundEnabled ? 'rgba(46, 213, 115, 0.2)' : 'rgba(255, 107, 53, 0.2)'}`,
-        transition: 'all 0.3s ease',
-        width: '50px',
-        height: '50px',
+        width: '55px',
+        height: '55px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        fontSize: '1.2rem'
       }}
       title={uiState.soundEnabled ? 'Mute Sound' : 'Enable Sound'}
     />

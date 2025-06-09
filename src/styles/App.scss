@@ -1,59 +1,74 @@
-// Variables
-$primary-green: #2ed573;
-$secondary-orange: #ff6b35;
-$accent-red: #ff4757;
-$accent-yellow: #ffa502;
-$background-dark: #0a0a0a;
-$background-blue: #1a1a2e;
-$background-navy: #16213e;
-$text-primary: #ffffff;
-$text-secondary: rgba(255, 255, 255, 0.8);
+// Studio Ghibli Inspired Variables
+$pastel-pink: #FFB3BA;
+$pastel-blue: #BFEFFF;
+$pastel-green: #B5EAD7;
+$pastel-yellow: #FFDFBA;
+$pastel-lavender: #C7CEEA;
+$pastel-peach: #FFD1DC;
+$pastel-mint: #C1FFC1;
+$pastel-cream: #FFF8DC;
+
+$soft-white: #FEFEFE;
+$warm-gray: #F5F5F0;
+$gentle-shadow: rgba(0, 0, 0, 0.08);
+$outline-color: #8B7355;
+$text-primary: #5D4E37;
+$text-secondary: #8B7355;
 
 // Mixins
-@mixin gradient-bg {
-  background: linear-gradient(135deg, $background-dark 0%, $background-blue 50%, $background-navy 100%);
+@mixin soft-gradient($color1, $color2) {
+  background: linear-gradient(135deg, $color1 0%, $color2 100%);
 }
 
-@mixin card-hover {
+@mixin ghibli-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 
+              0 4px 16px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+@mixin gentle-hover {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba($primary-green, 0.3);
-    border-color: $secondary-orange;
+    transform: translateY(-4px) scale(1.02);
+    @include ghibli-shadow;
   }
 }
 
 @mixin button-base {
-  border: none;
-  border-radius: 10px;
+  border: 3px solid $outline-color;
+  border-radius: 25px;
   cursor: pointer;
-  font-family: inherit;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 1px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
   
   &::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
   }
   
   &:hover::before {
-    width: 300px;
-    height: 300px;
+    left: 100%;
   }
   
   &:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    @include ghibli-shadow;
+  }
+  
+  &:active {
+    transform: translateY(-1px) scale(0.98);
   }
   
   &:disabled {
@@ -71,11 +86,12 @@ $text-secondary: rgba(255, 255, 255, 0.8);
 }
 
 body {
-  font-family: 'Courier New', monospace;
-  @include gradient-bg;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  @include soft-gradient($pastel-cream, $warm-gray);
   color: $text-primary;
   overflow-x: hidden;
   min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .app {
@@ -92,17 +108,17 @@ body {
 .screen {
   min-height: 100vh;
   padding: 20px;
-  animation: fadeInScreen 0.5s ease-in-out;
+  animation: gentleFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@keyframes fadeInScreen {
+@keyframes gentleFadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -114,37 +130,42 @@ body {
 
 // Typography
 .title {
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 3.5rem;
+  font-weight: 700;
   margin-bottom: 2rem;
-  animation: pulse-title 2s infinite;
-  background: linear-gradient(45deg, $primary-green, $secondary-orange);
+  animation: gentlePulse 3s ease-in-out infinite;
+  background: linear-gradient(45deg, $pastel-pink, $pastel-blue, $pastel-green);
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 }
 
 .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 3rem;
-  opacity: 0.8;
-  animation: fadeInUp 1s ease 0.5s both;
+  color: $text-secondary;
+  animation: gentleSlideUp 1s ease 0.3s both;
+  font-weight: 500;
   
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }
 
 // Sound Toggle
 .sound-toggle {
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 12px 35px rgba($primary-green, 0.4) !important;
-  }
+  background: $pastel-mint !important;
+  border: 3px solid $outline-color !important;
+  color: $text-primary !important;
+  border-radius: 50% !important;
+  @include gentle-hover;
   
   @media (max-width: 768px) {
     top: 15px !important;
@@ -158,74 +179,60 @@ body {
 .ant-btn {
   @include button-base;
   padding: 15px 30px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin: 10px;
   height: auto;
   
-  // Add subtle audio feedback visual
-  &:active {
-    transform: scale(0.98);
-  }
-  
   &.btn-primary {
-    background: linear-gradient(45deg, $primary-green, darken($primary-green, 10%));
-    border-color: $primary-green;
-    color: #000;
+    @include soft-gradient($pastel-green, $pastel-mint);
+    border-color: $outline-color;
+    color: $text-primary;
     
     &:hover {
-      background: linear-gradient(45deg, lighten($primary-green, 5%), $primary-green);
-      border-color: $secondary-orange;
-      color: #000;
-      box-shadow: 0 10px 20px rgba($primary-green, 0.3);
+      @include soft-gradient(lighten($pastel-green, 5%), lighten($pastel-mint, 5%));
+      border-color: darken($outline-color, 10%);
+      color: $text-primary;
     }
   }
   
   &.btn-secondary {
-    background: linear-gradient(45deg, $secondary-orange, $accent-red);
-    border-color: $secondary-orange;
-    color: white;
+    @include soft-gradient($pastel-peach, $pastel-pink);
+    border-color: $outline-color;
+    color: $text-primary;
     
     &:hover {
-      background: linear-gradient(45deg, lighten($secondary-orange, 5%), lighten($accent-red, 5%));
-      border-color: $accent-red;
-      color: white;
-      box-shadow: 0 10px 20px rgba($secondary-orange, 0.3);
+      @include soft-gradient(lighten($pastel-peach, 5%), lighten($pastel-pink, 5%));
+      border-color: darken($outline-color, 10%);
+      color: $text-primary;
     }
   }
   
   &.btn-save {
-    background: linear-gradient(45deg, $secondary-orange, $accent-red);
-    border-color: $secondary-orange;
-    color: white;
-    font-size: 1.3rem;
+    @include soft-gradient($pastel-yellow, $pastel-peach);
+    border-color: $outline-color;
+    color: $text-primary;
+    font-size: 1.2rem;
     padding: 18px 35px;
-    box-shadow: 0 0 30px rgba($secondary-orange, 0.4);
     
     &:hover {
-      background: linear-gradient(45deg, lighten($secondary-orange, 5%), lighten($accent-red, 5%));
-      border-color: $accent-red;
-      color: white;
-      box-shadow: 0 0 40px rgba($secondary-orange, 0.6);
+      @include soft-gradient(lighten($pastel-yellow, 5%), lighten($pastel-peach, 5%));
+      border-color: darken($outline-color, 10%);
+      color: $text-primary;
     }
   }
   
   &.btn-launch {
-    background: linear-gradient(45deg, $primary-green, darken($primary-green, 10%));
-    border-color: $primary-green;
-    color: #000;
-    font-size: 1.5rem;
+    @include soft-gradient($pastel-blue, $pastel-lavender);
+    border-color: $outline-color;
+    color: $text-primary;
+    font-size: 1.4rem;
     padding: 20px 40px;
     
     &:hover {
-      background: linear-gradient(45deg, lighten($primary-green, 5%), $primary-green);
-      border-color: $secondary-orange;
-      color: #000;
-      box-shadow: 0 15px 30px rgba($primary-green, 0.4);
-    }
-    
-    // Special animation for launch buttons
-    &:hover {
-      animation: pulse-launch 0.6s ease;
+      @include soft-gradient(lighten($pastel-blue, 5%), lighten($pastel-lavender, 5%));
+      border-color: darken($outline-color, 10%);
+      color: $text-primary;
+      animation: gentleBounce 0.6s ease;
     }
   }
 }
@@ -235,23 +242,22 @@ body {
   top: 30px;
   left: 30px;
   z-index: 1000;
-  background: rgba($background-dark, 0.9);
-  border: 2px solid $primary-green;
-  color: $primary-green;
+  @include soft-gradient($pastel-cream, $soft-white);
+  border: 3px solid $outline-color;
+  color: $text-primary;
   padding: 12px 20px;
   font-size: 1rem;
-  font-weight: bold;
-  border-radius: 12px;
+  font-weight: 600;
+  border-radius: 20px;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 25px rgba($primary-green, 0.2);
-  transition: all 0.3s ease;
+  @include ghibli-shadow;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   &:hover {
-    background: rgba($primary-green, 0.1);
-    border-color: $secondary-orange;
-    color: $secondary-orange;
-    transform: translateX(-5px);
-    box-shadow: 0 12px 35px rgba($secondary-orange, 0.3);
+    @include soft-gradient(lighten($pastel-cream, 5%), lighten($soft-white, 2%));
+    border-color: darken($outline-color, 10%);
+    color: $text-primary;
+    transform: translateX(-5px) translateY(-2px);
   }
   
   &::before {
@@ -275,13 +281,15 @@ body {
 
 // Ant Design Card Overrides
 .ant-card {
-  background: rgba($primary-green, 0.05);
-  border: 2px solid $primary-green;
-  border-radius: 15px;
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color;
+  border-radius: 25px;
+  @include ghibli-shadow;
   
   .ant-card-head {
-    border-bottom: 1px solid rgba($primary-green, 0.3);
+    border-bottom: 2px solid rgba($outline-color, 0.3);
     background: transparent;
+    border-radius: 22px 22px 0 0;
   }
   
   .ant-card-body {
@@ -291,9 +299,10 @@ body {
 
 // Mode selection
 .mode-card {
-  transition: all 0.3s ease;
+  @include gentle-hover;
   position: relative;
   overflow: hidden;
+  @include soft-gradient($pastel-mint, $pastel-green);
   
   &::before {
     content: '';
@@ -302,24 +311,23 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba($primary-green, 0.2), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transform: rotate(45deg);
-    transition: all 0.5s ease;
+    transition: all 0.8s ease;
     opacity: 0;
   }
   
   &:hover::before {
-    animation: shine 0.8s ease;
+    animation: gentleShine 1s ease;
   }
-  
-  @include card-hover;
 }
 
 // Experience selection
 .experience-card {
-  transition: all 0.3s ease;
+  @include gentle-hover;
   position: relative;
   overflow: hidden;
+  @include soft-gradient($pastel-blue, $pastel-lavender);
   
   &::before {
     content: '';
@@ -328,57 +336,58 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba($primary-green, 0.2), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transform: rotate(45deg);
-    transition: all 0.5s ease;
+    transition: all 0.8s ease;
     opacity: 0;
   }
   
   &:hover::before {
-    animation: shine 0.8s ease;
+    animation: gentleShine 1s ease;
   }
   
   &.selected {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba($secondary-orange, 0.4);
+    transform: translateY(-8px) scale(1.02);
+    @include ghibli-shadow;
+    @include soft-gradient($pastel-pink, $pastel-peach);
     
     &::after {
-      content: '✓ SELECTED';
+      content: '✓ Selected';
       position: absolute;
       top: 15px;
       right: 15px;
-      background: linear-gradient(45deg, $secondary-orange, $accent-red);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 15px;
+      @include soft-gradient($pastel-yellow, $pastel-peach);
+      color: $text-primary;
+      padding: 8px 15px;
+      border-radius: 20px;
       font-size: 0.8rem;
-      font-weight: bold;
+      font-weight: 600;
       letter-spacing: 1px;
+      border: 2px solid $outline-color;
     }
   }
-  
-  @include card-hover;
 }
 
 // Ant Design Input Overrides
 .ant-input,
 .ant-input-number,
 .ant-input-number-input {
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid $primary-green;
-  border-radius: 8px;
-  color: $primary-green;
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color;
+  border-radius: 15px;
+  color: $text-primary;
   font-family: inherit;
   font-size: 1rem;
+  padding: 12px 16px;
   
   &:focus,
   &:hover {
-    border-color: $secondary-orange;
-    box-shadow: 0 0 10px rgba($secondary-orange, 0.3);
+    border-color: darken($outline-color, 10%);
+    @include ghibli-shadow;
   }
   
   &::placeholder {
-    color: rgba($primary-green, 0.6);
+    color: rgba($text-secondary, 0.7);
   }
 }
 
@@ -386,16 +395,17 @@ body {
   width: 100%;
   
   .ant-input-number-handler-wrap {
-    background: rgba(0, 0, 0, 0.7);
-    border-left: 1px solid $primary-green;
+    @include soft-gradient($pastel-mint, $pastel-green);
+    border-left: 2px solid $outline-color;
+    border-radius: 0 12px 12px 0;
   }
   
   .ant-input-number-handler {
     border: none;
-    color: $primary-green;
+    color: $text-primary;
     
     &:hover {
-      color: $secondary-orange;
+      color: darken($text-primary, 15%);
     }
   }
 }
@@ -403,29 +413,41 @@ body {
 // Ant Design Slider Overrides
 .ant-slider {
   .ant-slider-rail {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba($outline-color, 0.2);
+    height: 8px;
+    border-radius: 4px;
   }
   
   .ant-slider-track {
-    background: $primary-green;
+    background: linear-gradient(90deg, $pastel-green, $pastel-blue);
+    height: 8px;
+    border-radius: 4px;
   }
   
   .ant-slider-handle {
-    border: 3px solid #000;
-    background: #ffffff;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    border: 4px solid $outline-color;
+    background: $soft-white;
+    width: 20px;
+    height: 20px;
+    @include ghibli-shadow;
     
     &:hover,
     &:focus {
-      border-color: #000;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+      border-color: darken($outline-color, 10%);
+      @include ghibli-shadow;
     }
   }
 }
 
 // Ant Design Progress Overrides
 .ant-progress-bg {
-  transition: all 0.5s ease;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 10px;
+}
+
+.ant-progress-inner {
+  border-radius: 10px;
+  background: rgba($outline-color, 0.1);
 }
 
 // Stats
@@ -435,12 +457,12 @@ body {
 
 .stat-container {
   margin: 2rem 0;
-  background: rgba($primary-green, 0.05);
-  border: 1px solid rgba($primary-green, 0.3);
-  border-radius: 12px;
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color;
+  border-radius: 20px;
   padding: 1.5rem;
-  transition: all 0.3s ease;
-  animation: slideInRight 0.5s ease;
+  @include gentle-hover;
+  animation: gentleSlideIn 0.6s ease;
   animation-fill-mode: both;
   
   &:nth-child(1) { animation-delay: 0.1s; }
@@ -449,9 +471,9 @@ body {
   &:nth-child(4) { animation-delay: 0.4s; }
   
   &:hover {
-    background: rgba($primary-green, 0.1);
-    border-color: rgba($secondary-orange, 0.5);
-    transform: translateX(10px);
+    @include soft-gradient(lighten($soft-white, 2%), lighten($pastel-cream, 5%));
+    border-color: darken($outline-color, 10%);
+    transform: translateX(10px) translateY(-3px);
   }
 }
 
@@ -468,111 +490,82 @@ body {
 
 .particle {
   position: absolute;
-  background: $primary-green;
+  background: $pastel-pink;
   border-radius: 50%;
-  animation: particle-float 8s infinite linear;
+  animation: gentleFloat 12s infinite linear;
+  opacity: 0.6;
 }
 
 // Animations
-@keyframes pulse-title {
+@keyframes gentlePulse {
   0%, 100% { 
-    text-shadow: 0 0 20px rgba($primary-green, 0.5); 
+    background-position: 0% 50%;
   }
   50% { 
-    text-shadow: 0 0 30px rgba($secondary-orange, 0.5); 
+    background-position: 100% 50%;
   }
 }
 
-@keyframes pulse {
+@keyframes gentleBounce {
   0%, 100% { 
-    transform: scale(1);
-    box-shadow: 0 0 20px rgba($secondary-orange, 0.4);
+    transform: translateY(-3px) scale(1.02);
   }
   50% { 
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba($secondary-orange, 0.6);
+    transform: translateY(-6px) scale(1.04);
   }
 }
 
-@keyframes pulse-launch {
+@keyframes gentleSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes gentleShine {
   0% { 
-    transform: scale(1);
-    box-shadow: 0 15px 30px rgba($primary-green, 0.4);
+    transform: translateX(-100%) translateY(-100%) rotate(45deg); 
+    opacity: 0; 
   }
   50% { 
-    transform: scale(1.08);
-    box-shadow: 0 20px 40px rgba($primary-green, 0.6);
+    opacity: 0.6; 
   }
   100% { 
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba($primary-green, 0.4);
+    transform: translateX(100%) translateY(100%) rotate(45deg); 
+    opacity: 0; 
   }
 }
 
-@keyframes fadeInUp {
-  from {
+@keyframes gentleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0.8);
     opacity: 0;
-    transform: translateY(30px);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  10% {
+    opacity: 0.6;
   }
-}
-
-@keyframes slideInUp {
-  from {
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(180deg) scale(1.2);
     opacity: 0;
-    transform: translateY(50px);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInCard {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes shine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
 }
 
 @keyframes fadeInLine {
@@ -580,20 +573,65 @@ body {
   to { opacity: 1; }
 }
 
-@keyframes particle-float {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0;
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+// Character profiles and team displays
+.character-profile {
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+  @include gentle-hover;
+}
+
+.team-config-box {
+  @include soft-gradient($pastel-mint, $pastel-green);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+  @include ghibli-shadow;
+}
+
+.story-form {
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+  @include ghibli-shadow;
+}
+
+.example-box {
+  @include soft-gradient($pastel-yellow, $pastel-peach);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+}
+
+.war-story-container {
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+  @include ghibli-shadow;
+}
+
+.characters-sidebar {
+  @include soft-gradient($pastel-blue, $pastel-lavender);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+}
+
+.character-customization {
+  @include soft-gradient($soft-white, $pastel-cream);
+  border: 3px solid $outline-color !important;
+  border-radius: 25px !important;
+}
+
+.character-item {
+  border-radius: 15px !important;
+  @include gentle-hover;
+  
+  &.active {
+    @include soft-gradient($pastel-pink, $pastel-peach);
+    border: 3px solid darken($outline-color, 10%) !important;
   }
 }
 
@@ -613,10 +651,30 @@ body {
   }
   
   .title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
   
   .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: $pastel-cream;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  @include soft-gradient($pastel-green, $pastel-blue);
+  border-radius: 6px;
+  border: 2px solid $outline-color;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @include soft-gradient(darken($pastel-green, 5%), darken($pastel-blue, 5%));
 }
