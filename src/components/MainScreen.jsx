@@ -29,7 +29,7 @@ const MainScreen = () => {
       <SoundToggle />
       
       <div className="container">
-        <Title level={1} className="title">War Command</Title>
+        <h1 className="game-title">War Command</h1>
         <Paragraph className="subtitle">
           Observe autonomous agents in strategic warfare scenarios. Create contexts, generate stories, and watch events unfold in real-time.
         </Paragraph>

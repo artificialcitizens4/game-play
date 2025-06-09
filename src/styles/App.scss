@@ -49,6 +49,9 @@ $font-size-body: 1rem;         // p - Standard body text | font-weight: 400 | fo
 $font-size-button: 0.9rem;     // Buttons and inputs | font-weight: 500 | font-family: 'Inter'
 $font-size-small: 0.8rem;      // Labels and small text | font-weight: 400 | font-family: 'Inter'
 
+// Game title - 4x larger than regular title
+$font-size-game-title: 12rem;  // 4x the regular title size
+
 // Typography line heights
 $line-height-title: 1.2;
 $line-height-subtitle: 1.4;    // Updated for better readability at 1.75rem
@@ -57,11 +60,13 @@ $line-height-body: 1.6;
 
 // Typography letter spacing - Updated for stylized look
 $letter-spacing-title: 3px;
+$letter-spacing-game-title: 8px;  // Larger letter spacing for game title
 $letter-spacing-uppercase: 1.5px;  // Updated from 1px for more stylized look
 $letter-spacing-normal: 0;
 
 // Mobile typography scale
 $font-size-title-mobile: 2rem;
+$font-size-game-title-mobile: 6rem;  // 4x mobile title size
 $font-size-subtitle-mobile: 1.35rem;  // Updated from 1.2rem
 $font-size-section-mobile: 1.1rem;
 $font-size-body-mobile: 1rem;         // Keep at 1rem for mobile readability
@@ -200,6 +205,58 @@ body {
   
   @media (max-width: 768px) {
     padding: 0 $padding-container-mobile; // 16px side padding on mobile
+  }
+}
+
+// Game Title - 4x larger than regular title
+.game-title {
+  font-size: $font-size-game-title; // 12rem
+  font-weight: 700;
+  font-family: $font-family-display; // Oxanium for titles
+  margin-bottom: $spacing-md; // 24px
+  color: $text-primary;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-game-title; // 8px for dramatic effect
+  line-height: $line-height-title;
+  position: relative;
+  background: linear-gradient(135deg, $accent-primary 0%, $accent-secondary 50%, $text-primary 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba($accent-secondary, 0.3);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
+    box-shadow: 0 0 20px rgba($accent-secondary, 0.5);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-game-title-mobile; // 6rem
+    letter-spacing: 4px;
+    
+    &::after {
+      width: 80px;
+      height: 3px;
+      bottom: -12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 4rem;
+    letter-spacing: 2px;
+    
+    &::after {
+      width: 60px;
+      height: 2px;
+      bottom: -8px;
+    }
   }
 }
 
