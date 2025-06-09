@@ -707,7 +707,7 @@ p, .body-text {
 
 // Component spacing - Major containers with mystical glass effect
 .character-profile {
-  @include mystical-glass;
+  @include mystical-glass !important;
   border-radius: $border-radius-card !important;
   @include ancient-hover;
   
@@ -725,7 +725,7 @@ p, .body-text {
 }
 
 .team-config-box {
-  @include mystical-glass;
+  @include mystical-glass !important;
   border-radius: $border-radius-card !important;
   @include mystical-shadow($amethyst-glow);
   
@@ -743,7 +743,7 @@ p, .body-text {
 }
 
 .story-form {
-  @include mystical-glass;
+  @include mystical-glass !important;
   border-radius: $border-radius-card !important;
   @include mystical-shadow($amethyst-glow);
   
@@ -781,7 +781,7 @@ p, .body-text {
 }
 
 .war-story-container {
-  @include mystical-glass;
+  @include mystical-glass !important;
   border-radius: $border-radius-card !important;
   @include mystical-shadow($amethyst-glow);
   
@@ -799,7 +799,7 @@ p, .body-text {
 }
 
 .characters-sidebar {
-  @include mystical-glass;
+  @include mystical-glass !important;
   border-radius: $border-radius-card !important;
   
   .ant-card-body {
@@ -816,7 +816,7 @@ p, .body-text {
 }
 
 .character-customization {
-  @include mystical-glass;
+  @include mystical-glass !important;
   border-radius: $border-radius-card !important;
   
   .ant-card-body {
