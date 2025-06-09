@@ -108,7 +108,48 @@ export const submitStoryToAPI = createAsyncThunk(
   }
 );
 
-// Async thunk for fetching game experiences
+// New async thunk for fetching experience mode data with pagination
+export const fetchExperienceData = createAsyncThunk(
+  'api/fetchExperienceData',
+  async ({ page = 1, limit = 20, reset = false }, { rejectWithValue, getState }) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/gamestory`, {
+        params: {
+          page,
+          limit,
+          type: 'experience' // Add type parameter to distinguish experience mode requests
+        },
+        timeout: 100000
+      });
+      
+      return {
+        data: response.data,
+        page,
+        limit,
+        reset,
+        hasMore: response.data?.length === limit // Assume there's more data if we got a full page
+      };
+    } catch (error) {
+      let errorMessage = 'Failed to fetch experience data';
+      
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = 'Request timeout. Please try again.';
+      } else if (error.response) {
+        errorMessage = `Server error: ${error.response.status} - ${error.response.data?.message || 'Unknown error'}`;
+      } else if (error.request) {
+        errorMessage = 'Unable to connect to the server. Please check your connection.';
+      }
+      
+      return rejectWithValue({
+        message: errorMessage,
+        status: error.response?.status,
+        data: error.response?.data
+      });
+    }
+  }
+);
+
+// Async thunk for fetching game experiences (legacy - keeping for backward compatibility)
 export const fetchGameExperiences = createAsyncThunk(
   'api/fetchExperiences',
   async (_, { rejectWithValue }) => {
@@ -182,7 +223,18 @@ const initialState = {
     data: null
   },
   
-  // Experiences API state
+  // Experience data state with pagination
+  experienceData: {
+    loading: false,
+    data: [],
+    error: null,
+    currentPage: 1,
+    hasMore: true,
+    totalLoaded: 0,
+    lastFetched: null
+  },
+  
+  // Experiences API state (legacy)
   experiences: {
     loading: false,
     data: [],
@@ -223,6 +275,18 @@ const apiSlice = createSlice({
         success: false,
         error: null,
         data: null
+      };
+    },
+    
+    clearExperienceData: (state) => {
+      state.experienceData = {
+        loading: false,
+        data: [],
+        error: null,
+        currentPage: 1,
+        hasMore: true,
+        totalLoaded: 0,
+        lastFetched: null
       };
     },
     
@@ -299,7 +363,46 @@ const apiSlice = createSlice({
         });
       });
     
-    // Experiences fetching
+    // Experience data fetching with pagination
+    builder
+      .addCase(fetchExperienceData.pending, (state) => {
+        state.experienceData.loading = true;
+        state.experienceData.error = null;
+        state.lastApiCall = new Date().toISOString();
+      })
+      .addCase(fetchExperienceData.fulfilled, (state, action) => {
+        const { data, page, reset, hasMore } = action.payload;
+        
+        state.experienceData.loading = false;
+        state.experienceData.error = null;
+        state.experienceData.currentPage = page;
+        state.experienceData.hasMore = hasMore;
+        state.experienceData.lastFetched = new Date().toISOString();
+        state.retryCount = 0;
+        
+        if (reset || page === 1) {
+          // Reset data for first page or explicit reset
+          state.experienceData.data = Array.isArray(data) ? data : [data];
+          state.experienceData.totalLoaded = Array.isArray(data) ? data.length : 1;
+        } else {
+          // Append data for subsequent pages
+          const newData = Array.isArray(data) ? data : [data];
+          state.experienceData.data = [...state.experienceData.data, ...newData];
+          state.experienceData.totalLoaded += newData.length;
+        }
+      })
+      .addCase(fetchExperienceData.rejected, (state, action) => {
+        state.experienceData.loading = false;
+        state.experienceData.error = action.payload;
+        state.apiErrors.push({
+          id: Date.now(),
+          timestamp: new Date().toISOString(),
+          type: 'experience_data_fetch',
+          error: action.payload
+        });
+      });
+    
+    // Experiences fetching (legacy)
     builder
       .addCase(fetchGameExperiences.pending, (state) => {
         state.experiences.loading = true;
@@ -375,6 +478,7 @@ const apiSlice = createSlice({
 
 export const {
   clearStorySubmission,
+  clearExperienceData,
   clearWarResults,
   clearGameDataFetch,
   setOnlineStatus,

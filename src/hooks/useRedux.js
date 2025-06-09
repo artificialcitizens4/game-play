@@ -59,6 +59,11 @@ export const useExperiences = () => {
   return useAppSelector(state => state.api.experiences);
 };
 
+// New hook for experience data with pagination
+export const useExperienceData = () => {
+  return useAppSelector(state => state.api.experienceData);
+};
+
 export const useWarResults = () => {
   return useAppSelector(state => state.api.warResults);
 };
@@ -99,6 +104,7 @@ export const useLoadingStates = () => {
   const apiLoading = useAppSelector(state => ({
     story: state.api.storySubmission.loading,
     experiences: state.api.experiences.loading,
+    experienceData: state.api.experienceData.loading,
     warResults: state.api.warResults.loading,
     gameData: state.api.gameDataFetch.loading
   }));
